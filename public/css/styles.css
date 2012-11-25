@@ -58,3 +58,8 @@
 .fade .in {
 	opacity: 1;
 }
+
+
+@media (max-width: 720px) {
+	.banner-image { margin-top: 3em; }
+}

@@ -1,0 +1,60 @@
+.row {
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.header-items {
+	margin-top: 3em;
+	/*float: right;*/
+	text-align: right;
+}
+.header-items small {
+	font-size: 0.8em;
+	padding-right: 0.5em;
+	color: #999;
+}
+.header-items div {
+	line-height: 0.9em;
+}
+
+.banner-image, .more-info, .copyright {
+	text-align: center;
+}
+
+.banner-image {
+	margin-top: 6em;
+}
+.banner-image img {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.more-info {
+	margin-top: 5em;
+}
+.more-info input {
+	margin-top: 0.5em;
+	margin-right: 1em;
+}
+.more-info input.hide {
+	position: absolute; left: -9999px; width: 1px; height: 1px;
+}
+.more-info a img:hover {
+	opacity:0.8;
+	filter:alpha(opacity=80); /* For IE8 and earlier */
+}
+
+.copyright {
+	margin-top: 5em;
+}
+
+.fade {
+   opacity: 0;
+   transition: opacity .5s ease-in-out;
+   -moz-transition: opacity .5s ease-in-out;
+   -webkit-transition: opacity .5s ease-in-out;
+}
+.fade .in {
+	opacity: 1;
+}

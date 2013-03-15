@@ -7,6 +7,8 @@ var express = require('express'),
   http = require('http'),
   redis_store = require('connect-redis')(express),
   routes = require('./routes'),
+  auth = require('./routes/auth'),
+  story = require('./routes/story'),
   db = require('./db');
 
 var rtg, redis;
@@ -53,25 +55,24 @@ app.get('/', routes.index);
 
 // Stories:
 // all
-app.get('/stories', routes.stories);
+app.get('/stories', story.all);
 
 // read
-app.get('/stories/:number/:state?', routes.story);
+app.get('/stories/:number/:state?', story.get);
+
+// create
+app.post('/stories', story.create);
 
 // Editors:
 // auth
-app.get('/login/:name/:pass', routes.login, function ( req, res ) {
+app.get('/login/:name/:pass', auth.login, function ( req, res ) {
 	res.redirect('/stories');
 });
 
 // log out
-app.get('/logout', routes.logout, function ( req, res ) {
+app.get('/logout', auth.logout, function ( req, res ) {
 	res.redirect('/');
 });
-
-
-
-// app.post('/stories', routes.stories.create);
 
 // app.get('/stories/:number/:state', routes.stories.get);
 

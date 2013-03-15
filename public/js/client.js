@@ -45,17 +45,37 @@ $(function() {
         element_height( $('.frames').find('a') );
 
     });
+
     element_height( $('.frames').find('a') );
 
     function element_height ( elem ) {
 
-        var frames = elem,
-            width = frames.width(),
-            max_width = 200;
+        var new_height;
+
+        if( $(window).width() > 480 ) {
+            
+            var frames = elem,
+                width = frames.width(),
+                max_width = 200;
+
+            new_height = width < max_width ? width : max_width;
+
+        } else {
+            new_height = "8em";
+        }
 
         frames.height(function () {
-            return width < max_width ? width : max_width;
+            return new_height;
         });
     }
+
+    $('#new_story').on('click', function ( event ) {
+
+        event.preventDefault();
+        
+        // $.post('/stories', { title: 'eirhfieuhr', body: 'once upon a time' }, function (data, textStatus, jqXHR) {
+            // console.log(data);
+        // });
+    });
     
 });

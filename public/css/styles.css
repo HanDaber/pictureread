@@ -14,6 +14,10 @@ img.logo {
 	width: 2.5em;
 }
 
+#new_story {
+	margin-top: -1.5em;
+	float: right;
+}
 
 .frames a {
 	display: inline-block;
@@ -37,11 +41,11 @@ img.logo {
 		width: 8em;
 	}
 }
-@media (max-width: 480px) {
+@media (max-width: 490px) {
 	.frames a {
 		display: block;
 		margin-left: -0.2em;
-		height: 8em;
+		height: 10em;
 		width: 100%;
 	}
 }

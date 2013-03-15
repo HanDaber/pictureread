@@ -1,12 +1,31 @@
 extends layout
 
 block content
-	.story.span12
-		.title.row
-			center.span10.offset1
-				a(href="/stories/1") GOBLER B STONE AND SCOTT STERN GO TO THE PARK
-		.frames.row
-			center.span10.offset1
-				a(href="/stories/1/1") A
-				a(href="/stories/1/2") B
-				a(href="/stories/1/3") C
+	if locals.user 
+		a#new_story.highlight(href="#story_modal", role="button", data-toggle="modal") + new story
+
+		#story_modal.modal.hide.fade
+			.modal-header
+				button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+				h4 New story
+			.modal-body
+				center
+					input(name="title", type="text", placeholder="Story's title")
+					br
+					textarea(name="body", type="text", placeholder="Story", rows="3")
+			.modal-footer
+				a(href="#", data-dismiss="modal").btn Cancel
+				a(href="#").btn.btn-primary Save
+	if locals.stories
+		each story, i in stories
+			.story.span12
+				hr
+				hr
+				.title.row
+					center.span10.offset1
+						a(href="/stories/#{i + 1}") #{story.title}
+				.frames.row
+					center.span10.offset1
+						a(href="/stories/#{i + 1}/1") A
+						a(href="/stories/#{i + 1}/2") B
+						a(href="/stories/#{i + 1}/3") C

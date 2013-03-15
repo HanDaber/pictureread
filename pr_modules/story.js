@@ -9,7 +9,7 @@ var story_properties = {
   	'title' 			: { type: String, default: 'No Title' },
 	'body' 				: { type: String, default: 'Once upon a time...' },
 	'image' 			: { type: String, default: 'http://www.google.com' },
-	'includes_brands' 	: [ Schema.Types.ObjectId ], // [ Brand_id ]
+	// 'includes_brands' 	: [ Schema.Types.ObjectId ], // [ Brand_id ]
 	'edits' 			: [ Edit ],
 	'interactions' 		: [ Interaction ]
 };

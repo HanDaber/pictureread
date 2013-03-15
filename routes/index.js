@@ -16,7 +16,7 @@ exports.stories = function ( req, res ) {
 
 			console.log(req.session);
 
-	if( req.session.auth ) locals.user = { auth: true, name: 'poop' }
+	if( req.session.auth ) locals.user = { auth: true, name: req.session.user.name }
 
 	res.render('stories', locals);
 

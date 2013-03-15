@@ -56,7 +56,7 @@ app.get('/', routes.index);
 app.get('/stories', routes.stories);
 
 // read
-app.get('/stories/:number/?:state', routes.story);
+app.get('/stories/:number/:state?', routes.story);
 
 // Editors:
 // auth

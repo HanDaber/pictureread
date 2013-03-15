@@ -25,7 +25,7 @@ exports.stories = function ( req, res ) {
 exports.story = function ( req, res ) {
 
 	var edits = [{text: 'is cool.'}, {text: 'farted.'}],
-		state = (typeof( req.params.state ) === 'number') ? req.params.state : 1;
+		state = req.params.state ? req.params.state : 1;
 
 	var story = {
 		title: 'Billy\'s story',

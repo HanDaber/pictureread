@@ -1,5 +1,5 @@
 .container {
-	background-color: #eeffff;
+	/*background-color: #eeffff;*/
 }
 
 .story {
@@ -19,10 +19,31 @@ img.logo {
 	display: inline-block;
 		background-color: #eee;
 		border: 1px solid black;
-
-		/*margin: 0.3em;*/
-	height: 10em;
-	width: 10em;
+	
+	margin: 0.3em 1.6em;
+	height: 15em;
+	width: 15em;
+}
+@media (max-width: 980px) {
+	.frames a {
+		margin: 0.3em 1.2em;
+		height: 10em;
+		width: 10em;
+	}
+}
+@media (max-width: 570px) {
+	.frames a {
+		height: 8em;
+		width: 8em;
+	}
+}
+@media (max-width: 480px) {
+	.frames a {
+		display: block;
+		margin-left: -0.2em;
+		height: 8em;
+		width: 100%;
+	}
 }
 
 .user { margin-left: 2em; padding: 0 1em; }

@@ -46,7 +46,7 @@ exports.story = function ( req, res ) {
 
 exports.login = function ( req, res, next ) {
 	req.session.auth = true;
-	req.session.user.name = req.params.name;
+	req.session.user = { name: req.params.name };
 	next();
 };
 

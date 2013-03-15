@@ -1,8 +1,33 @@
-.row {
-	max-width: 960px;
-	margin-left: auto;
-	margin-right: auto;
+.container {
+	background-color: #eeffff;
 }
+
+.story {
+	margin-top: 1em;
+}
+
+header {
+	margin-top: 3em;
+}
+
+img.logo {
+	width: 2.5em;
+}
+
+
+.frames a {
+	display: inline-block;
+		background-color: #eee;
+		border: 1px solid black;
+
+		/*margin: 0.3em;*/
+	height: 10em;
+	width: 10em;
+}
+
+.user { margin-left: 2em; padding: 0 1em; }
+
+.highlight { background-color: yellow; }
 
 .header-items {
 	margin-top: 3em;
@@ -58,7 +83,6 @@
 .fade .in {
 	opacity: 1;
 }
-
 
 @media (max-width: 720px) {
 	.banner-image { margin-top: 3em; }

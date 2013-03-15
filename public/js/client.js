@@ -1,5 +1,7 @@
 $(function() {
 
+// Splash Page:
+
     var info_form = $('#info_form'),
     	submit_info = info_form.find('a');
 
@@ -35,5 +37,25 @@ $(function() {
     });
 
     $('.banner-image').find('img').addClass('in');
+
+// Stories:
+
+    $(window).resize(function () {
+
+        element_height( $('.frames').find('a') );
+
+    });
+    element_height( $('.frames').find('a') );
+
+    function element_height ( elem ) {
+
+        var frames = elem,
+            width = frames.width(),
+            max_width = 200;
+
+        frames.height(function () {
+            return width < max_width ? width : max_width;
+        });
+    }
     
 });

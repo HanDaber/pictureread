@@ -1,0 +1,19 @@
+extends layout
+
+block content
+	#admin.span12
+		if locals.user
+			center
+				h2 Hi, #{user.name}
+			hr
+			hr
+			button.btn New Story
+			button.btn New User
+
+			input(type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
+		else
+			center
+				form(action="/admin", method="post")#login_form.form-inline
+					input.span1(type="text", name="name", placeholder="Username")
+					input.span1(type="password", name="pass", placeholder="Password")
+					button#log_in.btn.btn-mini(type="submit") Login

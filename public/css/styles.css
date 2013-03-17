@@ -1,9 +1,23 @@
+body {
+	background-color: #f5f5f5;
+}
+
 .container {
-	/*background-color: #eeffff;*/
+	background-color: #ffffff;
+	border-left: 3px dotted #f5f5f5;
+	border-right: 3px dotted #f8f8f8;
 }
 
 .story {
 	margin-top: 1em;
+}
+.title a { 
+	color: #999; 
+	font-size: 0.8em;
+}
+
+span.nav {
+	margin: 0 2em;
 }
 
 header {
@@ -14,39 +28,54 @@ img.logo {
 	width: 2.5em;
 }
 
+#login_form {
+	display: inline;
+}
+#login_form input {
+	font-size: 0.7em;
+	padding: 0 0.2em;
+}
+
 #new_story {
-	margin-top: -1.5em;
-	float: right;
+	/*margin-top: -1.5em;*/
+	/*float: right;*/
+}
+
+.logout { 
+	margin-left: 0.5em;
+	font-size: 1.2em;
+	font-weight: 600;
 }
 
 .frames a {
-	display: inline-block;
+	display: block;
+	margin: 0.2em auto 0.2em -0.2em;
+	height: 10em;
+	width: 100%;
 		background-color: #eee;
 		border: 1px solid black;
-	
-	margin: 0.3em 1.6em;
-	height: 15em;
-	width: 15em;
 }
-@media (max-width: 980px) {
+
+@media (min-width: 768px) { 
 	.frames a {
-		margin: 0.3em 1.2em;
-		height: 10em;
-		width: 10em;
+		display: inline-block;
+		height: 12em;
+		width: 12em;
+		margin: 0.2em 0.8em;
+	}
+
+	#new_story {
+		margin-top: -1.5em;
+	/*float: right;*/
 	}
 }
-@media (max-width: 570px) {
+
+@media (min-width: 980px) { 
 	.frames a {
-		height: 8em;
-		width: 8em;
-	}
-}
-@media (max-width: 490px) {
-	.frames a {
-		display: block;
-		margin-left: -0.2em;
-		height: 10em;
-		width: 100%;
+		display: inline-block;
+		height: 12em;
+		width: 12em;
+		margin: 0.2em 1em;
 	}
 }
 

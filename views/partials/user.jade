@@ -1,0 +1,9 @@
+span.user
+	if locals.user
+		= locals.user.name
+		a.logout(href="/logout") &times;
+	else
+		form(action="/login", method="post")#login_form.form-inline
+			input.span1(type="text", name="name", placeholder="Username")
+			input.span1(type="password", name="pass", placeholder="Password")
+			button#log_in.btn.btn-mini(type="submit") Login

@@ -8,6 +8,6 @@ if (process.env.MONGOHQ_URL) {
 	mongoose.set('deug', true);
 	console.log('using LOCAL db\n');
 	db_host = 'localhost';
-	db_name = 'pictureread-dev';
+	db_name = 'pr-dev-01';
 }
 module.exports = mongoose.connect(db_host, db_name);

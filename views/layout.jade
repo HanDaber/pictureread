@@ -6,24 +6,23 @@ html
 
 		title= 'PictureRead'
 		
-		link(rel="stylesheet", type="text/css", href="css/bootstrap.min.css", media="screen")
-		link(rel="stylesheet", type="text/css", href="css/bootstrap-responsive.min.css", media="screen")
-		link(rel="stylesheet", type="text/css", href="css/styles.css", media="screen")
+		link(rel="stylesheet", type="text/css", href="/css/bootstrap.min.css", media="screen")
+		link(rel="stylesheet", type="text/css", href="/css/bootstrap-responsive.min.css", media="screen")
+		link(rel="stylesheet", type="text/css", href="/css/styles.css", media="screen")
 
 	body
 		.container
 			.row
-				header.span10.offset1
-					img.logo(src="/img/logo.png")
-					span.user.highlight
-						if locals.user
-							= locals.user.name
-							a(href="/logout")= "     x"
-						else
-							a(href="/login/test/balls") log in
+				include partials/header
+
+					include partials/user
+
+					block nav
+
 			.row
 				block content
 
 		script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js")
-		script(src="js/bootstrap.min.js")
-		script(src="js/client.js")
+		script(src="/js/bootstrap.min.js")
+		script(src="http://api.filepicker.io/v1/filepicker.js")
+		script(src="/js/client.js")

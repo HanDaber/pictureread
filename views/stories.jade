@@ -1,31 +1,44 @@
 extends layout
 
 block content
-	if locals.user 
-		a#new_story.highlight(href="#story_modal", role="button", data-toggle="modal") + new story
 
-		#story_modal.modal.hide.fade
+	if locals.user
+		a#new_story.span2.offset9(href="", data-target="#story_modal", role="button", data-toggle="modal") &plus; new story
+		#story_modal.modal.hide.fade(tabindex="-1")
 			.modal-header
 				button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
 				h4 New story
 			.modal-body
 				center
-					input(name="title", type="text", placeholder="Story's title")
+					input(name="user", type="hidden", value="#{locals.user._id}")
+					input(name="title", type="text", placeholder="Story's title", autofocus)
 					br
 					textarea(name="body", type="text", placeholder="Story", rows="3")
 			.modal-footer
-				a(href="#", data-dismiss="modal").btn Cancel
-				a(href="#").btn.btn-primary Save
-	if locals.stories
-		each story, i in stories
-			.story.span12
-				hr
-				hr
-				.title.row
-					center.span10.offset1
-						a(href="/stories/#{i + 1}") #{story.title}
-				.frames.row
-					center.span10.offset1
-						a(href="/stories/#{i + 1}/1") A
-						a(href="/stories/#{i + 1}/2") B
-						a(href="/stories/#{i + 1}/3") C
+				a.btn(href="", data-dismiss="modal") Cancel
+				a#save_story.btn.btn-primary(href="") Save
+
+	#stories
+		if locals.stories
+			each story, i in stories
+				.story.span12
+					hr
+					hr
+					.title.row
+						if locals.user
+							if story.editor_id == user._id
+								p.highlight MATCH
+							a.destroy_story.icon-remove-sign(href="", id="#{story._id}")
+							p editor_id: #{story.editor_id}
+							p user_id: #{user._id}
+							p story_id: #{story._id}
+						center.span10.offset1
+							a(href="/stories/#{i + 1}") #{story.title}
+					.frames.row
+						center
+							a(href="/stories/#{story._id}/1")
+								img(src="#{story.frames[i]}", alt="#{story.frames[i]}", width="100px")
+							a(href="/stories/#{story._id}/2")
+								img(src="#{story.frames[i]}", alt="#{story.frames[i]}", width="100px")
+							a(href="/stories/#{story._id}/3")
+								img(src="#{story.frames[i]}", alt="#{story.frames[i]}", width="100px")

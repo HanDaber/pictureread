@@ -1,60 +1,92 @@
-var Story = require('../pr_modules/story')
+var Story = require('../pr_modules/story');
 
-exports.all = function ( req, res ) {
+exports.all = function ( req, res, next ) {
 
-	var locals = {
-		stories: [
-			{title: 'GOBLER B STONE AND SCOTT STERN GO TO THE PARK', body: 'Once upon a time'},
-			{title: 'Story 2', body: 'The other day'}
-		]
-	};
+	Story.find(function (err, stories) {
 
-			console.log(req.session);
+		if (!err) res.locals.stories = stories;
 
-	if( req.session.auth ) locals.user = { auth: true, name: req.session.user.name }
+		else {
 
-	res.render('stories', locals);
+			res.locals.stories = [{
+				title: 'GOBLER B STONE AND SCOTT STERN GO TO THE PARK', 
+				body: 'Once upon a time'
+			}];
+			
+			console.log('error in stories.all: ' + err);
+		}
 
+		next();
+	});
 };
 
-exports.get = function ( req, res ) {
+exports.get = function ( req, res, next ) {
 
-	var edits = [{text: 'is cool.'}, {text: 'farted.'}],
-		state = req.params.state ? req.params.state : 1;
+	Story.findById(req.params.id, function (err, story) {
 
-	var story = {
-		title: 'Billy\'s story',
-		body: 'Billy'
-	};
+		if (!err) {
 
-	var PR = {
-		
-		story: req.params.number,
+			res.locals.story = story;
 
-		state: state
-	};
+			res.locals.frame = req.params.frame ? req.params.frame : 1;
 
-	console.dir(PR)
+			next();
 
-	res.render( 'story', PR );
+		} else {
+			
+			res.send('Error finding story');
+
+			console.log('error fetching story ' + req.params.id + ': ' + err);
+		}
+
+	});
 };
 
 exports.create = function ( req, res, next ) {
 
 		var story = new Story({
 			'title': req.body.title,
-			'body': req.body.body,
-			'image': 'http://aws.edu/pic.jpg',
-			// 'includes_brands': req.body.brands
+			'writer': res.locals.user._id
 		});
 
-		return story.save(function (err) {
-			if (!err) {
-				res.send( story );
+		story.save(function (err) {
+
+			if( !err ) {
+
+				res.story = story;
+
+				next();
+
 			} else {
+
 				res.send( false );
-				console.log(err);
+
+				console.log('story.create save error: ' + err);
 			}
 		});
+
+};
+
+exports.destroy = function ( req, res, next ) {
+
+	Story.findById( req.params.id, function (err, story) {
+
+		story.remove(function (err) {
+
+			if( !err ) {
+
+				res.story = story;
+
+				next();
+
+			} else {
+
+				res.send( false );
+
+				console.log('story.destroy remove error: ' + err);
+			}
+		});
+
+	});
 
 };

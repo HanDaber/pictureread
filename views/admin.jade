@@ -2,22 +2,25 @@ extends layout
 
 block content
 	#admin.span12
-		if locals.user
+		if locals.user && locals.user._type == 'writer'
 			center
-				h2 Hi, #{user.name}
+				h2 Hi, #{user.username}
 			hr
 			hr
-			button.btn New Story
-			button.btn New User
 
-			input(type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
+			.poop
+				button.btn New Story
+				button.btn New User
+
+				input(type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
 		else
 			p
 			hr
 			center
 				.well
 					h3 Admin Login
-					form(action="/admin", method="post")#admin_form.form-inline
+					form(action="/login", method="post")#admin_form.form-inline
 						input.span2(type="text", name="name", placeholder="Username")
 						input.span2(type="password", name="pass", placeholder="Password")
+						input.span2(type="hidden", name="type", value="writer")
 						button#log_in_admin.btn(type="submit") Login

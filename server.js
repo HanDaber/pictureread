@@ -56,11 +56,11 @@ app.configure('development', function() { app.use(express.errorHandler({ dumpExc
 // ############ Web routes #############
 
 // Root:
-app.get('/', routes.index);
+app.get('/', auth.public, routes.index);
 
 // Stories:
 // app.namespace('/stories', function () {
-app.namespace('/stories', auth.authenticate, function () {
+app.namespace('/stories', auth.user, function () {
 	// all
 	app.get('/', story.all, function ( req, res ) {
 
@@ -106,22 +106,22 @@ app.namespace('/stories', auth.authenticate, function () {
 
 
 // Admin:
-app.namespace('/admin', function () {
+app.namespace('/admin', auth.public, function () {
 	// admin panel
 	app.get('/', function ( req, res ) {
 
 		res.render('admin');
 	});
 
-	// Login
-	app.post('/', auth.admin, function ( req, res ) {
+	// // Login
+	// app.post('/', auth.poop, function ( req, res ) {
 		
-		res.redirect('/');
-	});
+	// 	res.redirect('/');
+	// });
 
 });
 
-app.namespace('/users', auth.authenticate, auth.writer, function () {
+app.namespace('/users', auth.user, auth.writer, function () {
 
 	// create user
 	app.post('/', auth.signup, function ( req, res ) {
@@ -140,7 +140,9 @@ app.namespace('/users', auth.authenticate, auth.writer, function () {
 // Login
 app.post('/login', auth.login, function ( req, res ) {
 	
-	res.redirect('/');
+	if( req.session.user ) res.redirect('/stories');
+
+	else res.redirect('/');
 });
 
 // Logout

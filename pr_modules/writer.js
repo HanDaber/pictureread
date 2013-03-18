@@ -12,14 +12,10 @@ var writer_properties = Object.create( User._properties );
 	// 'email'	 			: { type: String, default: 'No Email' },
 	// 'edits' 			: [ Schema.Types.ObjectId ], // Edit_ids
 writer_properties.stories = [ Schema.Types.ObjectId ]; // [ Story_id ]
-// writer_properties._type = 'writer';
+writer_properties._type = { type: String, default: 'writer' };
 // };
 
-var writer_methods = {
-	'_type': function () {
-		return 'writer';
-	}
-};
+var writer_methods = {};
 
 var writerSchema = new Schema( writer_properties );
 

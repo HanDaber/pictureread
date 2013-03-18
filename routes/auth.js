@@ -1,46 +1,70 @@
 var User = require('../pr_modules/user'),
 	Writer = require('../pr_modules/writer');
 
-exports.authenticate = function ( req, res, next ) {
+exports.public = function ( req, res, next ) {
 
+	console.log('exports.public: \n')
+	console.dir(req.session.user)
 	// User is logged in
-	if( typeof( req.session.user ) !== 'undefined' ) {
+	if( req.session.user ) {
 
-		console.log("User " + req.session.name + " is logged in")
+		var type = req.session.user._type,
+			username = req.session.user.username;
 
-		User.findOne({ 'username': req.session.name }, function ( err, user ) {
+		console.log(username + " is logged in")
 
-			// User authenticated
-			if( !err ) {
-				
-				res.locals.user = user;
+		if( type === 'writer' ) Writer.findOne({ 'username': username }, handle_user );
+		
+		else User.findOne({ 'username': username }, handle_user );
 
-				console.log('Current user: \n')
+		function handle_user ( err, user ) {
 
-				console.dir(res.locals.user)
+			if( err ) console.log('login error ' + err);
 
-			}
+			else if( !user ) console.log('no such user to log in...');
 
-			else if( !user ) {
-			
-				console.log('no such user to log in')
-
-				res.redirect('/'); 
-			
-			}
-			
-			else res.redirect('/'); //res.locals.user = false;
+			else res.locals.user = user;
 
 			next();
+		}
 
-		});
+	} else {
+
+		next();
+	}
+};
+
+exports.user = function ( req, res, next ) {
+
+	console.log('exports.user: \n')
+	console.dir(req.session.user)
+	// User is logged in
+	if( req.session.user ) {
+
+		var type = req.session.user._type,
+			username = req.session.user.username;
+
+		console.log(username + " is logged in")
+
+		if( type === 'writer' ) Writer.findOne({ 'username': username }, handle_user );
+		
+		else User.findOne({ 'username': username }, handle_user );
+
+		function handle_user ( err, user ) {
+
+			if( err ) console.log('login error ' + err);
+
+			else if( !user ) console.log('no such user to log in...');
+
+			else res.locals.user = user;
+
+			next();
+		}
 
 	} else {
 
 		res.redirect('/');
-		// res.locals.user = false;
 
-		// next();
 	}
 };
 
@@ -57,46 +81,30 @@ exports.writer = function ( req, res, next ) {
 };
 
 
-
-exports.admin = function ( req, res, next ) {
-
-	Writer.findOne({ 'username': req.body.name }, function( err, user ) {
-
-		if( err ) {
-			
-			console.log('login error ' + err);
-
-		} 
-
-		else if( !user ) console.log('no such user to log in')
-
-		else if( user.authenticate( req.body.pass ) ) req.session.user = user;
-
-		next();
-	});
-
-};
-
-
 exports.login = function ( req, res, next ) {
 
-	req.session.user = false;
+	var type = req.body.type === 'writer' ? 'writer' : '';
 
-	User.findOne({ 'username': req.body.name }, function( err, user ) {
+	console.log('Finding user ' + req.body.name + '\n')
 
-		if( err ) {
-			
-			console.log('login error ' + err);
+	if( type === 'writer' ) Writer.findOne({ 'username': req.body.name }, handle_user );
+	
+	else User.findOne({ 'username': req.body.name }, handle_user );
 
-		} 
+	function handle_user ( err, user ) {
 
-		else if( !user ) console.log('no such user to log in')
+		if( err ) console.log('login error ' + err);
+
+		else if( !user ) console.log('no such user to log in...');
 
 		else if( user.authenticate( req.body.pass ) ) req.session.user = user;
 
-		next();
-	});
+		if( type === 'writer' ) req.session.user._type = 'writer';
 
+		req.session.save();
+
+		next();
+	}
 };
 
 exports.logout = function ( req, res, next ) {

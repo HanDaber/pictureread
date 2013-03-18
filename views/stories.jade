@@ -1,23 +1,6 @@
 extends layout
 
 block content
-
-	if locals.user
-		a#new_story.span2.offset9(href="", data-target="#story_modal", role="button", data-toggle="modal") &plus; new story
-		#story_modal.modal.hide.fade(tabindex="-1")
-			.modal-header
-				button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
-				h4 New story
-			.modal-body
-				center
-					input(name="user", type="hidden", value="#{locals.user._id}")
-					input(name="title", type="text", placeholder="Story's title", autofocus)
-					br
-					textarea(name="body", type="text", placeholder="Story", rows="3")
-			.modal-footer
-				a.btn(href="", data-dismiss="modal") Cancel
-				a#save_story.btn.btn-primary(href="") Save
-
 	#stories
 		if locals.stories
 			each story, i in stories

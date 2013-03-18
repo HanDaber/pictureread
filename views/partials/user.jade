@@ -1,6 +1,6 @@
 span.user
 	if locals.user
-		= locals.user.name
+		span= locals.user.name
 		a.logout(href="/logout") &times;
 	else
 		form(action="/login", method="post")#login_form.form-inline

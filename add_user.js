@@ -8,14 +8,27 @@ var user = new User({
 	password: 'balls'
 });
 
-user.save(function ( err, user ) {
+User.findOne({ 'username': user.username }, function ( err, doc ) {
+	
+	if( err ) console.log(err)
+	
+	else {
 
-	if( !err ) console.log('user ' + user + ' created.' );
-
-	else console.log('signup error ' + err);
-
+		doc.remove(function ( err ) {
+			if( !err ) save_user();
+		});
+	}
 });
 
+function save_user () {
+	user.save(function ( err, user ) {
+
+		if( !err ) console.log('user ' + user + ' created.' );
+
+		else console.log('signup error ' + err);
+
+	});
+}
 
 var writer = new Writer({
 	email: 'test456@test.com',
@@ -23,10 +36,28 @@ var writer = new Writer({
 	password: 'balls'
 });
 
-writer.save(function ( err, writer ) {
+Writer.findOne({ 'username': writer.username }, function ( err, doc ) {
+	
+	if( err ) console.log(err)
+	
+	else {
 
-	if( !err ) console.log('writer ' + writer + ' created.' );
-
-	else console.log('signup error ' + err);
-
+		doc.remove(function ( err ) {
+			if( !err ) save_writer();
+		});
+	}
 });
+
+function save_writer () {
+	writer.save(function ( err, writer ) {
+
+		if( !err ) console.log('writer ' + writer + ' created.' );
+
+		else console.log('signup error ' + err);
+
+	});
+}
+
+setTimeout(function () {
+	db.connection.close();
+}, 1500);

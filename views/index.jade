@@ -1,22 +1,25 @@
 extends layout
 
 block content
-	div.container
-		div#header.row
-			div.header-items
-				div
-					img(src='img/pr_splash_logorightheader.png', alt='PictureRead')
-				div
-					small= 'captures emotion'
-				div
-					small= 'tells stories'
-				div
-					small= 'engages with the world.'
-		div#banner.row
+	.span12
+
+		div.hide
+			div#header.row
+				div.header-items
+					div
+						img(src='img/pr_splash_logorightheader.png', alt='PictureRead')
+					div
+						small= 'captures emotion'
+					div
+						small= 'tells stories'
+					div
+						small= 'engages with the world.'
+
+		div#banner
 			div.banner-image
 				img.fade(src='img/pr_hero_image_splash2.png')
 
-		div.row
+		div
 			div.more-info
 				form#info_form
 					fieldset
@@ -27,6 +30,6 @@ block content
 						div.flash
 						input.hide(type='submit')
 
-		div#footer.row
+		div#footer
 			div.copyright
 				small= '&copy; 2012 PictureRead'

@@ -5,9 +5,10 @@ exports.authenticate = function ( req, res, next ) {
 
 	// User is logged in
 	if( typeof( req.session.user ) !== 'undefined' ) {
-		console.log("User is logged in")
 
-		User.findOne({ name: req.session.name }, function ( err, user ) {
+		console.log("User " + req.session.name + " is logged in")
+
+		User.findOne({ 'username': req.session.name }, function ( err, user ) {
 
 			// User authenticated
 			if( !err ) {
@@ -15,8 +16,17 @@ exports.authenticate = function ( req, res, next ) {
 				res.locals.user = user;
 
 				console.log('Current user: \n')
+
 				console.dir(res.locals.user)
 
+			}
+
+			else if( !user ) {
+			
+				console.log('no such user to log in')
+
+				res.redirect('/'); 
+			
 			}
 			
 			else res.redirect('/'); //res.locals.user = false;
@@ -36,7 +46,7 @@ exports.authenticate = function ( req, res, next ) {
 
 exports.writer = function ( req, res, next ) {
 
-	if( res.locals.user._type == 'writer' ) {
+	if( res.locals.user._type === 'writer' ) {
 
 		console.log('Current user is a writer. \n')
 
@@ -52,7 +62,7 @@ exports.admin = function ( req, res, next ) {
 
 	Writer.findOne({ 'username': req.body.name }, function( err, user ) {
 
-		if( err || user === 'null' ) {
+		if( err ) {
 			
 			console.log('login error ' + err);
 
@@ -70,9 +80,11 @@ exports.admin = function ( req, res, next ) {
 
 exports.login = function ( req, res, next ) {
 
+	req.session.user = false;
+
 	User.findOne({ 'username': req.body.name }, function( err, user ) {
 
-		if( err || user === 'null' ) {
+		if( err ) {
 			
 			console.log('login error ' + err);
 

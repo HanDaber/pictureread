@@ -173,7 +173,7 @@ function element_height ( elem ) {
 
 function story_background_image ( s ) {
 
-    if( s.find('#frame').html() ) {
+    if( s ) {
 
         var image = s.find('input[name=img]').val(),
             frame = s.find('#frame'),

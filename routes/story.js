@@ -22,7 +22,7 @@ exports.all = function ( req, res, next ) {
 
 exports.all_json = function ( req, res, next ) {
 
-	Story.find().sort('created descending').exec(function (err, stories) {
+	Story.find().sort('-created').exec(function (err, stories) {
 
 		if (!err) { res.send( stories ); console.dir(stories); }
 

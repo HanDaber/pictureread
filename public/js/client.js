@@ -134,20 +134,21 @@ $('.destroy_story').on('click', function ( event ) {
 
 
 
-var frame_links_resize = $('.frames').find('a');
+var frame_links_resize = $('.frames').find('a'),
+    story_image_resize = $('#story');
 
 // WINDOW.RESIZE
 $(window).resize(function () {
 
     element_height( frame_links_resize );
 
-    story_background_image();
+    story_background_image( story_image_resize );
 
 });
 
 element_height( frame_links_resize );
 
-story_background_image();
+story_background_image( story_image_resize );
 
 function element_height ( elem ) {
 
@@ -170,9 +171,9 @@ function element_height ( elem ) {
     });
 }
 
-function story_background_image () {
-    var s;
-    if( s = $('#story') ) {
+function story_background_image ( s ) {
+
+    if( s.find('#frame').html() ) {
 
         var image = s.find('input[name=img]').val(),
             frame = s.find('#frame'),

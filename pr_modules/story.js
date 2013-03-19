@@ -9,7 +9,7 @@ var story_properties = {
 	'frames' 			: [ Frame.schema ],
 	'writer'			: Schema.Types.ObjectId,
 	'publish'			: { type: Boolean, default: false },
-	'created'			: { type: Date, default: Date.now }
+	'created'			: { type: Number, default: Date.now }
 };
 
 var story_methods = {

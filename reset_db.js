@@ -1,6 +1,7 @@
 var db = require('./db'),
 	User = require('./pr_modules/user'),
-	Writer = require('./pr_modules/writer');
+	Writer = require('./pr_modules/writer'),
+	Story = require('./pr_modules/story');
 
 var user = new User({
 	email: 'test123@test.com',
@@ -61,6 +62,23 @@ function save_writer () {
 
 	});
 }
+
+Story.find(function (err, stories) {
+
+	if( err ) console.log(err);
+
+	else {
+
+		for( var i = 0, s = stories.length; i < s; i++) {
+
+			stories[i].remove(function (err) {
+				
+				if ( err ) console.log(err);
+
+			});
+		}
+	}
+});
 
 setTimeout(function () {
 	db.connection.close();

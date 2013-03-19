@@ -67,7 +67,10 @@ app.namespace('/stories', auth.user, function () {
 		res.render('stories');
 	});
 
-	// read
+	// all json format
+	app.get('/json', story.all_json );
+
+	// read one
 	app.get('/:id/:frame?', story.get, function ( req, res ) {
 
 		res.render('story');
@@ -75,12 +78,6 @@ app.namespace('/stories', auth.user, function () {
 
 	// add edit
 	app.post('/:id/:frame/edits', story.add_edit, function ( req, res ) {
-
-		res.send(res.story);
-	});
-
-	// add frame
-	app.post('/:id/frames', auth.writer, story.add_frame, function ( req, res ) {
 
 		res.send(res.story);
 	});
@@ -94,7 +91,7 @@ app.namespace('/stories', auth.user, function () {
 	// create
 	app.post('/', auth.writer, story.create, function ( req, res ) {
 
-		res.send(res.story);
+		res.send(res.locals.story);
 	});
 
 	// destroy

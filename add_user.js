@@ -12,12 +12,14 @@ User.findOne({ 'username': user.username }, function ( err, doc ) {
 	
 	if( err ) console.log(err)
 	
-	else {
+	else if( doc ) {
 
 		doc.remove(function ( err ) {
 			if( !err ) save_user();
 		});
-	}
+	} 
+
+	else save_user();
 });
 
 function save_user () {
@@ -40,12 +42,14 @@ Writer.findOne({ 'username': writer.username }, function ( err, doc ) {
 	
 	if( err ) console.log(err)
 	
-	else {
+	else if( doc ) {
 
 		doc.remove(function ( err ) {
 			if( !err ) save_writer();
 		});
-	}
+	} 
+
+	else save_writer();
 });
 
 function save_writer () {

@@ -1,27 +1,29 @@
 extends layout
 
 block content
-	#stories
-		if locals.stories
-			each story, i in stories
-				.story.span12
-					hr
-					hr
-					.title.row
-						if locals.user
-							if story.editor_id == user._id
-								p.highlight MATCH
-							a.destroy_story.icon-remove-sign(href="", id="#{story._id}")
-							p editor_id: #{story.editor_id}
-							p user_id: #{user._id}
-							p story_id: #{story._id}
-						center.span10.offset1
-							a(href="/stories/#{i + 1}") #{story.title}
-					.frames.row
-						center
-							a(href="/stories/#{story._id}/1")
-								img(src="#{story.frames[i]}", alt="#{story.frames[i]}", width="100px")
-							a(href="/stories/#{story._id}/2")
-								img(src="#{story.frames[i]}", alt="#{story.frames[i]}", width="100px")
-							a(href="/stories/#{story._id}/3")
-								img(src="#{story.frames[i]}", alt="#{story.frames[i]}", width="100px")
+	#stories.
+		<script id="story-template" type="text/x-handlebars-template">
+			{{#stories}}
+			<div class="story span12">
+				<hr>
+				<hr>
+				<div class="title">
+					<p class="highlight"> MATCH </p>
+					<a class="destroy_story icon-remove-sign" href="" id="{{ _id }}"></a>
+					<center>
+						<a href="/stories/{{ _id }}"> {{ title }} </a>
+					</center>
+				</div>
+				<div class="frames">
+					<center>
+						{{#each_i frames}}
+						<a href="/stories/{{ ../_id }}/{{ index }}">
+							<img src="{{ this.thumbnail }}" />
+						</a>
+						{{/each_i}}
+					</center>
+				</div>
+			</div>
+			{{/stories}}
+		</script>
+

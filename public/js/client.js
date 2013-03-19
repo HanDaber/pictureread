@@ -1,3 +1,24 @@
+// Initialize:
+Handlebars.registerHelper("each_i", function ( array, fn ) {
+
+    var buffer = "";
+    
+    for (var i = 0, j = array.length; i < j; i++) {
+    
+        var item = array[i];
+ 
+        // stick an index property onto the item, starting with 1
+        item.index = i+1;
+ 
+        // show the inside of the block
+        buffer += fn.fn(item);
+    }
+ 
+    // return the finished buffer
+    return buffer;
+ 
+});
+
 // Splash Page:
 
 var info_form = $('#info_form'),
@@ -17,7 +38,7 @@ info_form.submit(function ( ev ) {
 
     	alert.addClass('alert alert-success').text('Thank you!').fadeIn();
     } else {
-    	alert.addClass('alert alert-error').text('Invalid email, try again...').fadeIn();
+    	alert.addClass('alert alert-error').text('Invalid email...').fadeIn();
     }
 
     setTimeout(function () {
@@ -38,13 +59,95 @@ $('.banner-image').find('img').addClass('in');
 
 // Stories:
 
+$.get('/stories/json', function ( data ) {
+
+    console.log('got dayta ' + data)
+    
+    var fragment = $('<div>'),
+        story_data = {
+            stories: data
+        };
+
+    var source = $('#story-template').html() || '<script></script>';
+
+    var template = Handlebars.compile( source );
+
+    var html = template( story_data );
+
+    $('#stories').append( html );
+});
+
+$('#save_story').on('click', function ( event ) {
+
+    event.preventDefault();
+
+    var title = $("input[name=title]").val(),
+        frame_1 = $('.frame_1'),
+        frame_2 = $('.frame_2'),
+        frame_3 = $('.frame_3'),
+        frames = [];
+
+    var f1 = { 
+        text: frame_1.find("textarea").val() || '',
+        image: frame_1.find("input.image").val() || '',
+        thumbnail: frame_1.find("input.thumbnail").val() || ''
+    };
+
+    frames.push(f1);
+
+    var f2 = { 
+        text: frame_2.find("textarea").val() || '',
+        image: frame_2.find("input.image").val() || '',
+        thumbnail: frame_2.find("input.thumbnail").val() || ''
+    };
+
+    frames.push(f2);
+
+    var f3 = { 
+        text: frame_3.find("textarea").val() || '',
+        image: frame_3.find("input.image").val() || '',
+        thumbnail: frame_3.find("input.thumbnail").val() || ''
+    };
+
+    frames.push(f3);
+
+    $.post('/stories', { title: title, frames: frames }, function (data, textStatus, jqXHR) {
+        
+        console.log(data);
+        
+        if( data ) {
+
+            // $.post('/stories/' + data._id, );
+        
+            $('#stories').append('' + data);
+        }
+    });
+
+    $('#story_modal').modal('hide');
+});
+
+$('.destroy_story').on('click', function ( event ) {
+
+    event.preventDefault();
+});
+
+
+
+
+var frame_links_resize = $('.frames').find('a');
+
+// WINDOW.RESIZE
 $(window).resize(function () {
 
-    element_height( $('.frames').find('a') );
+    element_height( frame_links_resize );
+
+    story_background_image();
 
 });
 
-element_height( $('.frames').find('a') );
+element_height( frame_links_resize );
+
+story_background_image();
 
 function element_height ( elem ) {
 
@@ -67,33 +170,79 @@ function element_height ( elem ) {
     });
 }
 
-$('#save_story').on('click', function ( event ) {
+function story_background_image () {
+    var s;
+    if( s = $('#story') ) {
 
-    event.preventDefault();
+        var image = s.find('input[name=img]').val(),
+            frame = s.find('#frame'),
+            p, w;
 
-    var title = $("#story_modal").find("input[name=title]").val(),
-        body = $("#story_modal").find("textarea[name=body]").val(),
-        user = $("#story_modal").find("input[name=user]").val();
+        frame.css('background', 'url(' + image + ') center');
 
-    console.log(title, body)
+        p = frame.position().top;
+        w = $(window).height();
 
-    $.post('/stories', { title: title, body: body, editor: user }, function (data, textStatus, jqXHR) {
-        console.log(data);
-        if( data ) {
-            $('#stories').append('' + data);
-        }
-    });
-
-    $('#story_modal').modal('hide');
-});
-
-$('.destroy_story').on('click', function ( event ) {
-
-    event.preventDefault();
-});
-
-function files_saved ( event ) {
-    for(var i=0; i<event.fpfiles.length; i++) {
-        console.dir('http://pictureread.s3.amazonaws.com/'+event.fpfiles[i].key+'\n');
+        frame.height(function () {
+            return w - p;
+        });
     }
 }
+
+
+
+
+
+function files_saved ( event ) {
+
+    var target = event.target.name;
+
+    var target_element = $('.' + target + ''),
+        file = event.fpfile,
+        thumbnail = $('<img>'),
+        text = $('<textarea>'),
+        image_source = $('<input>'),
+        thumb_source = $('<input>'),
+        base_url = 'http://pictureread.s3.amazonaws.com/';
+
+    target_element.html('<b>Please wait...</b>');
+
+    text.attr('name', target + '_text')
+        .attr('placeholder', 'Frame Text');
+
+    image_source.addClass('image')
+        .attr('type', 'hidden')
+        .attr('value', base_url + file.key );
+
+    filepicker.convert( file, 
+                        { width: 200, height: 200, fit: 'crop' }, 
+                        {location: 'S3'},
+        
+        function( new_file ) {
+
+            console.log('thumbnail key: ' + new_file.key );
+
+            thumb_source.addClass('thumbnail')
+                .attr('type', 'hidden')
+                .attr('value', base_url + new_file.key );
+
+            thumbnail.attr('src', base_url + new_file.key )
+                .attr('width', '75px');
+
+            target_element.html('');
+
+            target_element.append(thumbnail);
+
+            target_element.append(text);
+            
+            target_element.append(thumb_source);
+            
+            target_element.append(image_source);
+        }
+    );
+}
+
+
+
+
+

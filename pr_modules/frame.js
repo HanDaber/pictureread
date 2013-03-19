@@ -6,10 +6,11 @@ var mongoose = require('mongoose'),
 // ######## Frame #######################################################
 
 var frame_properties = {
-  	'src' 				: { type: String, default: '/logo.png' },
+  	'image' 			: { type: String, default: 'http://pictureread.s3.amazonaws.com/WkVpNxbLRiGU5L75xfPt_3.png' },
+  	'thumbnail' 		: { type: String, default: 'http://pictureread.s3.amazonaws.com/WkVpNxbLRiGU5L75xfPt_3.png' },
 	'text' 				: { type: String, default: 'No Story' },
-	'edits' 			: [ Edit ],
-	'interactions' 		: [ Interaction ]
+	'edits' 			: [ Edit.schema ],
+	'interactions' 		: [ Interaction.schema ]
 };
 
 var frame_methods = {};

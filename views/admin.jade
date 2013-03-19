@@ -8,11 +8,30 @@ block content
 			hr
 			hr
 
-			.poop
-				button.btn New Story
-				button.btn New User
+			.modal-button
+				a.btn(href="", role="button", data-toggle="modal", data-target="#story_modal") Create new story
+				
+				#story_modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newStory", aria-hidden="true")
+					.modal-header
+						button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+						h3#newStory New Story
+					.modal-body
+						center
+							p
+								em Title:
+							input(type="text", name="title", placeholder="Title")
+							p
+								em Frames:
+							center.row
+								.row.frame_1
+									input(name="frame_1", type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
+								.row.frame_2
+									input(name="frame_2", type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
+								.row.frame_3
+									input(name="frame_3", type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
 
-				input(type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
+							button#save_story.btn(type="submit") Save
+
 		else
 			p
 			hr

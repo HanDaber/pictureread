@@ -28,6 +28,12 @@ img.logo {
 	width: 2.5em;
 }
 
+.user a.navi { margin-left: 1.3em; }
+
+button#save_story {
+	display: block;
+}
+
 #login_form {
 	display: inline;
 }
@@ -42,18 +48,42 @@ img.logo {
 }
 
 .logout { 
-	margin-left: 0.5em;
+	margin-left: 0.3em;
 	font-size: 1.2em;
 	font-weight: 600;
+	color: #333;
 }
+
+.content { margin-bottom: 0; }
 
 .frames a {
 	display: block;
-	margin: 0.2em auto 0.2em -0.2em;
+	margin: 0.2em auto;
 	height: 10em;
 	width: 100%;
 		background-color: #eee;
 		border: 1px solid black;
+}
+
+.frame-nav {
+	width: 100%;
+	text-align: center;
+}
+
+.frame-nav span {
+	display: inline-block;
+	width: 2.8em;
+	height: 2.8em;
+	border: 1px dotted #aaa;
+	margin: 0.2em;
+	text-align: center;
+	vertical-align: middle;
+	background: #eee;
+	font-weight: 600;
+}
+.nav-deco a, .nav-deco b {
+	display: inline-block;
+	margin-top: 0.5em;
 }
 
 @media (min-width: 768px) { 
@@ -66,7 +96,22 @@ img.logo {
 
 	#new_story {
 		margin-top: -1.5em;
-	/*float: right;*/
+	}
+
+	.frame-nav {
+		float: right;
+		width: 4.5em;
+	}
+
+	.frame-nav span {
+		display: block;
+		width: 4em;
+		height: 4em;
+		background: rgba(230, 230, 230, 0.3);
+	}
+
+	.nav-deco a, .nav-deco b {
+		margin-top: 1.2em;
 	}
 }
 

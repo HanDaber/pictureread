@@ -20,11 +20,22 @@ exports.all = function ( req, res, next ) {
 	});
 };
 
+exports.all_json = function ( req, res, next ) {
+
+	Story.find().sort('created descending').exec(function (err, stories) {
+
+		if (!err) { res.send( stories ); console.dir(stories); }
+
+		else res.send( false );
+	});
+};
+
+
 exports.get = function ( req, res, next ) {
 
-	Story.findById(req.params.id, function (err, story) {
+	Story.findById(req.params.id, function ( err, story ) {
 
-		if (!err) {
+		if( !err ) {
 
 			res.locals.story = story;
 
@@ -44,27 +55,85 @@ exports.get = function ( req, res, next ) {
 
 exports.create = function ( req, res, next ) {
 
-		var story = new Story({
-			'title': req.body.title,
-			'writer': res.locals.user._id
-		});
+	var story = new Story({
+		'title': req.body.title,
+		'writer': res.locals.user._id
+	});
 
-		story.save(function (err) {
+	res.locals.frames = story.add_frames(req.body.frames);
 
-			if( !err ) {
+	console.log('made story \n')
+	console.dir(story)
 
-				res.story = story;
+	console.log('adding frames \n')
+	console.dir(res.locals.frames)
 
-				next();
+	story.save(function (err) {
 
-			} else {
+		if( !err ) {
 
-				res.send( false );
+			// console.log('created story ' + story)
 
-				console.log('story.create save error: ' + err);
-			}
-		});
+			res.locals.story = story;
 
+			next();
+
+		} else {
+
+			res.send( false );
+
+			console.log('story.create save error: ' + err);
+		}
+	});
+
+};
+
+exports.add_frames = function ( req, res, next ) {
+
+	console.log('res.locals.frames: ')
+	console.dir(res.locals.frames)
+
+	Story.findOne( { _id: res.locals.story._id }, function ( err, doc ) {
+
+		console.log('updatin\' stawry frames...')
+
+		if( err ) {
+
+			console.log(err);
+
+			res.send(false);
+		}
+
+		if( !doc ) res.send(false);
+
+		else {
+
+			var frames = res.locals.frames;
+
+			doc.frames[0] = frames[0];
+			doc.frames[1] = frames[1];
+			doc.frames[2] = frames[2];
+
+			doc.save(function (err, story) {
+
+				if( err ) {
+
+					console.log(err)
+
+					res.send(false);
+				}
+
+				else {
+
+					console.dir(story)
+
+					res.locals.story = story;
+
+					next();
+				}
+			});
+		}
+	});
 };
 
 exports.destroy = function ( req, res, next ) {

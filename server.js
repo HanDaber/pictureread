@@ -139,7 +139,7 @@ app.post('/login', auth.login, function ( req, res ) {
 	
 	if( req.session.user ) {
 
-		if req.session.user._type === 'writer' ) res.redirect('/admin');
+		if( req.session.user._type === 'writer' ) res.redirect('/admin');
 
 		else res.redirect('/stories');
 	}

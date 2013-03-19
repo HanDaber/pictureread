@@ -99,7 +99,7 @@ exports.login = function ( req, res, next ) {
 
 		else if( user.authenticate( req.body.pass ) ) req.session.user = user;
 
-		if( type === 'writer' ) req.session.user._type = 'writer';
+		// if( type === 'writer' ) req.session.user._type = 'writer';
 
 		req.session.save();
 

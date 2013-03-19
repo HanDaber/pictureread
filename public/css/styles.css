@@ -50,7 +50,7 @@ button#save_story {
 	/*float: right;*/
 }
 
-#stories .title a {
+.caps {
 	text-transform: uppercase;
 }
 
@@ -81,9 +81,9 @@ button#save_story {
 	text-align: center;
 }
 
-.frame-nav span {
+.nav-deco {
 	display: inline-block;
-	width: 2.5em;
+	width: 2em;
 	height: 2.5em;
 	border: 1px dotted #aaa;
 	margin: 0.2em;
@@ -95,6 +95,10 @@ button#save_story {
 .nav-deco a, .nav-deco b {
 	display: inline-block;
 	margin-top: 0.5em;
+}
+
+#edit_frame {
+	margin: 0.3em;
 }
 
 .file_picker {

@@ -174,6 +174,7 @@ function element_height ( elem ) {
 
 function story_background_image ( s ) {
 
+// can just put backgroung image inline in html
     var image = s.find('input[name=img]').val(),
         frame = s.find('#frame'),
         p, w;

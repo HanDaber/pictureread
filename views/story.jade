@@ -3,8 +3,9 @@ extends layout
 block content
 	#story.span12
 		center
-			h2 #{story.title}
-		input(name="img", type="hidden", value="#{story.frames[frame-1].image}")
+			h3.caps #{story.title}
+		- var this_frame = story.frames[parseInt(frame) - 1];
+		input(name="img", type="hidden", value="#{this_frame.image}")
 		.frame-nav
 			span.nav-deco 
 				b #{frame}
@@ -28,4 +29,10 @@ block content
 				b: em t
 			span.nav-deco.chars
 				img(src="/img/characters.png")
+
 		#frame
+			if this_frame.text == 'No Story'
+				#edit_frame
+					span.highlight
+						i.icon-pencil= " "
+						i= " Write a story for this picture"

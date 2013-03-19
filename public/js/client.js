@@ -178,7 +178,7 @@ function story_background_image () {
             frame = s.find('#frame'),
             p, w;
 
-        frame.css('background', 'url(' + image + ') center');
+        frame.css('background', 'url(' + encodeURIComponent( image ) + ') no-repeat center');
 
         p = frame.position().top;
         w = $(window).height();

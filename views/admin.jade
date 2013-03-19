@@ -8,7 +8,7 @@ block content
 			hr
 			hr
 
-			.modal-button
+			center.modal-button
 				a.btn(href="", role="button", data-toggle="modal", data-target="#story_modal") Create new story
 				
 				#story_modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newStory", aria-hidden="true")
@@ -22,14 +22,53 @@ block content
 							input(type="text", name="title", placeholder="Title")
 							p
 								em Frames:
-							center.row
-								.row.frame_1
-									input(name="frame_1", type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
-								.row.frame_2
-									input(name="frame_2", type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
-								.row.frame_3
-									input(name="frame_3", type="filepicker-dragdrop", data-fp-apikey="ADu2duDHmRqOkJyuusshfz", data-fp-mimetypes="image/*", data-fp-container="window", data-fp-multiple="false", data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", data-fp-store-location="S3", onchange="files_saved( event )")
+							center
+								input(name="frame_1", 
+									type="filepicker-dragdrop", 
+									data-fp-drag-text="Upload picture 1",
+									data-fp-class="file_picker", 
+									data-fp-button-class="file_picker_button hide",
+									data-fp-drag-class="file_picker_drag frame_1",
+									data-fp-apikey="ADu2duDHmRqOkJyuusshfz", 
+									data-fp-mimetypes="image/*", 
+									data-fp-container="window", 
+									data-fp-multiple="false", 
+									data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", 
+									data-fp-store-location="S3", 
+									onsuccess="disable_drag()",
+									onchange="files_saved( event )")
 
+								input(name="frame_2", 
+									type="filepicker-dragdrop", 
+									data-fp-drag-text="Upload picture 2",
+									data-fp-class="file_picker", 
+									data-fp-button-class="file_picker_button hide",
+									data-fp-drag-class="file_picker_drag frame_2",
+									data-fp-apikey="ADu2duDHmRqOkJyuusshfz", 
+									data-fp-mimetypes="image/*", 
+									data-fp-container="window", 
+									data-fp-multiple="false", 
+									data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", 
+									data-fp-store-location="S3", 
+									onsuccess="disable_drag( event )",
+									onchange="files_saved( event )")
+
+								input(name="frame_3", 
+									type="filepicker-dragdrop", 
+									data-fp-drag-text="Upload picture 3",
+									data-fp-class="file_picker", 
+									data-fp-button-class="file_picker_button hide",
+									data-fp-drag-class="file_picker_drag frame_3",
+									data-fp-apikey="ADu2duDHmRqOkJyuusshfz", 
+									data-fp-mimetypes="image/*", 
+									data-fp-container="window", 
+									data-fp-multiple="false", 
+									data-fp-services="COMPUTER,FACEBOOK,FLICKR,INSTAGRAM,URL,WEBCAM", 
+									data-fp-store-location="S3", 
+									onsuccess="disable_drag()",
+									onchange="files_saved( event )")
+
+						center.save_story
 							button#save_story.btn(type="submit") Save
 
 		else

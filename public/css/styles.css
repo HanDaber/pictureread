@@ -33,6 +33,9 @@ img.logo {
 button#save_story {
 	display: block;
 }
+.save_story {
+	margin: 0.5em auto;
+}
 
 #login_form {
 	display: inline;
@@ -86,6 +89,25 @@ button#save_story {
 	margin-top: 0.5em;
 }
 
+.file_picker {
+	/*background: #a55;*/
+	display: inline;
+	/*border: 1px solid #c55;*/
+}
+.file_picker_button {
+	display: none;
+}
+.file_picker_drag {
+	display: block;
+	width: 90%;
+	height: 4em;
+	position: relative;
+	left: -0.2em;
+}
+.file_picker_drag:hover {
+	background-color: #aaa;
+}
+
 @media (min-width: 768px) { 
 	.frames a {
 		display: inline-block;
@@ -112,6 +134,16 @@ button#save_story {
 
 	.nav-deco a, .nav-deco b {
 		margin-top: 1.2em;
+	}
+
+	.file_picker_drag {
+		display: inline-block;
+		width: 30%;
+		height: 8em;
+		/*position: relative;*/
+		/*left: -0.2em;*/
+		/*padding: 1em;*/
+		/*margin: 1em auto;*/
 	}
 }
 

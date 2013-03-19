@@ -74,7 +74,7 @@ $.get('/stories/json', function ( data ) {
 
     var html = template( story_data );
 
-    $('#stories').append( html );
+    $('#stories').append( html ).find('.loading').remove();
 });
 
 $('#save_story').on('click', function ( event ) {
@@ -88,7 +88,7 @@ $('#save_story').on('click', function ( event ) {
         frames = [];
 
     var f1 = { 
-        text: frame_1.find("textarea").val() || '',
+        // text: frame_1.find("textarea").val() || '',
         image: frame_1.find("input.image").val() || '',
         thumbnail: frame_1.find("input.thumbnail").val() || ''
     };
@@ -96,7 +96,7 @@ $('#save_story').on('click', function ( event ) {
     frames.push(f1);
 
     var f2 = { 
-        text: frame_2.find("textarea").val() || '',
+        // text: frame_2.find("textarea").val() || '',
         image: frame_2.find("input.image").val() || '',
         thumbnail: frame_2.find("input.thumbnail").val() || ''
     };
@@ -104,7 +104,7 @@ $('#save_story').on('click', function ( event ) {
     frames.push(f2);
 
     var f3 = { 
-        text: frame_3.find("textarea").val() || '',
+        // text: frame_3.find("textarea").val() || '',
         image: frame_3.find("input.image").val() || '',
         thumbnail: frame_3.find("input.thumbnail").val() || ''
     };
@@ -133,7 +133,6 @@ $('.destroy_story').on('click', function ( event ) {
 
 
 
-
 var frame_links_resize = $('.frames').find('a'),
     story_image_resize = $('#story');
 
@@ -141,6 +140,8 @@ var frame_links_resize = $('.frames').find('a'),
 $(window).resize(function () {
 
     element_height( frame_links_resize );
+    
+    // element_height( $('.file_picker') );
 
     story_background_image( story_image_resize );
 
@@ -173,13 +174,13 @@ function element_height ( elem ) {
 
 function story_background_image ( s ) {
 
-    if( s ) {
+    var image = s.find('input[name=img]').val(),
+        frame = s.find('#frame'),
+        p, w;
 
-        var image = s.find('input[name=img]').val(),
-            frame = s.find('#frame'),
-            p, w;
+    frame.css('background', 'url(\'' + image + '\') no-repeat center');
 
-        frame.css('background', 'url(\'' + image + '\') no-repeat center');
+    if( typeof( frame.position() ) !== 'undefined' ) {
 
         p = frame.position().top;
         w = $(window).height();
@@ -192,7 +193,9 @@ function story_background_image ( s ) {
 
 
 
-
+function disable_drag ( event ) {
+    console.log('you should disable dragondrops')
+}
 
 function files_saved ( event ) {
 
@@ -206,7 +209,7 @@ function files_saved ( event ) {
         thumb_source = $('<input>'),
         base_url = 'http://pictureread.s3.amazonaws.com/';
 
-    target_element.html('<b>Please wait...</b>');
+    target_element.html('<b>Please wait... </b><img src="/img/loader.gif" />');
 
     text.attr('name', target + '_text')
         .attr('placeholder', 'Frame Text');
@@ -214,6 +217,8 @@ function files_saved ( event ) {
     image_source.addClass('image')
         .attr('type', 'hidden')
         .attr('value', base_url + file.key );
+
+    target_element.addClass('disabled');
 
     filepicker.convert( file, 
                         { width: 200, height: 200, fit: 'crop' }, 
@@ -228,13 +233,13 @@ function files_saved ( event ) {
                 .attr('value', base_url + new_file.key );
 
             thumbnail.attr('src', base_url + new_file.key )
-                .attr('width', '75px');
+                .attr('width', '100%');
 
             target_element.html('');
 
             target_element.append(thumbnail);
 
-            target_element.append(text);
+            // target_element.append(text);
             
             target_element.append(thumb_source);
             

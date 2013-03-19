@@ -50,6 +50,10 @@ button#save_story {
 	/*float: right;*/
 }
 
+#stories .title a {
+	text-transform: uppercase;
+}
+
 .logout { 
 	margin-left: 0.3em;
 	font-size: 1.2em;

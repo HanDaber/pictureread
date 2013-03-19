@@ -68,8 +68,12 @@ button#save_story {
 	margin: 0.2em auto;
 	height: 10em;
 	width: 100%;
+	overflow: hidden;
 		background-color: #eee;
 		border: 1px solid black;
+}
+.frames a img {
+	width: 100%;
 }
 
 .frame-nav {

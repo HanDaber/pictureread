@@ -5,7 +5,7 @@ var db = require('./db'),
 var user = new User({
 	email: 'test123@test.com',
 	username: 'testuser',
-	password: 'balls'
+	password: 'pass'
 });
 
 User.findOne({ 'username': user.username }, function ( err, doc ) {
@@ -35,7 +35,7 @@ function save_user () {
 var writer = new Writer({
 	email: 'test456@test.com',
 	username: 'testwriter',
-	password: 'balls'
+	password: 'pass'
 });
 
 Writer.findOne({ 'username': writer.username }, function ( err, doc ) {

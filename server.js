@@ -10,7 +10,8 @@ var express = require('express'),
 	db = require('./db'),
 	routes = require('./routes'),
 	auth = require('./routes/auth'),
-	story = require('./routes/story');
+	story = require('./routes/story'),
+	frame = require('./routes/frame');
 
 var rtg, redis;
 
@@ -94,6 +95,12 @@ app.namespace('/stories', auth.user, function () {
 		res.send(res.locals.story);
 	});
 
+	// add frame text
+	app.post('/frames/:id', auth.writer, frame.text, function ( req, res ) {
+
+		res.send(res.locals.frame);
+	});
+
 	// destroy
 	app.post('/:id', auth.writer, story.destroy, function ( req, res ) {
 
@@ -104,18 +111,12 @@ app.namespace('/stories', auth.user, function () {
 
 // Admin:
 app.namespace('/admin', auth.public, function () {
+	
 	// admin panel
 	app.get('/', function ( req, res ) {
 
 		res.render('admin');
 	});
-
-	// // Login
-	// app.post('/', auth.poop, function ( req, res ) {
-		
-	// 	res.redirect('/');
-	// });
-
 });
 
 app.namespace('/users', auth.user, auth.writer, function () {
@@ -125,12 +126,6 @@ app.namespace('/users', auth.user, auth.writer, function () {
 		
 		res.send(res.user);
 	});
-
-	// Create Writer:
-	// app.post('/writer', writer.create, function ( req, res ) {
-
-	// 	res.send(res.user);
-	// });
 });
 
 

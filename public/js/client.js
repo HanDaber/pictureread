@@ -111,7 +111,7 @@ $('#save_story').on('click', function ( event ) {
 
     frames.push(f3);
 
-    $.post('/stories', { title: title, frames: frames }, function (data, textStatus, jqXHR) {
+    $.post('/stories', { title: title, frames: frames }, function ( data, textStatus, jqXHR ) {
         
         console.log(data);
         
@@ -132,6 +132,93 @@ $('.destroy_story').on('click', function ( event ) {
 });
 
 
+// Frame:
+var frame = {
+    objects: [
+        { icon: '', text: 'Hello, I am an object!', position: { x: 1, y: 10 } },
+        { icon: '', text: 'Hello, I am a cool thing!', position: { x: 25, y: 33 } }
+    ]
+};
+
+var objs = frame.objects,
+    frameimage = $('#frame_image');
+
+for( var i = 0, o = objs.length; i < o; i++ ) {
+
+    append_object( objs[i] );
+}
+
+
+
+function append_object( obj ) {
+    frameimage.append('<div class="add_object" style="top:' + obj.position.y + '%; left:' + obj.position.x + '%;"><i class="icon-play"></i><span>' + obj.text + '</span></div>');
+}
+
+
+
+
+
+
+$('#edit_frame')
+    .on('mouseenter', function ( event ) {
+
+        toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
+    })
+    .on('mouseleave', function ( event ) {
+
+        var text_input = $('input[name=text]');
+
+        if( text_input.is(':focus') ) {
+
+            text_input.on('focusout', function () {
+
+                toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
+            });
+        } else {
+
+            toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
+        }
+    })
+    .find('a.edit')
+    .on('click', function ( event ) {
+
+        event.preventDefault();
+
+        var text_input = $('input[name=text]');
+
+        if( text_input.is(':focus') ) {
+
+            text_input.on('focusout', function () {
+
+                toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
+            });
+        } else {
+
+            toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
+        }
+    });
+function toggle( elems, classname ) {
+
+    for(var i = 0, e = elems.length; i < e; i++) {
+
+        elems[i].toggleClass( classname );
+    }
+}
+
+$('.edit_form').on('submit', function ( event ) {
+
+    event.preventDefault();
+
+    console.log('target:  ' + event.target)
+
+    var val = $(event.target).find('input[name=text]').val(),
+        id = $(event.target).find('input[name=id]').val();
+
+    $.post('/stories/frames/' + id, { text: val }, function ( data, textStatus, jqXHR ) {
+
+        console.log(data)
+    });
+});
 
 var frame_links_resize = $('.frames').find('a'),
     story_image_resize = $('#story');
@@ -143,7 +230,7 @@ $(window).resize(function () {
     
     // element_height( $('.file_picker') );
 
-    story_background_image( story_image_resize );
+    // story_background_image( story_image_resize );
 
 });
 
@@ -172,25 +259,6 @@ function element_height ( elem ) {
     });
 }
 
-function story_background_image ( s ) {
-
-// can just put backgroung image inline in html
-    var image = s.find('input[name=img]').val(),
-        frame = s.find('#frame'),
-        p, w;
-
-    frame.css('background', 'url(\'' + image + '\') no-repeat center');
-
-    if( typeof( frame.position() ) !== 'undefined' ) {
-
-        p = frame.position().top;
-        w = $(window).height();
-
-        frame.height(function () {
-            return w - p;
-        });
-    }
-}
 
 
 
@@ -250,6 +318,156 @@ function files_saved ( event ) {
 }
 
 
+$('#frame_image img').on('click', function ( event ) {
 
+    var x_frac = (event.offsetX / $(event.target).width() * 100),
+        y_frac = (event.offsetY / $(event.target).height() * 100),
+        new_obj;
+
+    new_obj = { icon: '', text: 'New!', position: { x: x_frac, y: y_frac } };
+
+    append_object( new_obj );
+})
+
+
+
+function story_background_image ( s ) {
+
+    var image = s.find('input[name=img]').val(),
+        frame = s.find('#frame_image'),
+        p, w;
+
+        console.log(frame.width())
+
+    frame.append('<img src="' + image + '">');   //.css('background', 'url(\'' + image + '\')'); //.css('background-size', '\'' + frame.width() + ' ' + frame.height() + '\'');
+
+    // if( typeof( frame.position() ) !== 'undefined' ) {
+
+    //     p = frame.position().top;
+    //     w = $(window).height();
+
+    //     frame.height(function () {
+    //         return w - p;
+    //     });
+    // }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function initialize() {
+//     var mapOptions = {
+//       zoom: 4,
+//       disableDefaultUI: true,
+//       center: new google.maps.LatLng(-33, 151),
+//       mapTypeId: google.maps.MapTypeId.ROADMAP
+//     }
+//     var map = new google.maps.Map(document.getElementById('frame'),
+//                                   mapOptions);
+
+//     var image = '/img/loader.gif';
+//     var myLatLng = new google.maps.LatLng(-33.890542, 151.274856);
+//     var beachMarker = new google.maps.Marker({
+//         position: myLatLng,
+//         map: map,
+//         icon: image
+//     });
+// }
+
+
+
+
+
+// initialize();
+
+
+
+
+
+// var moonTypeOptions = {
+    
+//     getTileUrl: function(coord, zoom) {
+        
+//         var normalizedCoord = getNormalizedCoord(coord, zoom);
+        
+//         if (!normalizedCoord) return null;
+
+//         var bound = Math.pow(2, zoom);
+        
+//         return 'http://localhost:3000/img/characters.png';
+//     },
+
+//     tileSize: new google.maps.Size(256, 256),
+//     maxZoom: 0,
+//     minZoom: 0,
+//     radius: 1738000,
+//     name: 'Moon'
+// };
+
+// var moonMapType = new google.maps.ImageMapType(moonTypeOptions);
+
+// function initialize() {
+
+//     var myLatlng = new google.maps.LatLng(0, 0);
+
+//     var mapOptions = {
+//         center: myLatlng,
+//         zoom: 1,
+           // disableDefaultUI: true,
+//         streetViewControl: false,
+//         mapTypeControlOptions: {
+//             mapTypeIds: ['moon']
+//         }
+//     };
+
+//     var map = new google.maps.Map(document.getElementById('frame'), mapOptions);
+
+//     map.mapTypes.set('moon', moonMapType);
+    
+//     map.setMapTypeId('moon');
+// }
+
+// // Normalizes the coords that tiles repeat across the x axis (horizontally)
+// // like the standard Google map tiles.
+// function getNormalizedCoord(coord, zoom) {
+    
+//     var y = coord.y;
+    
+//     var x = coord.x;
+
+//     // tile range in one direction range is dependent on zoom level
+//     // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
+//     var tileRange = 1 << zoom;
+
+//     // don't repeat across y-axis (vertically)
+//     if (y < 0 || y >= tileRange) {
+//         return null;
+//     }
+
+//     // repeat across x-axis
+//     if (x < 0 || x >= tileRange) {
+//         x = (x % tileRange + tileRange) % tileRange;
+//     }
+
+//     return {
+//         x: x,
+//         y: y
+//     };
+// }
+
+// initialize();
 
 

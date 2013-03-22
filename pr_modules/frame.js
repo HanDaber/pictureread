@@ -1,25 +1,45 @@
+// Frame
+
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	Edit = require('./edit'),
-	Interaction = require('./interaction');
+	Brand = require('./brand'),
+	Rewrite = require('./rewrite'),
+	Interaction = require('./interaction'),
+	frame_properties = {},
+	frame_methods = {},
+	frameSchema,
+	frameModel;
 
-// ######## Frame #######################################################
 
-var frame_properties = {
-  	'image' 			: { type: String, default: 'http://pictureread.s3.amazonaws.com/WkVpNxbLRiGU5L75xfPt_3.png' },
-  	'thumbnail' 		: { type: String, default: 'http://pictureread.s3.amazonaws.com/WkVpNxbLRiGU5L75xfPt_3.png' },
-	'text' 				: { type: String, default: 'No Story' },
-	'edits' 			: [ Edit.schema ],
-	'interactions' 		: [ Interaction.schema ]
+
+frame_properties.image = { type: String, default: 'http://pictureread.s3.amazonaws.com/WkVpNxbLRiGU5L75xfPt_3.png' };
+
+frame_properties.thumbnail = { type: String, default: 'http://pictureread.s3.amazonaws.com/WkVpNxbLRiGU5L75xfPt_3.png' };
+
+frame_properties.text = { type: String, default: 'No Story' };
+
+frame_properties.rewrites = [ Rewrite.schema ];
+
+frame_properties.brands = [ Brand.schema ];
+
+frame_properties.interactions = [ Interaction.schema ];
+
+frameSchema = new Schema( frame_properties );
+
+
+
+frame_methods.add_text = function ( string ) {
+
+	this.text = string;
+
+	return this;
 };
-
-var frame_methods = {};
-
-var frameSchema = new Schema( frame_properties );
 
 frameSchema.methods = frame_methods;
 
-var frameModel = mongoose.model( 'Frame', frameSchema );
+
+
+frameModel = mongoose.model( 'Frame', frameSchema );
 
 module.exports = frameModel;
 

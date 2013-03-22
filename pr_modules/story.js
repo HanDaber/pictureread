@@ -1,44 +1,52 @@
+// Story Model
+
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	Frame = require('./frame');
+	Frame = require('./frame'),
+	story_properties = {},
+	story_methods = {},
+	storySchema,
+	storyModel;
 
-// ######## Story #######################################################
 
-var story_properties = {
-  	'title' 			: { type: String, default: 'No Title' },
-	'frames' 			: [ Frame.schema ],
-	'writer'			: Schema.Types.ObjectId,
-	'publish'			: { type: Boolean, default: false },
-	'created'			: { type: Number, default: Date.now }
-};
 
-var story_methods = {
+story_properties.title = { type: String, default: 'No Title' };
 
-	// frames: [] => []
-	'add_frames': function ( frames ) {
-		
-		for( var i = 0, f = frames.length; i < f; i++) {
+story_properties.frames = [ Frame.schema ];
 
-			var text = frames[i].text === '' ? undefined : frames[i].text,
-				image = frames[i].image === '' ? undefined : frames[i].image,
-				thumbnail = frames[i].image === '' ? undefined : frames[i].thumbnail;
+story_properties.writer = Schema.Types.ObjectId;
 
-			var frame = new Frame({ 'text': text,
-									'image': image,
-									'thumbnail': thumbnail });
+story_properties.publish = { type: Boolean, default: false };
 
-			this.frames.push( frame );
-		}
+story_properties.created = { type: Number, default: Date.now };
 
-		return this.frames;
+storySchema = new Schema( story_properties );
+
+
+
+story_methods.add_frames = function ( frames ) {
+
+	for( var i = 0, f = frames.length; i < f; i++ ) {
+
+		var text = frames[i].text === '' ? undefined : frames[i].text,
+
+			image = frames[i].image === '' ? undefined : frames[i].image,
+
+			thumbnail = frames[i].image === '' ? undefined : frames[i].thumbnail;
+
+		var frame = new Frame({ 'text': text,'image': image, 'thumbnail': thumbnail });
+
+		this.frames.push( frame );
 	}
-};
 
-var storySchema = new Schema( story_properties );
+	return this.frames;
+};
 
 storySchema.methods = story_methods;
 
-var storyModel = mongoose.model( 'Story', storySchema );
+
+
+storyModel = mongoose.model( 'Story', storySchema );
 
 module.exports = storyModel;
 

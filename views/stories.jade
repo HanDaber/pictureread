@@ -1,13 +1,24 @@
 extends layout
 
 block content
+	#sections.span12
+		center
+			hr(style="margin:0.5em")
+			em.title SECTIONS
+			hr(style="margin:0.5em")
+			img(src="/img/philz.png")
+			img(src="/img/characters.png")
+
+	.span12
+		center
+			hr(style="margin:3em auto 0.5em auto")
+			em.title STORIES
+			hr(style="margin:0.5em")
 	#stories.
 		<center class="loading"><b>Loading Stories... </b><img src="/img/loader.gif" /></center>
 		<script id="story-template" type="text/x-handlebars-template">
 			{{#stories}}
 			<div class="story span12">
-				<hr>
-				<hr>
 				<div class="title">
 					<center>
 						<a class="caps" href="/stories/{{ _id }}"> {{ title }} </a>
@@ -22,6 +33,7 @@ block content
 						{{/each_i}}
 					</center>
 				</div>
+				<hr>
 			</div>
 			{{/stories}}
 		</script>

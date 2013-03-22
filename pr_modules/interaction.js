@@ -1,21 +1,29 @@
+// Interaction
+
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	interaction_properties = {},
+	interaction_methods = {},
+	interactionSchema,
+	interactionModel;
 
-// ######## Interaction #######################################################
 
-var interaction_properties = {
-  	'position'	 		: { type: Array, default: [ 0, 0 ] },
-  	'icon'				: { type: String, default: 'http://s3.aws.com/pic/82382365' },
-  	'action'			: { type: String }
-};
 
-var interaction_methods = {};
+interaction_properties.position = { type: Array, default: [ 0, 0 ] };
 
-var interactionSchema = new Schema( interaction_properties );
+interaction_properties.icon = { type: String, default: 'http://s3.aws.com/pic/82382365' };
+
+interaction_properties.media = [ Schema.Types.ObjectId ];
+
+interactionSchema = new Schema( interaction_properties );
+
+
 
 interactionSchema.methods = interaction_methods;
 
-var interactionModel = mongoose.model( 'Interaction', interactionSchema );
+
+
+interactionModel = mongoose.model( 'Interaction', interactionSchema );
 
 module.exports = interactionModel;
 

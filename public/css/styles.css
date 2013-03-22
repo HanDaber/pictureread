@@ -63,6 +63,21 @@ button#save_story {
 
 .content { margin-bottom: 0; }
 
+#frame {
+	overflow: hidden;
+}
+
+#frame_image {
+	margin: 0 auto;
+	display: inline-block;
+	position: relative;
+}
+
+#frame img {
+	/*margin: 0 auto;*/
+	/*border: 1px red;*/
+}
+
 .frames a {
 	display: block;
 	margin: 0.2em auto;
@@ -98,7 +113,15 @@ button#save_story {
 }
 
 #edit_frame {
+	position: absolute;
 	margin: 0.3em;
+}
+
+.add_object {
+	position: absolute;
+	background-color: #9af;
+	display: inline-block;
+	/*top: 22%;*/
 }
 
 .file_picker {

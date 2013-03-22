@@ -1,28 +1,34 @@
+// Brand
+
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	brand_properties = {},
+	brand_methods = {},
+	brandSchema,
+	brandModel;
 
-// ######## Brand #######################################################
-// Define brand properties
-var brand_properties = {
-  	'name'	 			: { type: String, default: 'No Name' },
-	'in_stories' 		: [ Schema.Types.ObjectId ] // [ Story_id ]
+
+
+brand_properties.name = { type: String, default: 'No Name' };
+
+brand_properties.image = { type: String, default: 'http://pictureread.s3.amazonaws.com/WkVpNxbLRiGU5L75xfPt_3.png' };
+
+brand_properties.in_stories = [ Schema.Types.ObjectId ];
+
+brandSchema = new Schema( brand_properties );
+
+
+
+brand_methods.stories = function() {
+
+	// Story.find
 };
-
-var brand_methods = {
-
-	'category': function() {
-		return this.type;
-	}
-
-};
-
-// Define Listing schema
-var brandSchema = new Schema( brand_properties );
 
 brandSchema.methods = brand_methods;
 
-// Define brand Model from schema
-var brandModel = mongoose.model( 'Brand', brandSchema );
+
+
+brandModel = mongoose.model( 'Brand', brandSchema );
 
 module.exports = brandModel;
 

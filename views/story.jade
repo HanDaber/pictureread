@@ -2,6 +2,8 @@ extends layout
 
 block content
 	#story.span12
+		if locals.user && locals.user._type == 'writer'
+			input(name="permission", value="true", type="hidden")
 		center
 			h3.caps #{story.title}
 		- var this_frame = story.frames[parseInt(frame) - 1];

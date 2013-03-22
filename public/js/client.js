@@ -323,12 +323,19 @@ $('#frame_image img').on('click', function ( event ) {
 
     var x_frac = (event.offsetX / $(event.target).width() * 100),
         y_frac = (event.offsetY / $(event.target).height() * 100),
+        permission = $('input[name=permission]').val(),
         new_obj;
 
     new_obj = { icon: '', text: 'New!', position: { x: x_frac, y: y_frac } };
 
-    // append_object( new_obj );
-})
+    // if( typeof(persmission) === 'undefined' ) {
+        // console.log( permission );
+    // } else {
+    if( permission ) {
+        console.log( permission );
+        append_object( new_obj );
+    }
+});
 
 
 

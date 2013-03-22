@@ -5,6 +5,7 @@ block content
 		if locals.user && locals.user._type == 'writer'
 			center
 				h2 Hi, #{user.username}
+				input(name="permission", value="true", type="hidden")
 			hr
 			hr
 

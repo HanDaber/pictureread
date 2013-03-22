@@ -35,6 +35,24 @@ frame_methods.add_text = function ( string ) {
 	return this;
 };
 
+frame_methods.add_interactions = function ( objects ) {
+
+	for( var i = 0, o = objects.length; i < o; i++ ) {
+
+		var position = objects[i].position === [] ? undefined : objects[i].position,
+
+			icon = objects[i].icon === '' ? undefined : objects[i].icon,
+
+			text = objects[i].text === '' ? undefined : objects[i].text;
+
+		var interaction = new Interaction({ 'text': text,'icon': icon, 'position': position });
+
+		this.interactions.push( interaction );
+	}
+
+	return this.interactions;
+};
+
 frameSchema.methods = frame_methods;
 
 

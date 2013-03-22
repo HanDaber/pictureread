@@ -42,6 +42,11 @@ story_methods.add_frames = function ( frames ) {
 	return this.frames;
 };
 
+story_methods.frame = function( id, cb ) {
+
+	this.frames.findById( id, cb );
+};
+
 storySchema.methods = story_methods;
 
 

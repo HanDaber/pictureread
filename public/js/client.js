@@ -2,7 +2,10 @@ var info_form = $('#info_form'),
     submit_info = info_form.find('a')
     email_pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/),
     frame_links_resize = $('.frames').find('a'),
-    story_image_resize = $('#story');
+    story_image_resize = $('#story'),
+    permission = $('input[name=permission]').val(),
+    current_frame = $('input[name=frame_id]').val(),
+    current_story = $('input[name=story_id]').val();
 
 var frame = {
     objects: [
@@ -149,7 +152,6 @@ $('.destroy_story').on('click', function ( event ) {
 
 // Frame:
 
-
 for( var i = 0, o = objs.length; i < o; i++ ) {
 
     append_object( objs[i] );
@@ -160,10 +162,6 @@ for( var i = 0, o = objs.length; i < o; i++ ) {
 function append_object( obj ) {
     frameimage.append('<div class="add_object" style="top:' + obj.position.y + '%; left:' + obj.position.x + '%;"><i class="icon-play"></i><span>' + obj.text + '</span></div>');
 }
-
-
-
-
 
 
 $('#edit_frame')
@@ -219,9 +217,10 @@ $('.edit_form').on('submit', function ( event ) {
     console.log('target:  ' + event.target)
 
     var val = $(event.target).find('input[name=text]').val(),
-        id = $(event.target).find('input[name=id]').val();
+        s_id = current_story,
+        f_id = current_frame;
 
-    $.post('/stories/frames/' + id, { text: val }, function ( data, textStatus, jqXHR ) {
+    $.post('/stories/frames/' + s_id, { text: val, f_id: f_id }, function ( data, textStatus, jqXHR ) {
 
         console.log(data)
     });
@@ -323,14 +322,10 @@ $('#frame_image img').on('click', function ( event ) {
 
     var x_frac = (event.offsetX / $(event.target).width() * 100),
         y_frac = (event.offsetY / $(event.target).height() * 100),
-        permission = $('input[name=permission]').val(),
         new_obj;
 
     new_obj = { icon: '', text: 'New!', position: { x: x_frac, y: y_frac } };
 
-    // if( typeof(persmission) === 'undefined' ) {
-        // console.log( permission );
-    // } else {
     if( permission ) {
         console.log( permission );
         append_object( new_obj );

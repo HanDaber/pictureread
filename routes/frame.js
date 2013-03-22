@@ -1,31 +1,36 @@
-var Frame = require('../pr_modules/frame');
+var Story = require('../pr_modules/story');
 
 exports.text = function ( req, res, next ) {
+
+	console.log(req.params.id)
 
 	if( req.body.text === '' ) res.send(false);
 
 	else {
 
-		Frame.findOne({ _id: req.params.id }, function ( err, frame ) {
+		Story.findOne({ _id: req.params.s_id }, function ( err, story ) {
 
 			if( err ) res.send('false anus');
 
-			if( !frame ) res.send('false poo');
+			if( !story ) res.send('false poo');
 
 			else {
 
-				var f = frame.add_text( req.body.text );
+				var f = story.frame( req.params.f_id, function ( err, frame ) {
 
-				f.save(function ( err, doc ) {
+					frame.add_text( req.body.text );
 
-					if( err ) res.send(false);
+					frame.save(function ( err, doc ) {
 
-					else {
+						if( err ) res.send(false);
 
-						res.locals.frame = f;
+						else {
 
-						next();
-					}
+							res.locals.frame = doc;
+
+							next();
+						}
+					});
 				});
 			}
 		});

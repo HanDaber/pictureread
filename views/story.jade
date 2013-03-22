@@ -8,6 +8,8 @@ block content
 			h3.caps #{story.title}
 		- var this_frame = story.frames[parseInt(frame) - 1];
 		input(name="img", type="hidden", value="#{this_frame.image}")
+		input(name="story_id", type="hidden", value="#{story._id}")
+		input(name="frame_id", type="hidden", value="#{this_frame._id}")
 		.frame-nav
 			span.nav-deco 
 				b #{frame}

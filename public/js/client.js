@@ -327,7 +327,7 @@ $('#frame_image img').on('click', function ( event ) {
 
     new_obj = { icon: '', text: 'New!', position: { x: x_frac, y: y_frac } };
 
-    append_object( new_obj );
+    // append_object( new_obj );
 })
 
 

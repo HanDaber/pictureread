@@ -83,22 +83,22 @@ app.namespace('/stories', auth.user, function () {
 		res.send(res.story);
 	});
 
-	// add interaction
-	app.post('/:id/:frame/interactions', auth.writer, story.add_interaction, function ( req, res ) {
+	// get frame:
+	app.get('/:s_id/frames/:f_id', frame.get, function ( req, res ) {
 
-		res.send(res.story);
+		res.send( res.locals.frame );
+	});
+
+	// add interaction
+	app.post('/:s_id/:f_id', auth.writer, frame.add_obj, function ( req, res ) {
+
+		res.send( res.locals.interaction );
 	});
 
 	// create
 	app.post('/', auth.writer, story.create, function ( req, res ) {
 
-		res.send(res.locals.story);
-	});
-
-	// add frame text
-	app.post('/frames/:id', auth.writer, frame.text, function ( req, res ) {
-
-		res.send(res.locals.frame);
+		res.send( res.locals.story );
 	});
 
 	// destroy

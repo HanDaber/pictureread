@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	Frame = require('./frame'),
+	Brand = require('./brand'),
 	story_properties = {},
 	story_methods = {},
 	storySchema,
@@ -13,6 +14,8 @@ var mongoose = require('mongoose'),
 story_properties.title = { type: String, default: 'No Title' };
 
 story_properties.frames = [ Frame.schema ];
+
+story_properties.brands = [ Brand.schema ];
 
 story_properties.writer = Schema.Types.ObjectId;
 
@@ -44,7 +47,9 @@ story_methods.add_frames = function ( frames ) {
 
 story_methods.frame = function( id, cb ) {
 
-	this.frames.findById( id, cb );
+	var frame = this.frames.id( id );
+
+	cb(frame);
 };
 
 storySchema.methods = story_methods;

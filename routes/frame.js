@@ -1,8 +1,25 @@
 var Story = require('../pr_modules/story');
 
-exports.text = function ( req, res, next ) {
+exports.get = function ( req, res, next ) {
 
-	console.log(req.params.id)
+	Story.findOne({ _id: req.params.s_id }, function ( err, story ) {
+
+		if( err ) res.send('err in frame.js:exports.get');
+
+		if( !story ) res.send('false story');
+
+		else {
+
+			var frame = story.frames.id( req.params.f_id );
+
+			res.locals.frame = frame;
+
+			next();
+		}
+	});
+};
+
+exports.add_obj = function ( req, res, next ) {
 
 	if( req.body.text === '' ) res.send(false);
 
@@ -10,27 +27,32 @@ exports.text = function ( req, res, next ) {
 
 		Story.findOne({ _id: req.params.s_id }, function ( err, story ) {
 
-			if( err ) res.send('false anus');
+			if( err ) res.send('err in frame.js:exports.add_obj');
 
-			if( !story ) res.send('false poo');
+			if( !story ) res.send('false story');
 
 			else {
 
-				var f = story.frame( req.params.f_id, function ( err, frame ) {
+				story.frame( req.params.f_id, function ( frame ) {
 
-					frame.add_text( req.body.text );
+					var new_object = frame.add_interaction( req.body );
 
-					frame.save(function ( err, doc ) {
+					story.save(function ( err ) {
+
+						console.log('saving...')
 
 						if( err ) res.send(false);
 
 						else {
 
-							res.locals.frame = doc;
+							console.log(new_object)
+
+							res.locals.interaction = new_object;
 
 							next();
 						}
 					});
+
 				});
 			}
 		});

@@ -5,16 +5,7 @@ var info_form = $('#info_form'),
     story_image_resize = $('#story'),
     permission = $('input[name=permission]').val(),
     current_frame = $('input[name=frame_id]').val(),
-    current_story = $('input[name=story_id]').val();
-
-var frame = {
-    objects: [
-        { icon: '', text: 'Hello, I am an object!', position: { x: 1, y: 10 } },
-        { icon: '', text: 'Hello, I am a cool thing!', position: { x: 25, y: 33 } }
-    ]
-};
-
-var objs = frame.objects,
+    current_story = $('input[name=story_id]').val(),
     frameimage = $('#frame_image');
 
 
@@ -151,16 +142,28 @@ $('.destroy_story').on('click', function ( event ) {
 
 
 // Frame:
+$.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp ) {
 
-for( var i = 0, o = objs.length; i < o; i++ ) {
+    console.dir(resp)
 
-    append_object( objs[i] );
-}
+    for( var i = 0, o = resp.interactions.length; i < o; i++ ) {
+
+        var interaction = resp.interactions[i];
+
+        interaction.position.x = interaction.position[0];
+
+        interaction.position.y = interaction.position[1];
+
+        append_object( interaction );
+    }
+});
+
+
 
 
 
 function append_object( obj ) {
-    frameimage.append('<div class="add_object" style="top:' + obj.position.y + '%; left:' + obj.position.x + '%;"><i class="icon-play"></i><span>' + obj.text + '</span></div>');
+    frameimage.append('<div class="add_object" style="top:' + obj.position.y + '; left:' + obj.position.x + ';"><i class="icon-play"></i><span class="txt">' + obj.text + '</span><a href=""><i class="icon-cancel"></i></a></div>');
 }
 
 
@@ -324,15 +327,39 @@ $('#frame_image img').on('click', function ( event ) {
         y_frac = (event.offsetY / $(event.target).height() * 100),
         new_obj;
 
-    new_obj = { icon: '', text: 'New!', position: { x: x_frac, y: y_frac } };
+    new_obj = { icon: '', text: 'click to edit', position: { x: x_frac + '%', y: y_frac + '%' } };
+
+    console.dir(new_obj)
 
     if( permission ) {
-        console.log( permission );
+
+        console.log(permission)
+
         append_object( new_obj );
+
+        $('.add_object .txt').editable({onEdit:begin, onSubmit:end});
     }
 });
 
 
+$('.add_object .txt').editable({onEdit:begin, onSubmit:end});
+
+function begin(){
+    this.append('...');
+}
+function end ( text ) {
+
+    var parent = this.parents('.add_object')[0].style;
+
+    this.append('<strong id="savingit">Saving...</strong>')
+    
+    $.post('/stories/' + current_story + '/' + current_frame, { text: text.current, position: [ parent.left, parent.top ] }, function ( data, textStatus, jqXHR ) {
+        
+        $('#savingit').remove();
+
+        console.dir(data)
+    });
+}
 
 function story_background_image ( s ) {
 

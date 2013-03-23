@@ -119,17 +119,13 @@ button#save_story {
 
 .add_object {
 	position: absolute;
-	/*background-color: #9af;*/
 	display: inline-block;
 	border: 1px dotted rgba(220, 220, 220, 0.1);
 	background-color: rgba(220, 220, 220, 0.2);
-	/*top: 22%;*/
 }
 
 .file_picker {
-	/*background: #a55;*/
 	display: inline;
-	/*border: 1px solid #c55;*/
 }
 .file_picker_button {
 	display: none;

@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	Brand = require('./brand'),
 	Rewrite = require('./rewrite'),
 	Interaction = require('./interaction'),
 	frame_properties = {},
@@ -20,8 +19,6 @@ frame_properties.text = { type: String, default: 'No Story' };
 
 frame_properties.rewrites = [ Rewrite.schema ];
 
-frame_properties.brands = [ Brand.schema ];
-
 frame_properties.interactions = [ Interaction.schema ];
 
 frameSchema = new Schema( frame_properties );
@@ -35,22 +32,21 @@ frame_methods.add_text = function ( string ) {
 	return this;
 };
 
-frame_methods.add_interactions = function ( objects ) {
+frame_methods.add_interaction = function ( object ) {
 
-	for( var i = 0, o = objects.length; i < o; i++ ) {
+	console.dir(object)
 
-		var position = objects[i].position === [] ? undefined : objects[i].position,
+	var position = object.position === [] ? undefined : object.position,
 
-			icon = objects[i].icon === '' ? undefined : objects[i].icon,
+		icon = object.icon === '' ? undefined : object.icon,
 
-			text = objects[i].text === '' ? undefined : objects[i].text;
+		text = object.text === '' ? undefined : object.text;
 
-		var interaction = new Interaction({ 'text': text,'icon': icon, 'position': position });
+	var interaction = new Interaction({ 'text': text,'icon': icon, 'position': position });
 
-		this.interactions.push( interaction );
-	}
+	this.interactions.push( interaction );
 
-	return this.interactions;
+	return interaction;
 };
 
 frameSchema.methods = frame_methods;

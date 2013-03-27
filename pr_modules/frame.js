@@ -15,7 +15,7 @@ frame_properties.image = { type: String, default: 'http://pictureread.s3.amazona
 
 frame_properties.thumbnail = { type: String, default: 'http://pictureread.s3.amazonaws.com/WkVpNxbLRiGU5L75xfPt_3.png' };
 
-frame_properties.caption = [ String ]; // type: String, default: 'No Caption' };
+frame_properties.caption = { type: String, default: '' };
 
 frame_properties.rewrites = [ Rewrite.schema ];
 

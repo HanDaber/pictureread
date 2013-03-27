@@ -20,8 +20,9 @@ body {
 
 	z-index: 9999;
 	max-width: 640px;
-	min-width: 120px;
+	min-width: 160px;
 }
+
 
 .sprite-back {
 	background: url('/img/pr_icons.png') no-repeat -43px -103px;

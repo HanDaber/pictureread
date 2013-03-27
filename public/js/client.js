@@ -173,6 +173,8 @@ $.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp 
             else if( type === 'animation' ) return '<img src="' + $(this).data('contents') + '" width="200px" />';
             
             else if( type === 'audio' ) return '<audio controls autobuffer preload><source src="' + $(this).data('contents') + '" type="audio/mpeg"></audio>';
+            
+            else if( type === 'caption' ) return '<em>' + $(this).data('contents') + '</em><b>______</b>';
 
             else return '';
         },
@@ -362,8 +364,8 @@ function toggle( elems, classname ) {
 
 $('#frame_image img').on('dblclick', function ( event ) {
 
-    var x_frac = (event.offsetX / $(event.target).width() * 100),
-        y_frac = ((event.offsetY - 11) / $(event.target).height() * 100),
+    var x_frac = ((event.offsetX - 28) / $(event.target).width() * 100),
+        y_frac = ((event.offsetY - 28) / $(event.target).height() * 100),
         new_obj;
 
     if( permission ) {
@@ -409,8 +411,12 @@ function make_editable( obj ) {
 
             str += '<select name="type">';
 
-            str += '<option disabled selected="selected">object type:</option><option>blurb</option><option>animation</option><option>audio</option></select><br />';
+            str += '<option disabled selected="selected">type of object</option><option>blurb</option><option>animation</option><option>audio</option>';
 
+            str += '<option>caption</option>';
+            
+            str += '</select><br />';
+            
             str += '<textarea rows="3" placeholder="object text" name="media" class="hide" /><br />';
             
             str += '<div id="object-dragdrop" class="well hide">Drop to upload</div>';
@@ -429,7 +435,7 @@ function make_editable( obj ) {
 
         select.on('change', function ( ev ) {
 
-            if( $(this).val() === 'blurb' ) {
+            if( $(this).val() === 'blurb' || $(this).val() === 'caption' ) {
 
                 dragdrop.addClass('hide');
                 text.removeClass('hide');

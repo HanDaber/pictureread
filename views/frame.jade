@@ -4,6 +4,7 @@ block content
 	#story.span12
 		if locals.user && locals.user._type == 'writer'
 			input(name="permission", value="true", type="hidden")
+			.alert double-click on image to add an object at that location, double-click on X to delete an object
 		center
 			h3.caps #{story.title}
 		- var this_frame = story.frames[parseInt(frame) - 1];
@@ -56,7 +57,7 @@ block content
 							<i class="icon-arrow-left interaction-icon {{ type }}"></i>
 							<span class="txt"></span>
 						</a>
-						<i class="icon-remove-sign hide remove-object" id="{{_id}}"></i>
+						<i class="hide remove-object" id="{{_id}}">&times;</i>
 					</div>
 					{{/interactions}}
 				</script>

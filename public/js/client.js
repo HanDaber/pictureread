@@ -159,6 +159,8 @@ $.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp 
         
         // ev.stopPropagation();
 
+        // $('.interaction-popover').filter(this).find('i').addClass('active')
+
         $('.interaction-popover').not(this).popover('hide');
 
     }).popover({
@@ -177,7 +179,7 @@ $.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp 
             
             else if( type === 'caption' ) return '<em>' + $(this).data('contents') + '</em><b>______</b>';
 
-            else return '';
+            else return 'hmm...';
         },
 
         html: true,

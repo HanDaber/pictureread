@@ -32,7 +32,8 @@ block content
 			span.nav-deco 
 				b: em t
 			span.nav-deco.chars
-				img(src="/img/characters.png")
+				a(href="/stories")
+					img(src="/img/characters.png")
 
 		#frame
 			#object-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newObject", aria-hidden="true")
@@ -52,7 +53,7 @@ block content
 					<div class="add_object hidden" style="left:{{position.[0]}}%; top:{{position.[1]}}%;">
 
 						<a class="interaction-popover" href="" data-original-title="{{title}}" data-type="{{type}}" data-contents="{{media}}">
-							<i class="icon-arrow-left {{ type }}"></i>
+							<i class="icon-arrow-left interaction-icon {{ type }}"></i>
 							<span class="txt"></span>
 						</a>
 						<i class="icon-remove-circle hide remove-object" id="{{_id}}"></i>

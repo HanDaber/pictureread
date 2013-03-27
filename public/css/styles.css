@@ -21,8 +21,14 @@ body {
 	z-index: 9999;
 	max-width: 640px;
 	min-width: 160px;
+	background-color: rgba(255, 255, 255, 0.5);
 }
+.popover-title { background-color: transparent; }
 
+.interaction-icon {
+	margin-left: -2em;
+	margin-top: -1.5em;
+}
 
 .sprite-back {
 	background: url('/img/pr_icons.png') no-repeat -43px -103px;
@@ -38,6 +44,11 @@ body {
 
 .caption {
 	background: url('/img/pr_icons.png') no-repeat -162px -24px;
+	width: 59px;
+	height: 59px;
+}
+.caption .active {
+	background: url('/img/pr_icons.png') no-repeat -285px -24px;
 	width: 59px;
 	height: 59px;
 }

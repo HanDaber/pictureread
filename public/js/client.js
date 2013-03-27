@@ -157,11 +157,12 @@ $.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp 
     
         ev.preventDefault();
         
-        ev.stopPropagation();
+        // ev.stopPropagation();
 
         $('.interaction-popover').not(this).popover('hide');
 
     }).popover({
+
         content: function () {
 
             var type = $(this).data('type');
@@ -180,6 +181,8 @@ $.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp 
         },
 
         html: true,
+
+        // trigger: 'manual',
 
         placement: function ( tip, elem ) {
 
@@ -216,7 +219,7 @@ frameimage.on('click', 'img', function(e) {
 
     $('.interaction-popover').popover('hide');
 
-    e.stopPropagation();
+    // e.stopPropagation();
 });
 
 $('.inactive').fadeTo('slow', 0.4);
@@ -364,8 +367,8 @@ function toggle( elems, classname ) {
 
 $('#frame_image img').on('dblclick', function ( event ) {
 
-    var x_frac = ((event.offsetX - 28) / $(event.target).width() * 100),
-        y_frac = ((event.offsetY - 28) / $(event.target).height() * 100),
+    var x_frac = ((event.offsetX - 0) / $(event.target).width() * 100),
+        y_frac = ((event.offsetY - 10) / $(event.target).height() * 100),
         new_obj;
 
     if( permission ) {

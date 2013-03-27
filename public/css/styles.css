@@ -20,6 +20,7 @@ body {
 
 	z-index: 9999;
 	max-width: 640px;
+	min-width: 120px;
 }
 
 .sprite-back {
@@ -40,13 +41,13 @@ body {
 	height: 59px;
 }
 
-.audio {
+.sound {
 	background: url('/img/pr_icons.png') no-repeat -162px -119px;
 	width: 59px;
 	height: 59px;
 }
 
-.music {
+.audio {
 	background: url('/img/pr_icons.png') no-repeat -162px -214px;
 	width: 59px;
 	height: 59px;

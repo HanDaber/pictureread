@@ -171,7 +171,7 @@ $.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp 
 
             if( type === 'blurb' ) return $(this).data('contents');
             
-            else if( type === 'animation' ) return '<img src="' + $(this).data('contents') + '" width="200px" />';
+            else if( type === 'animation' ) return '<img src="' + $(this).data('contents') + '" width="200px" height="200px" />';
             
             else if( type === 'audio' ) return '<audio controls autobuffer preload><source src="' + $(this).data('contents') + '" type="audio/mpeg"></audio>';
             

@@ -194,7 +194,7 @@ $.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp 
 
     if( permission ) {
 
-        $('.remove-object').removeClass('hide').on('click', function ( ev ) {
+        $('.remove-object').removeClass('hide').on('dblclick', function ( ev ) {
 
             var id = $(this).attr('id');
 

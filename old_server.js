@@ -56,85 +56,87 @@ app.configure('development', function() { app.use(express.errorHandler({ dumpExc
 
 // ############ Web routes #############
 
-// root
-app.get( '/', auth.user, function ( req, res ) {
+// Root:
+app.get('/', 
 
-	if( res.locals.user ) res.redirect('/stories');
-
-	else res.render('index');
-
-});
+	auth.public, 
+	
+	routes.index);
 
 
 
-// admin panel
-app.get( '/admin', auth.user, function ( req, res ) {
+// Admin:
+app.namespace('/admin', 
 
-	res.render('admin');
-});
+	auth.public, 
+
+	function () {
+	
+		// admin panel
+		app.get('/', 
+
+			function ( req, res ) {
+
+				res.render('admin') }) });
 
 
 
 // Stories:
-app.namespace('/stories', auth.user, function ( req, res, next ) {
+app.namespace('/stories',  
 
-	if( res.locals.user ) next();
+	auth.user, 
 
-	else res.redirect('/');
+	function () {
 
-}, function () {
+		// all
+		app.get('/', 
 
-	// index
-	app.get( '/', function ( req, res ) {
+			story.all, 
 
-		res.render('stories');
+			function ( req, res ) { res.render('stories') });
+
+		// all json format
+		app.get('/json', 
+
+			story.all_json );
+
+		// read one
+		app.get('/:id/:frame?', 
+
+			story.get, 
+
+			function ( req, res ) { res.render('story') });
+
+		// add edit
+		app.post('/:id/:frame/edits', story.add_edit, function ( req, res ) {
+
+			res.send(res.story);
+		});
+
+		// get frame:
+		app.get('/:s_id/frames/:f_id', frame.get, function ( req, res ) {
+
+			res.send( res.locals.frame );
+		});
+
+		// add interaction
+		app.post('/:s_id/:f_id', auth.writer, frame.add_obj, function ( req, res ) {
+
+			res.send( res.locals.interaction );
+		});
+
+		// create
+		app.post('/', auth.writer, story.create, function ( req, res ) {
+
+			res.send( res.locals.story );
+		});
+
+		// destroy
+		app.post('/:id', auth.writer, story.destroy, function ( req, res ) {
+
+			res.send(res.story);
+		});
 	});
-
-	// all json format
-	app.get('/json', story.all_json );
-
-	// read one
-	app.get('/:id/:frame?', story.get, function ( req, res ) { 
-
-		res.render('frame'); 
-	});
-
-	// add edit
-	app.post('/:id/:frame/edits', story.add_edit, function ( req, res ) {
-
-		res.send(res.story);
-	});
-
-	// get frame:
-	app.get('/:s_id/frames/:f_id', frame.get, function ( req, res ) {
-
-		res.send( res.locals.frame );
-	});
-
-	// remove interaction
-	app.post('/:s_id/:f_id/objects/remove', auth.writer, frame.remove_obj, function ( req, res ) {
-
-		res.send( res.locals.send );
-	});
-	
-	// add interaction
-	app.post('/:s_id/:f_id/:x/:y', auth.writer, frame.add_obj, function ( req, res ) {
-
-		res.send( res.locals.interaction );
-	});
-
-	// create
-	app.post('/', auth.writer, story.create, function ( req, res ) {
-
-		res.send( res.locals.story );
-	});
-
-	// destroy
-	app.post('/:id', auth.writer, story.destroy, function ( req, res ) {
-
-		res.send(res.story);
-	});
-});
 
 
 

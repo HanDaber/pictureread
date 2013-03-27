@@ -1,0 +1,61 @@
+extends layout
+
+block content
+	#story.span12
+		if locals.user && locals.user._type == 'writer'
+			input(name="permission", value="true", type="hidden")
+		center
+			h3.caps #{story.title}
+		- var this_frame = story.frames[parseInt(frame) - 1];
+		input(name="img", type="hidden", value="#{this_frame.image}")
+		input(name="story_id", type="hidden", value="#{story._id}")
+		input(name="frame_id", type="hidden", value="#{this_frame._id}")
+		.frame-nav
+			span.nav-deco 
+				b #{frame}
+			span.nav-deco.plus
+				b &plus;
+			span.nav-deco
+				if frame < 3
+					- var next = parseInt(frame) + 1;
+					a.sprite-fwd(href="/stories/#{story._id}/#{next}")
+				else
+					b.sprite-fwd.inactive
+			span.nav-deco 
+				if frame > 1
+					- var last = parseInt(frame) - 1;
+					a.sprite-back(href="/stories/#{story._id}/#{last}")
+				else
+					b.sprite-back.inactive
+			span.nav-deco 
+				b: em f
+			span.nav-deco 
+				b: em t
+			span.nav-deco.chars
+				img(src="/img/characters.png")
+
+		#frame
+			#object-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newObject", aria-hidden="true")
+				.modal-header
+					button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+					h3#newObject New Object
+				.modal-body
+					center
+
+
+			center
+				#frame_image
+			#objects.
+				<center class="loading"><b>Loading... </b><img src="/img/loader.gif" /></center>
+				<script id="object-template" type="text/x-handlebars-template">
+					{{#interactions}}
+					<div class="add_object hidden" style="left:{{position.[0]}}%; top:{{position.[1]}}%;">
+
+						<a class="interaction-popover" href="" data-original-title="{{title}}" data-type="{{type}}" data-contents="{{media}}">
+							<i class="icon-arrow-left {{ type }}"></i>
+							<span class="txt"></span>
+						</a>
+						<i class="icon-remove-circle hide remove-object" id="{{_id}}"></i>
+					</div>
+					{{/interactions}}
+				</script>

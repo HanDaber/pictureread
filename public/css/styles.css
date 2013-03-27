@@ -16,6 +16,57 @@ body {
 	font-size: 0.8em;
 }
 
+.popover {
+
+	z-index: 9999;
+	max-width: 640px;
+}
+
+.sprite-back {
+	background: url('/img/pr_icons.png') no-repeat -43px -103px;
+	width: 31px;
+	height: 24px;
+}
+
+.sprite-fwd {
+	background: url('/img/pr_icons.png') no-repeat -42px -37px;
+	width: 31px;
+	height: 24px;
+}
+
+.caption {
+	background: url('/img/pr_icons.png') no-repeat -162px -24px;
+	width: 59px;
+	height: 59px;
+}
+
+.audio {
+	background: url('/img/pr_icons.png') no-repeat -162px -119px;
+	width: 59px;
+	height: 59px;
+}
+
+.music {
+	background: url('/img/pr_icons.png') no-repeat -162px -214px;
+	width: 59px;
+	height: 59px;
+}
+
+.blurb {
+	background: url('/img/pr_icons.png') no-repeat -162px -309px;
+	width: 59px;
+	height: 59px;
+}
+
+.animation {
+	background: url('/img/pr_icons.png') no-repeat -162px -404px;
+	width: 58px;
+	height: 59px;
+}
+
+.arrow { display: none; visibility: hidden;}
+
+
 span.nav {
 	margin: 0 2em;
 }
@@ -120,8 +171,13 @@ button#save_story {
 .add_object {
 	position: absolute;
 	display: inline-block;
-	border: 1px dotted rgba(220, 220, 220, 0.1);
-	background-color: rgba(220, 220, 220, 0.2);
+	/*border: 1px dotted rgba(220, 220, 220, 0.1);*/
+	/*background-color: rgba(220, 220, 220, 0.2);*/
+}
+
+.remove-object {
+
+	cursor: pointer;
 }
 
 .file_picker {

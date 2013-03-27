@@ -1,6 +1,7 @@
 var info_form = $('#info_form'),
-    submit_info = info_form.find('a')
+    submit_info = info_form.find('a'),
     email_pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/),
+    base_url = 'http://pictureread.s3.amazonaws.com/',
     frame_links_resize = $('.frames').find('a'),
     story_image_resize = $('#story'),
     permission = $('input[name=permission]').val(),
@@ -31,6 +32,8 @@ Handlebars.registerHelper("each_i", function ( array, fn ) {
     return buffer;
  
 });
+
+
 
 
 
@@ -66,11 +69,13 @@ submit_info.on('click', function ( ev ) {
 
 $('.banner-image').find('img').addClass('in');
 
-// Stories:
 
+
+// Stories:
 $.get('/stories/json', function ( data ) {
 
-    console.log('got dayta ' + data)
+    console.log('got stories ')
+    console.dir(data)
     
     var fragment = $('<div>'),
         story_data = {
@@ -97,7 +102,6 @@ $('#save_story').on('click', function ( event ) {
         frames = [];
 
     var f1 = { 
-        // text: frame_1.find("textarea").val() || '',
         image: frame_1.find("input.image").val() || '',
         thumbnail: frame_1.find("input.thumbnail").val() || ''
     };
@@ -105,7 +109,6 @@ $('#save_story').on('click', function ( event ) {
     frames.push(f1);
 
     var f2 = { 
-        // text: frame_2.find("textarea").val() || '',
         image: frame_2.find("input.image").val() || '',
         thumbnail: frame_2.find("input.thumbnail").val() || ''
     };
@@ -113,7 +116,6 @@ $('#save_story').on('click', function ( event ) {
     frames.push(f2);
 
     var f3 = { 
-        // text: frame_3.find("textarea").val() || '',
         image: frame_3.find("input.image").val() || '',
         thumbnail: frame_3.find("input.thumbnail").val() || ''
     };
@@ -125,8 +127,6 @@ $('#save_story').on('click', function ( event ) {
         console.log(data);
         
         if( data ) {
-
-            // $.post('/stories/' + data._id, );
         
             $('#stories').append('' + data);
         }
@@ -144,74 +144,105 @@ $('.destroy_story').on('click', function ( event ) {
 // Frame:
 $.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp ) {
 
-    console.dir(resp)
+    var source = $('#object-template').html() || '<script></script>';
 
-    for( var i = 0, o = resp.interactions.length; i < o; i++ ) {
+    var template = Handlebars.compile( source );
 
-        var interaction = resp.interactions[i];
+    var html = template( resp );
 
-        interaction.position.x = interaction.position[0];
+    frameimage.append( html );
 
-        interaction.position.y = interaction.position[1];
 
-        append_object( interaction );
+    $('.interaction-popover').click(function(ev){
+    
+        ev.preventDefault();
+        
+        ev.stopPropagation();
+
+        $('.interaction-popover').not(this).popover('hide');
+
+    }).popover({
+        content: function () {
+
+            var type = $(this).data('type');
+
+            console.dir($(this).data('type'));
+
+            if( type === 'blurb' ) return $(this).data('contents');
+            
+            else if( type === 'animation' ) return '<img src="' + $(this).data('contents') + '" width="200px" />';
+            
+            else if( type === 'audio' ) return '<audio controls autobuffer preload><source src="' + $(this).data('contents') + '" type="audio/mpeg"></audio>';
+
+            else return '';
+        },
+
+        html: true,
+
+        placement: function ( tip, elem ) {
+
+            console.log( elem.parentElement )
+
+            return elem.parentElement.offsetTop < 100 ? 'bottom' : 'top';
+        }
+    });
+
+    if( permission ) {
+
+        $('.remove-object').removeClass('hide').on('click', function ( ev ) {
+
+            var id = $(this).attr('id');
+
+            $.post('/stories/' + current_story + '/' + current_frame + '/objects/remove/', { id: id }, function ( data, status, xhr ) {
+
+                if( data ) {
+
+                    console.log('remove object data ' + data)
+
+                    $(ev.target).parent('.add_object').remove();
+                }
+            });
+        });
+    }
+
+
+    $('.loading').remove();
+});
+
+
+frameimage.on('click', 'img', function(e) {
+
+    $('.interaction-popover').popover('hide');
+
+    e.stopPropagation();
+});
+
+$('.inactive').fadeTo('slow', 0.4);
+
+
+$('.plus').on('click', function ( event ) {
+
+    var inner = $(event.target).find('b');
+
+    if( !inner.html() ) inner = $(event.target);
+    
+    console.dir(inner.html())
+
+    if( inner.html() === '+' ) {
+
+        inner.html('&minus;');
+
+        $('.add_object').removeClass('hidden');
+    } else {
+
+        inner.html('&plus;');
+
+        $('.add_object').addClass('hidden');
     }
 });
 
 
 
-
-
-function append_object( obj ) {
-    frameimage.append('<div class="add_object" style="top:' + obj.position.y + '; left:' + obj.position.x + ';"><i class="icon-play"></i><span class="txt">' + obj.text + '</span><a href=""><i class="icon-cancel"></i></a></div>');
-}
-
-
-$('#edit_frame')
-    .on('mouseenter', function ( event ) {
-
-        toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
-    })
-    .on('mouseleave', function ( event ) {
-
-        var text_input = $('input[name=text]');
-
-        if( text_input.is(':focus') ) {
-
-            text_input.on('focusout', function () {
-
-                toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
-            });
-        } else {
-
-            toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
-        }
-    })
-    .find('a.edit')
-    .on('click', function ( event ) {
-
-        event.preventDefault();
-
-        var text_input = $('input[name=text]');
-
-        if( text_input.is(':focus') ) {
-
-            text_input.on('focusout', function () {
-
-                toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
-            });
-        } else {
-
-            toggle( [$('.edit_form'), $('.edit_hover')], 'hide' );
-        }
-    });
-function toggle( elems, classname ) {
-
-    for(var i = 0, e = elems.length; i < e; i++) {
-
-        elems[i].toggleClass( classname );
-    }
-}
 
 $('.edit_form').on('submit', function ( event ) {
 
@@ -278,8 +309,7 @@ function files_saved ( event ) {
         thumbnail = $('<img>'),
         text = $('<textarea>'),
         image_source = $('<input>'),
-        thumb_source = $('<input>'),
-        base_url = 'http://pictureread.s3.amazonaws.com/';
+        thumb_source = $('<input>');
 
     target_element.html('<b>Please wait... </b><img src="/img/loader.gif" />');
 
@@ -321,45 +351,156 @@ function files_saved ( event ) {
 }
 
 
-$('#frame_image img').on('click', function ( event ) {
+    
+function toggle( elems, classname ) {
+
+    for(var i = 0, e = elems.length; i < e; i++) {
+
+        elems[i].toggleClass( classname );
+    }
+}
+
+$('#frame_image img').on('dblclick', function ( event ) {
 
     var x_frac = (event.offsetX / $(event.target).width() * 100),
-        y_frac = (event.offsetY / $(event.target).height() * 100),
+        y_frac = ((event.offsetY - 11) / $(event.target).height() * 100),
         new_obj;
-
-    new_obj = { icon: '', text: 'click to edit', position: { x: x_frac + '%', y: y_frac + '%' } };
-
-    console.dir(new_obj)
 
     if( permission ) {
 
-        console.log(permission)
+        new_obj = { icon: '', text: 'click to edit', position: [ x_frac, y_frac ] };
 
-        append_object( new_obj );
+        // console.dir(new_obj)
 
-        $('.add_object .txt').editable({onEdit:begin, onSubmit:end});
+        // append_object( new_obj );
+
+        make_editable( new_obj );
+    }
+
+}).on('hover', function ( event ) {
+
+    if( permission ) {
+
+        $(event.target).css('cursor', 'crosshair');
     }
 });
 
 
-$('.add_object .txt').editable({onEdit:begin, onSubmit:end});
 
-function begin(){
-    this.append('...');
+
+
+function append_object( obj ) {
+    frameimage.append('<div class="add_object temp" style="left:' + obj.position[0] + '%; top:' + obj.position[1] + '%;"><i class="icon-arrow-left"></i><span class="txt">' + obj.title + '</span><a href=""><i class="icon-cancel"></i></a></div>');
 }
-function end ( text ) {
 
-    var parent = this.parents('.add_object')[0].style;
+function make_editable( obj ) {
 
-    this.append('<strong id="savingit">Saving...</strong>')
-    
-    $.post('/stories/' + current_story + '/' + current_frame, { text: text.current, position: [ parent.left, parent.top ] }, function ( data, textStatus, jqXHR ) {
-        
-        $('#savingit').remove();
+    var elem = $('.add_object .txt').last();
 
-        console.dir(data)
-    });
+    elem.css('z-index', '999');
+
+    // elem.on('click', function ( event ) {
+
+        $('#object-modal').find('.modal-body center').html(function () {
+
+            var str = '<form id="new-object-form" action="/stories/' + current_story + '/' + current_frame + '/' + obj.position[0] + '/' + obj.position[1] + '" method="post">';
+
+            str += '<input type="text" placeholder="object title" name="title" /><br />';
+
+            str += '<select name="type">';
+
+            str += '<option disabled selected="selected">object type:</option><option>blurb</option><option>animation</option><option>audio</option></select><br />';
+
+            str += '<textarea rows="3" placeholder="object text" name="media" class="hide" /><br />';
+            
+            str += '<div id="object-dragdrop" class="well hide">Drop to upload</div>';
+
+            str += '<input type="submit" value="save" class="btn btn-primary disabled" id="object-submit" />';
+            
+            str += '</form>';
+
+            return str;
+        });
+
+        var dragdrop = $('#object-dragdrop'),
+            select = $('select[name=type]'),
+            text = $('textarea[name=media]');
+
+
+        select.on('change', function ( ev ) {
+
+            if( $(this).val() === 'blurb' ) {
+
+                dragdrop.addClass('hide');
+                text.removeClass('hide');
+            } else {
+
+                dragdrop.removeClass('hide');
+                text.addClass('hide');
+            }
+
+            $('#object-submit').removeClass('disabled');
+        });
+
+        $('form#new-object-form').on('submit', function ( ev ) {
+
+            ev.preventDefault();
+
+            var data = {
+                title: $(this).find('input[name=title]').val(),
+                type: $(this).find('select[name=type]').val(),
+                media: $(this).find('[name=media]').val()
+            }
+
+            $(this)[0].reset();
+
+            $('#object-modal').modal('hide');
+
+            $.post('/stories/' + current_story + '/' + current_frame + '/' + obj.position[0] + '/' + obj.position[1], data, function ( resp, status, xhr ) {
+
+                if( resp ) {
+
+                    console.dir(resp)
+                    append_object( resp );    
+                }
+                
+                $('.add_object .temp').remove(); // NO WORK?!?!?!
+            });
+        });
+
+        filepicker.setKey('ADu2duDHmRqOkJyuusshfz');
+
+        filepicker.makeDropPane(dragdrop, {
+            multiple: false,
+            dragEnter: function() {
+                dragdrop.html("Drop to upload").css({
+                    'backgroundColor': "#E0E0E0",
+                    'border': "1px solid #000"
+                });
+            },
+            dragLeave: function() {
+                dragdrop.html("Drop files here").css({
+                    'backgroundColor': "#F6F6F6",
+                    'border': "1px dashed #666"
+                });
+            },
+            onSuccess: function(fpfiles) {
+                dragdrop.text("Done");
+
+                $('#object-modal').find('.modal-body form').prepend('<input type="hidden" value="' + base_url + fpfiles[0].key + '" name="media">');
+            },
+            onError: function(type, message) {
+                console.log('('+type+') '+ message);
+            },
+            onProgress: function(percentage) {
+                dragdrop.text("Uploading ("+percentage+"%)");
+            }
+        });
+
+        $('#object-modal').modal();
+    // });
 }
+
 
 function story_background_image ( s ) {
 

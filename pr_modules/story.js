@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
+	slug = require('mongoose-slug'),
 	Frame = require('./frame'),
 	Brand = require('./brand'),
 	story_properties = {},
@@ -11,7 +12,7 @@ var mongoose = require('mongoose'),
 
 
 
-story_properties.title = { type: String, default: 'No Title' };
+story_properties.title = { type: String, default: 'Title ' + Date.now };
 
 story_properties.frames = [ Frame.schema ];
 
@@ -53,6 +54,10 @@ story_methods.frame = function( id, cb ) {
 };
 
 storySchema.methods = story_methods;
+
+
+
+storySchema.plugin( slug('title') );
 
 
 

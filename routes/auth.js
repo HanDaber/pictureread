@@ -1,21 +1,23 @@
 var User = require('../pr_modules/user'),
 	Writer = require('../pr_modules/writer');
 
-exports.public = function ( req, res, next ) {
 
-	console.log('exports.public: \n')
-	console.dir(req.session.user)
-	// User is logged in
+
+exports.user = function ( req, res, next ) {
+
+	// if a user is logged in, fill in res.locals.user
 	if( req.session.user ) {
 
 		var type = req.session.user._type,
 			username = req.session.user.username;
 
-		console.log(username + " is logged in")
+			console.log(username + " is logged in\n");
 
 		if( type === 'writer' ) Writer.findOne({ 'username': username }, handle_user );
 		
 		else User.findOne({ 'username': username }, handle_user );
+
+
 
 		function handle_user ( err, user ) {
 
@@ -31,39 +33,6 @@ exports.public = function ( req, res, next ) {
 	} else {
 
 		next();
-	}
-};
-
-exports.user = function ( req, res, next ) {
-
-	console.log('exports.user: \n')
-	console.dir(req.session.user)
-	// User is logged in
-	if( req.session.user ) {
-
-		var type = req.session.user._type,
-			username = req.session.user.username;
-
-		console.log(username + " is logged in")
-
-		if( type === 'writer' ) Writer.findOne({ 'username': username }, handle_user );
-		
-		else User.findOne({ 'username': username }, handle_user );
-
-		function handle_user ( err, user ) {
-
-			if( err ) console.log('login error ' + err);
-
-			else if( !user ) console.log('no such user to log in...');
-
-			else res.locals.user = user;
-
-			next();
-		}
-
-	} else {
-
-		res.redirect('/');
 
 	}
 };

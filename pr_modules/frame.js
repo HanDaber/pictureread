@@ -15,7 +15,7 @@ frame_properties.image = { type: String, default: 'http://pictureread.s3.amazona
 
 frame_properties.thumbnail = { type: String, default: 'http://pictureread.s3.amazonaws.com/WkVpNxbLRiGU5L75xfPt_3.png' };
 
-frame_properties.text = { type: String, default: 'No Story' };
+frame_properties.caption = [ String ]; // type: String, default: 'No Caption' };
 
 frame_properties.rewrites = [ Rewrite.schema ];
 
@@ -25,24 +25,24 @@ frameSchema = new Schema( frame_properties );
 
 
 
-frame_methods.add_text = function ( string ) {
+frame_methods.add_caption = function ( string ) {
 
-	this.text = string;
+	this.caption.push(string);
 
 	return this;
 };
 
 frame_methods.add_interaction = function ( object ) {
 
-	console.dir(object)
-
 	var position = object.position === [] ? undefined : object.position,
 
-		icon = object.icon === '' ? undefined : object.icon,
+		type = object.type === '' ? undefined : object.type,
 
-		text = object.text === '' ? undefined : object.text;
+		media = object.media === '' ? undefined : object.media,
 
-	var interaction = new Interaction({ 'text': text,'icon': icon, 'position': position });
+		title = object.title === '' ? undefined : object.title;
+
+	var interaction = new Interaction({ 'title': title,'type': type, 'position': position, 'media': media });
 
 	this.interactions.push( interaction );
 

@@ -24,7 +24,7 @@ exports.all_json = function ( req, res, next ) {
 
 	Story.find().sort('-created').exec(function (err, stories) {
 
-		if (!err) { res.send( stories ); console.dir(stories); }
+		if (!err) { res.send( stories ); /*console.dir(stories);*/ }
 
 		else res.send( false );
 	});
@@ -62,11 +62,11 @@ exports.create = function ( req, res, next ) {
 
 	res.locals.frames = story.add_frames(req.body.frames);
 
-	console.log('made story \n')
-	console.dir(story)
+	// console.log('made story \n')
+	// console.dir(story)
 
-	console.log('adding frames \n')
-	console.dir(res.locals.frames)
+	// console.log('adding frames \n')
+	// console.dir(res.locals.frames)
 
 	story.save(function (err) {
 

@@ -2,11 +2,10 @@ doctype 5
 html
 	head
 		meta(charset="utf-8")
-		meta(name='viewport', 
-			content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5")
+		meta(name='viewport', content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.5")
 
-		title PictureRead
-
+		title= 'PictureRead'
+		
 		link(rel="stylesheet", type="text/css", href="/css/bootstrap.min.css", media="screen")
 		link(rel="stylesheet", type="text/css", href="/css/bootstrap-responsive.min.css", media="screen")
 		link(rel="stylesheet", type="text/css", href="/css/bootstrap-editable.css", media="screen")
@@ -16,22 +15,19 @@ html
 		.container
 			.row
 				header
-					.span1
-						a(href="/")
-							img.logo(src="/img/logo.png")
+					include partials/header
 
 				include partials/user
 
-			.row.content
+				block nav
 
+			.row.content
 				block content
 
 		script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js")
 		script(src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false")
-		script(src="http://api.filepicker.io/v1/filepicker.js")
 		script(src="/js/bootstrap.min.js")
+		script(src="http://api.filepicker.io/v1/filepicker.js")
 		script(src="/js/handlebars.js")
 		script(src="/js/bootstrap-editable.min.js")
 		script(src="/js/client.js")
-
-		block script

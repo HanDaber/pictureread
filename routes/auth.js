@@ -1,6 +1,20 @@
-var User = require('../pr_modules/user'),
-	Writer = require('../pr_modules/writer');
+var User = require('../pr_modules/user');
 
+
+
+
+exports.public = function ( req, res, next ) {
+
+	// if a user is logged in, fill in res.locals.user
+	if( req.session.user ) {
+
+		res.locals.user = req.session.user;
+
+		next();
+	}
+
+	else next();
+};
 
 
 exports.user = function ( req, res, next ) {
@@ -11,28 +25,37 @@ exports.user = function ( req, res, next ) {
 		var type = req.session.user._type,
 			username = req.session.user.username;
 
-			console.log(username + " is logged in\n");
+			console.log(username + ' : ' + type + " is logged in\n");
 
-		if( type === 'writer' ) Writer.findOne({ 'username': username }, handle_user );
-		
-		else User.findOne({ 'username': username }, handle_user );
-
-
+		User.findOne({ 'username': username }, handle_user );
 
 		function handle_user ( err, user ) {
 
-			if( err ) console.log('login error ' + err);
+			if( err ) {
 
-			else if( !user ) console.log('no such user to log in...');
+				console.log('login error ' + err);
 
-			else res.locals.user = user;
+				res.redirect('/');
+			} 
 
-			next();
+			else if( !user ) {
+
+				console.log('no such user to log in...');
+
+				res.redirect('/');
+			}
+
+			else {
+				// Success
+				res.locals.user = user;
+
+				next();
+			}
 		}
 
 	} else {
 
-		next();
+		res.redirect('/');
 
 	}
 };
@@ -56,23 +79,37 @@ exports.login = function ( req, res, next ) {
 
 	console.log('Finding user ' + req.body.name + '\n')
 
-	if( type === 'writer' ) Writer.findOne({ 'username': req.body.name }, handle_user );
+	// if( type === 'writer' ) Writer.findOne({ 'username': req.body.name }, handle_user );
 	
-	else User.findOne({ 'username': req.body.name }, handle_user );
+	// else 
+	User.findOne({ 'username': req.body.name }, handle_user );
 
 	function handle_user ( err, user ) {
 
-		if( err ) console.log('login error ' + err);
+		if( err ) {
 
-		else if( !user ) console.log('no such user to log in...');
+			console.log('login error ' + err);
 
-		else if( user.authenticate( req.body.pass ) ) req.session.user = user;
+			res.redirect('/');
+		}
 
-		// if( type === 'writer' ) req.session.user._type = 'writer';
+		else if( !user ) {
 
-		req.session.save();
+			console.log('no such user to log in...');
+			
+			req.session.destroy();
 
-		next();
+			res.redirect('/');
+		}
+
+		else if( user.authenticate( req.body.pass ) ) {
+
+			req.session.user = user;
+
+			req.session.save();
+
+			next();
+		}
 	}
 };
 

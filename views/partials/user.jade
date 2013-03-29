@@ -7,5 +7,8 @@ span.user
 			input.span1(type="text", name="name", placeholder="Username")
 			input.span1(type="password", name="pass", placeholder="Password")
 			button#log_in.btn.btn-mini(type="submit") Login
-	a.navi(href="/stories") stories
-	a.navi(href="/admin") admin
+
+	if locals.user 
+		a.navi(href="/stories") stories
+		if locals.user._type == 'writer'
+			a.navi(href="/admin") admin

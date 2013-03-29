@@ -28,55 +28,111 @@ body {
 .popover-title { background-color: transparent; }
 
 .interaction-icon {
-	margin-left: -2em;
-	margin-top: -1.5em;
+	margin-left: -1.2em;
+	margin-top: -0.7em;
+}
+
+.sprite-plus {
+	background: url('/img/PR_icons_set.png') no-repeat -96px -233px;
+	width: 32px;
+	height: 32px;
+	position: relative;
+	margin-left: -0.1em;
+}
+
+.sprite-plus.active {
+	background: url('/img/PR_icons_set.png') no-repeat -24px -233px;
+	width: 32px;
+	height: 33px;
 }
 
 .sprite-back {
-	background: url('/img/pr_icons.png') no-repeat -43px -103px;
-	width: 31px;
-	height: 24px;
+	background: url('/img/PR_icons_set.png') no-repeat -91px -294px;
+	width: 18px;
+	height: 15px;
+	position: relative;
+	top: 0.2em;
 }
 
 .sprite-fwd {
-	background: url('/img/pr_icons.png') no-repeat -42px -37px;
-	width: 31px;
-	height: 24px;
+	background: url('/img/PR_icons_set.png') no-repeat -45px -295px;
+	width: 18px;
+	height: 15px;
+	position: relative;
+	top: 0.2em;
+}
+
+.sprite-twitter {
+	background: url('/img/PR_icons_set.png') no-repeat -25px -325px;
+	width: 38px;
+	height: 32px;
+	margin-left: -0.4em;
+}
+
+.sprite-twitter:hover {
+	background: url('/img/PR_icons_set.png') no-repeat -92px -324px;
+	width: 38px;
+	height: 32px;
+}
+
+.sprite-fb {
+	background: url('/img/PR_icons_set.png') no-repeat -34px -372px;
+	width: 16px;
+	height: 33px;
+}
+
+.sprite-fb:hover {
+	background: url('/img/PR_icons_set.png') no-repeat -100px -371px;
+	width: 17px;
+	height: 33px;
 }
 
 .caption {
-	background: url('/img/pr_icons.png') no-repeat -162px -24px;
-	width: 59px;
-	height: 59px;
+	background: url('/img/pr_icons_sm.png') no-repeat -79px -10px;
+	width: 34px;
+	height: 34px;
 }
 .caption .active {
-	background: url('/img/pr_icons.png') no-repeat -285px -24px;
-	width: 59px;
-	height: 59px;
-}
-
-.sound {
-	background: url('/img/pr_icons.png') no-repeat -162px -119px;
-	width: 59px;
-	height: 59px;
+	background: url('/img/pr_icons_sm.png') no-repeat -140px -10px;
+	width: 34px;
+	height: 34px;
 }
 
 .audio {
-	background: url('/img/pr_icons.png') no-repeat -162px -214px;
-	width: 59px;
-	height: 59px;
+	background: url('/img/pr_icons_sm.png') no-repeat -79px -105px;
+	width: 34px;
+	height: 34px;
+}
+
+.audio .active {
+	background: url('/img/pr_icons_sm.png') no-repeat -140px -105px;
+	width: 34px;
+	height: 34px;
 }
 
 .blurb {
-	background: url('/img/pr_icons.png') no-repeat -162px -309px;
-	width: 59px;
-	height: 59px;
+	background: url('/img/pr_icons_sm.png') no-repeat -79px -152px;
+	width: 34px;
+	height: 34px;
 }
 
+.blurb .active {
+	background: url('/img/pr_icons_sm.png') no-repeat -140px -152px;
+	width: 34px;
+	height: 34px;
+}
+
+
 .animation {
-	background: url('/img/pr_icons.png') no-repeat -162px -404px;
-	width: 58px;
-	height: 59px;
+	background: url('/img/pr_icons_sm.png') no-repeat -78px -200px;
+	width: 35px;
+	height: 34px;
+}
+
+.animation .active {
+	background: url('/img/pr_icons_sm.png') no-repeat -140px -200px;
+	width: 34px;
+	height: 34px;
 }
 
 .arrow { display: none; visibility: hidden;}
@@ -166,16 +222,37 @@ button#save_story {
 	display: inline-block;
 	width: 2em;
 	height: 2.5em;
-	border: 1px dotted #aaa;
+	/*border: 1px dotted #aaa;*/
+	/*border-bottom: 1px solid #aaa;*/
 	margin: 0.2em;
 	text-align: center;
 	vertical-align: middle;
-	background: #eee;
+	/*background: #eee;*/
 	font-weight: 600;
+	position: relative;
+}
+.nav-deco.more {
+	border: none;
+	display: none;
 }
 .nav-deco a, .nav-deco b {
 	display: inline-block;
 	margin-top: 0.5em;
+	position: relative;
+}
+.chars {
+	border: none;
+}
+.chars img {
+	/*position: relative;*/
+	top: -0.2em;
+}
+.chars small {
+	display: none;
+}
+
+.frame-number {
+	margin: -0.1em 0 0 0;
 }
 
 #edit_frame {
@@ -191,8 +268,13 @@ button#save_story {
 }
 
 .remove-object {
-
+	color: #a00;
+	font-weight: 600;
+	font-size: 1.2em;
 	cursor: pointer;
+	position: relative;
+	top: -0.6em;
+	left: -0.2em;
 }
 
 .file_picker {
@@ -229,25 +311,57 @@ button#save_story {
 		width: 4.5em;
 	}
 
+	.nav-deco {
+		border-bottom: 1px solid #aaa;
+	}
+
+	.chars {
+		border: none;
+	}
+
+	.chars small {
+		display: inline-block;
+	}
+
+	.nav-deco.more {
+		display: inline-block;
+		top: 1.2em;
+	}
+
 	.frame-nav span {
 		display: block;
 		width: 4em;
 		height: 4em;
-		background: rgba(230, 230, 230, 0.3);
+		/*background: rgba(230, 230, 230, 0.3);*/
+	}
+
+	.frame-number {
+		margin: 0.3em 0 0 0;
+	}
+
+	.sprite-fb, .sprite-twitter {
+
+		margin-top: 0.8em;
 	}
 
 	.nav-deco a, .nav-deco b {
 		margin-top: 1.2em;
 	}
 
+	.chars img {
+		margin-top: -1.5em;
+		display: block;
+		border-bottom: 1px solid #aaa;
+	}
+
 	.file_picker_drag {
 		display: inline-block;
 		width: 30%;
 		height: 8em;
-		/*position: relative;*/
-		/*left: -0.2em;*/
-		/*padding: 1em;*/
-		/*margin: 1em auto;*/
+	}
+
+	.sprite-plus {
+		margin-top: 0.8em;
 	}
 }
 

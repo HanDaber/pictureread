@@ -11,18 +11,8 @@ var express = require('express'),
 	routes = require('./routes'),
 	auth = require('./routes/auth'),
 	story = require('./routes/story'),
-	frame = require('./routes/frame');
-
-var rtg, redis;
-
-// Heroku redistogo connection
-if( process.env.REDISTOGO_URL ) {
-  rtg   = require('url').parse( process.env.REDISTOGO_URL );
-  redis = require('redis').createClient( rtg.port, rtg.hostname );
-  redis.auth( rtg.auth.split(':')[1] ); // auth: 1st part is username and 2nd is password separated by ":"
-}
-// Localhost
-else redis = require("redis").createClient();
+	frame = require('./routes/frame'),
+	redis = require('./redis');
 
 
 // Configure express
@@ -39,7 +29,7 @@ app.configure(function() {
 	app.use(express.cookieParser('48tyh984tv9q8eyjtd9reufw98euryt8c4utyufr2yg4fu2hg2894hf984yfh824h8u45fht28984hu'));
 
 	app.use(express.session({
-		secret: process.env.CLIENT_SECRET || "38745683334f3r47rgd_PR_83y48fh3u3hef83473747384r7fheuhfd",
+		secret: process.env.CLIENT_SECRET || "386rujrjr687i8i578o745683334f3r47rgd_PR_83y48fh3u3hef83473747384r7fheuhfd",
 		maxAge: Date.now() + 7200000, // 2h Session lifetime
 		store: new redis_store({ client: redis })
 	}));
@@ -54,21 +44,99 @@ app.configure('development', function() { app.use(express.errorHandler({ dumpExc
 
 
 
-// ############ Web routes #############
 
-// root
-app.get( '/', auth.user, function ( req, res ) {
+// Routes
 
-	if( res.locals.user ) res.redirect('/stories');
+// Web root
+app.get('/', auth.public, function ( req, res ) {
 
-	else res.render('index');
-
+	res.render('home');
 });
+
+// // Web
+// app.get('/sections', auth.user, sections.featured, stories.featured, function ( req, res ) {
+
+// 	if( res.locals.user._type === 'writer' ) res.render('index');
+
+// 	else res.render('index'); 	});
+
+// // API
+// app.get('/sections/:brand_name', auth.user, stories.by_section, function ( req, res ) {
+
+// 	if( res.locals.user._type === 'writer' ) res.send( res.locals.stories );
+
+// 	else res.send( res.locals.stories );	});
+
+
+
+// // Web
+// app.get('/stories/:slug', auth.user, stories.by_slug, frames.by_story, function ( req, res ) {
+
+// 	if( res.locals.user._type === 'writer' ) res.render('frame');
+
+// 	else res.render('frame'); 	});
+
+// // API
+// app.get('/stories/:slug/:frame', auth.user, stories.by_slug, frames.by_story, function ( req, res ) {
+
+// 	if( res.locals.user._type === 'writer' ) res.send( res.locals.frame );
+
+// 	else res.send( res.locals.frame );	});
+
+
+
+// http.createServer(app).listen(app.get('port'), function(){
+//   console.log("Express server listening on port " + app.get('port'));
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 // admin panel
-app.get( '/admin', auth.user, function ( req, res ) {
+app.get( '/admin', auth.user, auth.writer, function ( req, res ) {
 
 	res.render('admin');
 });
@@ -167,10 +235,6 @@ app.get('/logout', auth.logout, function ( req, res ) {
 	
 	res.redirect('/');
 });
-
-
-
-
 
 
 http.createServer(app).listen(app.get('port'), function(){

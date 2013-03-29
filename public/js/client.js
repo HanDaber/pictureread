@@ -175,7 +175,7 @@ $.get('/stories/' + current_story + '/frames/' + current_frame, function ( resp 
             
             else if( type === 'animation' ) return '<img src="' + $(this).data('contents') + '" width="200px" height="200px" />';
             
-            else if( type === 'audio' ) return '<audio controls autobuffer preload><source src="' + $(this).data('contents') + '" type="audio/mpeg"></audio>';
+            else if( type === 'audio' ) return '<audio controls autobuffer preload autoplay><source src="' + $(this).data('contents') + '" type="audio/mpeg"></audio>';
             
             else if( type === 'caption' ) return '<em>' + $(this).data('contents') + '</em><b>______</b>';
 
@@ -227,25 +227,11 @@ frameimage.on('click', 'img', function(e) {
 $('.inactive').fadeTo('slow', 0.4);
 
 
-$('.plus').on('click', function ( event ) {
+$('.expand').on('click', 'i', function ( event ) {
 
-    var inner = $(event.target).find('b');
+    $('.add_object').toggleClass('hidden');
 
-    if( !inner.html() ) inner = $(event.target);
-    
-    console.dir(inner.html())
-
-    if( inner.html() === '+' ) {
-
-        inner.html('&minus;');
-
-        $('.add_object').removeClass('hidden');
-    } else {
-
-        inner.html('&plus;');
-
-        $('.add_object').addClass('hidden');
-    }
+    $(this).toggleClass('active');
 });
 
 

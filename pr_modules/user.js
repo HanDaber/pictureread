@@ -12,8 +12,6 @@ var mongoose = require('mongoose'),
 
 user_properties.email = { type: String, default: 'No Email' };
 
-user_properties.edits = [ Schema.Types.ObjectId ];
-
 user_properties._type = { type: String, default: 'user' };
 
 userSchema = new Schema( user_properties );

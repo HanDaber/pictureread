@@ -11,13 +11,11 @@ var mongoose = require('mongoose'),
 
 interaction_properties.position = { type: Array, default: [ '0', '0' ] };
 
-// interaction_properties.icon = { type: String, default: 'http://s3.aws.com/pic/82382365' };
+interaction_properties.type = { type: String, default: '' };
 
-interaction_properties.type = { type: String, default: 'blurb' };
+// interaction_properties.title = { type: String, default: 'New Object' };
 
-interaction_properties.title = { type: String, default: 'New Object' };
-
-interaction_properties.media = String;
+interaction_properties.media = { type: String, default: '' };
 
 interactionSchema = new Schema( interaction_properties );
 

@@ -79,9 +79,6 @@ exports.login = function ( req, res, next ) {
 
 	console.log('Finding user ' + req.body.name + '\n')
 
-	// if( type === 'writer' ) Writer.findOne({ 'username': req.body.name }, handle_user );
-	
-	// else 
 	User.findOne({ 'username': req.body.name }, handle_user );
 
 	function handle_user ( err, user ) {

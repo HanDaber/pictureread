@@ -9,6 +9,12 @@ span.user
 			button#log_in.btn.btn-mini(type="submit") Login
 
 	if locals.user 
-		a.navi(href="/stories") stories
+		a.navi(href="/read") sections
 		if locals.user._type == 'writer'
 			a.navi(href="/admin") admin
+			#permission.true
+
+if locals.user
+	if locals.user._type == 'writer'
+		block script
+			script(src="http://api.filepicker.io/v1/filepicker.js")

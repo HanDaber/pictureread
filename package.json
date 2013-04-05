@@ -9,9 +9,10 @@
     "express": "3.0.0rc3",
     "express-namespace": "*",
     "jade": "*",
+    "underscore": "*",
     "redis": "*",
     "connect-redis": "*",
-    "mongoose": "*",
+    "mongoose": ">= 3.6.4",
     "basic-auth-mongoose": "*",
     "mongoose-schema-extend": "*",
     "mongoose-slug": "*"

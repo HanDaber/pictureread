@@ -5,10 +5,12 @@ block content
 		if locals.user && locals.user._type == 'writer'
 			center
 				h2 Hi, #{user.username}
-				input(name="permission", value="true", type="hidden")
 			hr
 			hr
 
+			button.btn.span4 New User
+
+		else
 			center.modal-button
 				a.btn(href="", role="button", data-toggle="modal", data-target="#story_modal") Create new story
 				
@@ -71,15 +73,3 @@ block content
 
 						center.save_story
 							button#save_story.btn(type="submit") Save
-
-		else
-			p
-			hr
-			center
-				.well
-					h3 Admin Login
-					form(action="/login", method="post")#admin_form.form-inline
-						input.span2(type="text", name="name", placeholder="Username")
-						input.span2(type="password", name="pass", placeholder="Password")
-						input.span2(type="hidden", name="type", value="writer")
-						button#log_in_admin.btn(type="submit") Login

@@ -221,10 +221,9 @@ frameimage.on('click', 'img', function(e) {
 
     $('.interaction-popover').popover('hide');
 
-    // e.stopPropagation();
 });
 
-$('.inactive').fadeTo('slow', 0.4);
+$('.inactive').fadeTo('fast', 0.3);
 
 
 $('.expand').on('click', 'i', function ( event ) {
@@ -388,114 +387,107 @@ function append_object( obj ) {
 
 function make_editable( obj ) {
 
-    var elem = $('.add_object .txt').last();
+    $('#object-modal').find('.modal-body center').html(function () {
 
-    elem.css('z-index', '999');
+        var str = '<form id="new-object-form" action="/stories/' + current_story + '/' + current_frame + '/' + obj.position[0] + '/' + obj.position[1] + '" method="post">';
 
-    // elem.on('click', function ( event ) {
+        str += '<input type="text" placeholder="object title" name="title" /><br />';
 
-        $('#object-modal').find('.modal-body center').html(function () {
+        str += '<select name="type">';
 
-            var str = '<form id="new-object-form" action="/stories/' + current_story + '/' + current_frame + '/' + obj.position[0] + '/' + obj.position[1] + '" method="post">';
+        str += '<option disabled selected="selected">type of object</option><option>blurb</option><option>animation</option><option>audio</option>';
 
-            str += '<input type="text" placeholder="object title" name="title" /><br />';
+        // str += '<option>caption</option>';
+        
+        str += '</select><br />';
+        
+        str += '<textarea rows="3" placeholder="object text" name="media" class="hide" /><br />';
+        
+        str += '<div id="object-dragdrop" class="well hide">Drop to upload</div>';
 
-            str += '<select name="type">';
+        str += '<input type="submit" value="save" class="btn btn-primary disabled" id="object-submit" />';
+        
+        str += '</form>';
 
-            str += '<option disabled selected="selected">type of object</option><option>blurb</option><option>animation</option><option>audio</option>';
+        return str;
+    });
 
-            str += '<option>caption</option>';
-            
-            str += '</select><br />';
-            
-            str += '<textarea rows="3" placeholder="object text" name="media" class="hide" /><br />';
-            
-            str += '<div id="object-dragdrop" class="well hide">Drop to upload</div>';
-
-            str += '<input type="submit" value="save" class="btn btn-primary disabled" id="object-submit" />';
-            
-            str += '</form>';
-
-            return str;
-        });
-
-        var dragdrop = $('#object-dragdrop'),
-            select = $('select[name=type]'),
-            text = $('textarea[name=media]');
+    var dragdrop = $('#object-dragdrop'),
+        select = $('select[name=type]'),
+        text = $('textarea[name=media]');
 
 
-        select.on('change', function ( ev ) {
+    select.on('change', function ( ev ) {
 
-            if( $(this).val() === 'blurb' || $(this).val() === 'caption' ) {
+        if( $(this).val() === 'blurb' || $(this).val() === 'caption' ) {
 
-                dragdrop.addClass('hide');
-                text.removeClass('hide');
-            } else {
+            dragdrop.addClass('hide');
+            text.removeClass('hide');
+        } else {
 
-                dragdrop.removeClass('hide');
-                text.addClass('hide');
+            dragdrop.removeClass('hide');
+            text.addClass('hide');
+        }
+
+        $('#object-submit').removeClass('disabled');
+    });
+
+    $('form#new-object-form').on('submit', function ( ev ) {
+
+        ev.preventDefault();
+
+        var data = {
+            title: $(this).find('input[name=title]').val(),
+            type: $(this).find('select[name=type]').val(),
+            media: $(this).find('[name=media]').val()
+        }
+
+        $(this)[0].reset();
+
+        $('#object-modal').modal('hide');
+
+        $.post('/stories/' + current_story + '/' + current_frame + '/' + obj.position[0] + '/' + obj.position[1], data, function ( resp, status, xhr ) {
+
+            if( resp ) {
+
+                console.dir(resp)
+                append_object( resp );    
             }
-
-            $('#object-submit').removeClass('disabled');
+            
+            $('.add_object .temp').remove(); // NO WORK?!?!?!
         });
+    });
 
-        $('form#new-object-form').on('submit', function ( ev ) {
+    filepicker.setKey('ADu2duDHmRqOkJyuusshfz');
 
-            ev.preventDefault();
-
-            var data = {
-                title: $(this).find('input[name=title]').val(),
-                type: $(this).find('select[name=type]').val(),
-                media: $(this).find('[name=media]').val()
-            }
-
-            $(this)[0].reset();
-
-            $('#object-modal').modal('hide');
-
-            $.post('/stories/' + current_story + '/' + current_frame + '/' + obj.position[0] + '/' + obj.position[1], data, function ( resp, status, xhr ) {
-
-                if( resp ) {
-
-                    console.dir(resp)
-                    append_object( resp );    
-                }
-                
-                $('.add_object .temp').remove(); // NO WORK?!?!?!
+    filepicker.makeDropPane(dragdrop, {
+        multiple: false,
+        dragEnter: function() {
+            dragdrop.html("Drop to upload").css({
+                'backgroundColor': "#E0E0E0",
+                'border': "1px solid #000"
             });
-        });
+        },
+        dragLeave: function() {
+            dragdrop.html("Drop files here").css({
+                'backgroundColor': "#F6F6F6",
+                'border': "1px dashed #666"
+            });
+        },
+        onSuccess: function(fpfiles) {
+            dragdrop.text("Done");
 
-        filepicker.setKey('ADu2duDHmRqOkJyuusshfz');
+            $('#object-modal').find('.modal-body form').prepend('<input type="hidden" value="' + base_url + fpfiles[0].key + '" name="media">');
+        },
+        onError: function(type, message) {
+            console.log('('+type+') '+ message);
+        },
+        onProgress: function(percentage) {
+            dragdrop.text("Uploading ("+percentage+"%)");
+        }
+    });
 
-        filepicker.makeDropPane(dragdrop, {
-            multiple: false,
-            dragEnter: function() {
-                dragdrop.html("Drop to upload").css({
-                    'backgroundColor': "#E0E0E0",
-                    'border': "1px solid #000"
-                });
-            },
-            dragLeave: function() {
-                dragdrop.html("Drop files here").css({
-                    'backgroundColor': "#F6F6F6",
-                    'border': "1px dashed #666"
-                });
-            },
-            onSuccess: function(fpfiles) {
-                dragdrop.text("Done");
-
-                $('#object-modal').find('.modal-body form').prepend('<input type="hidden" value="' + base_url + fpfiles[0].key + '" name="media">');
-            },
-            onError: function(type, message) {
-                console.log('('+type+') '+ message);
-            },
-            onProgress: function(percentage) {
-                dragdrop.text("Uploading ("+percentage+"%)");
-            }
-        });
-
-        $('#object-modal').modal();
-    // });
+    $('#object-modal').modal();
 }
 
 

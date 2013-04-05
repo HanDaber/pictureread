@@ -1,4 +1,5 @@
-var Story = require('../pr_modules/story');
+var Story = require('../pr_modules/story'),
+	fn = require('underscore');
 
 exports.all = function ( req, res, next ) {
 
@@ -48,10 +49,69 @@ exports.get = function ( req, res, next ) {
 			res.send('Error finding story');
 
 			console.log('error fetching story ' + req.params.id + ': ' + err);
+
+			res.redirect('/')
 		}
 
 	});
 };
+
+exports.read = function ( req, res, next ) {
+
+	console.log('\n'+req.params.story+'\n')
+
+	Story.findOne({ slug: req.params.story }).populate('_section').exec(function ( err, story ) {
+
+		if( !err ) {
+
+			var pic = parseInt(req.params.picture),
+				frame = pic ? pic : 1,
+				total_frames = story.pictures.length,
+				rewrite;
+
+			res.locals.story = story;
+			
+			res.locals.frame = frame;
+
+			res.locals.total_frames = total_frames;
+
+			res.locals.picture = story.pictures[( frame - 1 )];
+
+
+
+			if( req.query.re ) {
+
+				rewrite = fn.filter( res.locals.picture.rewrites, function ( current ) {
+					return current.slug === req.query.re;
+				});
+
+				res.locals.rewrite = rewrite[0];
+
+				console.log(rewrite[0])
+			}
+
+			next();
+
+		} else {
+			
+			res.send('Error finding story');
+
+			console.log('error fetching story ' + req.params.id + ': ' + err);
+
+			res.redirect('/read')
+		}
+
+	});
+};
+
+exports.rewrite = function ( req, res, next ) {
+console.log('rewrites: \n')
+console.dir(res.locals.picture.rewrites)
+	// res.locals.rewrite = res.locals.picture.rewrites;
+};
+
+
+
 
 exports.create = function ( req, res, next ) {
 

@@ -43,7 +43,9 @@ $('.interaction-popover')
 
         $('.interaction-popover').not(this).popover('hide');
 
-        $(this).find('.interaction-icon').toggleClass('active')
+        $('.interaction-icon').removeClass('active')
+        
+        $(this).find('.interaction-icon').addClass('active')
     })
     .popover({
 
@@ -140,15 +142,18 @@ if( permission ) {
             var elem = $(this),
                 collection = elem.data('collection'),
                 id = elem.data('id'),
-                s = elem.data('st'),
-                p = elem.data('pc'),
-                data = {};
+                story = elem.data('story'),
+                pic = elem.data('pic'),
+                str = '/api/' + collection + '/' + id + '',
+                payload = {};
 
-            data.story = s;
+            payload.story = story;
 
-            data.pic = p;
+            payload.pic = pic;
+            
+            payload.uri = str;
 
-            post_data({ uri: '/api/' + collection + '/' + id, data: data }, function ( resp, status, xhr ) {
+            post_data(payload, function ( resp, status, xhr ) {
 
                 console.log(resp)
             });
@@ -364,9 +369,9 @@ function pr_animation ( element ) {
     dropZone(element[0], handle_interaction, { multiple: false } );
 }
 
-function post_data ( properties, fn ) {
-
-    $.post(properties.uri, properties.data, fn);
+function post_data ( payload, cb ) {
+console.dir(payload)
+    $.post(payload.uri, payload, cb);
 }
 
 function dropZone ( selector, handler, options ) {

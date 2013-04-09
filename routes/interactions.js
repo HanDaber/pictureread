@@ -35,13 +35,24 @@ exports.add = function ( req, res, next ) {
 
 exports.rem = function ( req, res, next ) {
 
+console.dir(req.body)
+
 	Story.findOne({ slug: req.body.story }).exec( seek_and_destroy );
 
 	function seek_and_destroy ( err, story ) {
 
 		var pic = story.pictures.id( req.body.pic );
 
+		console.dir(pic)
+
 		pic.interactions.id( req.params.id ).remove();
+
+		console.dir(pic)
+
+		story.save(function ( err) {
+
+			next();
+		});
 	}
 };
 

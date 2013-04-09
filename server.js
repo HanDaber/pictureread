@@ -131,7 +131,7 @@ app.namespace('/api', auth.user, function () {
 		res.send('/read/' + req.body.story + '/' + req.body.frame );
 	});
 
-	app.post('/rewrites', auth.writer, rewrites.add, function ( req, res ) {
+	app.post('/rewrites', rewrites.add, function ( req, res ) {
 
 		res.send('/read/' + req.body.story + '/' + req.body.frame + '?re=' + res.locals.re.slug );
 	});

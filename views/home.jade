@@ -22,10 +22,10 @@ block content
 							input(name="brand_name", placeholder="Brand Name", type="text")
 							input(name="image", type="hidden")
 							input(name="thumbnail", type="hidden")
-							#section-drop Drag & Drop one Picture Here
-							#tmp
+							#section-drop Drag & Drop a Picture Here
+							.pics
 							br
-							button.btn Save
+							button.btn.save-section Save
 
 			hr(style="margin:0.5em")
 			
@@ -52,11 +52,10 @@ block content
 							center
 								input(name="section", value="#{collection.highlight}", type="hidden")
 								input(name="title", type="text", placeholder="Story Title")
-								input(name="image", type="hidden")
-								input(name="thumbnail", type="hidden")
-								#story-drop Drag & Drop Pictures Here
+								#story-drop Add pictures one at a time
+								.pics
 								br
-								button.btn Save
+								button.save-story.btn Save
 
 			hr(style="margin:0.5em")
 			

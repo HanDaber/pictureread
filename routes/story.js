@@ -1,4 +1,6 @@
 var Story = require('../pr_modules/story'),
+	Section = require('../pr_modules/section'),
+	Picture = require('../pr_modules/picture'),
 	fn = require('underscore');
 
 exports.all = function ( req, res, next ) {
@@ -19,6 +21,18 @@ exports.all = function ( req, res, next ) {
 
 		next();
 	});
+};
+
+
+
+exports.rem = function ( req, res, next ) {
+
+	Story.findOne({ slug: req.params.id }).exec( delete_it );
+
+	function delete_it( err, story ) {
+		 story.remove();
+		 next();
+	}
 };
 
 exports.all_json = function ( req, res, next ) {
@@ -59,6 +73,8 @@ exports.get = function ( req, res, next ) {
 exports.read = function ( req, res, next ) {
 
 	console.log('\n'+req.params.story+'\n')
+	console.log('\n'+req.params.picture+'\n')
+	console.log('\n'+req.query.re+'\n')
 
 	Story.findOne({ slug: req.params.story }).populate('_section').exec(function ( err, story ) {
 
@@ -66,8 +82,12 @@ exports.read = function ( req, res, next ) {
 
 			var pic = parseInt(req.params.picture),
 				frame = pic ? pic : 1,
-				total_frames = story.pictures.length,
+				total_frames = 0,
 				rewrite;
+
+			 if( story != null && story.pictures != null ) {
+			 	total_frames = story.pictures.length;
+			 }
 
 			res.locals.story = story;
 			
@@ -75,9 +95,11 @@ exports.read = function ( req, res, next ) {
 
 			res.locals.total_frames = total_frames;
 
-			res.locals.picture = story.pictures[( frame - 1 )];
+			// res.locals.picture = {_id:0};
 
-
+			// if( story != null && story.pictures != null ) {
+				res.locals.picture = story.pictures[( frame - 1 )];
+			// }
 
 			if( req.query.re ) {
 
@@ -113,39 +135,55 @@ console.dir(res.locals.picture.rewrites)
 
 
 
-exports.create = function ( req, res, next ) {
+exports.add = function ( req, res, next ) {
 
-	var story = new Story({
-		'title': req.body.title,
-		'writer': res.locals.user._id
-	});
+	Section.findOne({ slug: req.body.section }, function ( err, section ) {
 
-	res.locals.frames = story.add_frames(req.body.frames);
+		if( err ) console.log(err);
 
-	// console.log('made story \n')
-	// console.dir(story)
+		else if( !section ) { 
 
-	// console.log('adding frames \n')
-	// console.dir(res.locals.frames)
-
-	story.save(function (err) {
-
-		if( !err ) {
-
-			// console.log('created story ' + story)
-
-			res.locals.story = story;
+			res.locals.section = 'read';
 
 			next();
-
-		} else {
-
-			res.send( false );
-
-			console.log('story.create save error: ' + err);
 		}
+
+		else add_story( section );
 	});
 
+	function add_story ( section ) {
+
+		var story = new Story({
+			_section: section,
+			title: req.body.title
+		});
+
+		section.stories.push( story );
+
+		var len = req.body.images.length;
+
+		for(var i=0; i<len; i++) {
+			story.pictures.push({image: req.body.images[i], thumbnail: req.body.thumbnails[i] });
+		}
+
+		story.save();
+
+		section.save(function (err) {
+
+			if( !err ) {
+
+				res.locals.section = section;
+
+				next();
+
+			} else {
+
+				res.redirect('/');
+
+				console.log('story.add save error: ' + err);
+			}
+		});
+	}
 };
 
 exports.add_frames = function ( req, res, next ) {

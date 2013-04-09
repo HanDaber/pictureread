@@ -1,10 +1,7 @@
+var Section = require('./section'),
+	Story = require('./story'),
+	Picture = require('./picture');
 
+exports.create = function ( resource ) {
 
-// exports.index = function ( req, res ) {
-
-// 	if( res.locals.user ) res.render('stories');
-
-// 	else res.render('index');
-
-// };
-
+}

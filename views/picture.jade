@@ -1,0 +1,148 @@
+extends layout
+
+block content
+	// story, frame, total_frames, picture, ?rewrite
+	#story.span12(data-current="#{story._id}")
+		if user && user._type == 'writer'
+			input(name="permission", value="true", type="hidden")
+		center
+			a.story-title(href="/read/#{story.slug}/#{frame}")
+				h4.caps #{story.title}
+		
+		.frame-nav
+			span.nav-deco
+				h2.frame-number #{frame}
+			span.nav-deco.expand
+				i.icon-plus.sprite-plus
+			span.nav-deco
+				if frame < total_frames
+					- var next = parseInt(frame) + 1;
+					a.sprite-fwd(href="/read/#{story.slug}/#{next}")
+				else
+					b.sprite-fwd.inactive
+			span.nav-deco 
+				if frame > 1
+					- var last = parseInt(frame) - 1;
+					a.sprite-back(href="/read/#{story.slug}/#{last}")
+				else
+					b.sprite-back.inactive
+			span.nav-deco 
+				i.icon-stop.sprite-fb.link-generator
+			span.nav-deco 
+				i.icon-stop.sprite-twitter.link-generator
+			span.nav-deco.chars
+				small SECTION
+				a(href="/#{story._section.slug}")
+					img(src="#{story._section.thumbnail}")
+			span.nav-deco.more
+				a(href="/read")
+					small MORE SECTIONS
+
+
+		#frame
+			#object-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newObject", aria-hidden="true")
+				.modal-header
+					button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+					h3#newObject New Object
+				.modal-body
+					center
+						#new-object
+							em Object Type:
+							br
+							select.object-type-select(name="object-type")
+								option(disabled="disabled", selected="selected") select one
+								option blurb
+								option sound
+								option animation
+							br
+							.cont
+							br
+							button.save-object.btn Add
+
+			#caption-modal.modal.hide.fade(data-story="#{story.slug}", data-picture='#{picture._id}', data-frame="#{frame}", tabindex="-1", role="dialog", aria-labelledby="newCaption", aria-hidden="true")
+				.modal-header
+					button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+					h3#newCaption Add a Caption
+				.modal-body
+					center
+						br
+						input(type="text", placeholder="first part")
+						br
+						button.btn.btn-primary.add-part
+							i.icon-plus
+							i &nbsp;
+							i add part
+						i &nbsp;
+						button.btn.save-caption Save
+
+			center
+				#frame_image
+					button.remove-resource-spelled-wrong.btn.btn-danger.pull-right.hide(data-id='#{picture._id}', title="double-click to delete picture", data-collection="pictures", style="position:absolute;right:0;top:1em;") &times;
+					
+					- if( typeof(rewrite) != 'undefined' && picture.caption ) // This is a rewrite
+						- var len = picture.caption.length
+						- var contents = ''
+
+						#caption.add_object.hidden(style="left:20px; top:10px;")
+
+							- if( len == 1 )
+								- contents += '<span>' + picture.caption[0] + ' </span>'
+								- contents += '<span> ' + rewrite.text[0] + '</span>'
+
+							- else
+								- contents += '<span>' + picture.caption[0] + ' </span>'
+								- for(var i=1; i < len; i++)
+									- contents += '<span> ' + rewrite.text[( i - 1 )] + '</span>'
+									- contents += '<span> ' + picture.caption[i] + '</span>'
+
+							a.interaction-popover(href="", data-type="caption", data-contents="#{contents}", data-placement="right")
+								i.icon-arrow-left.interaction-icon.caption
+								span.txt
+
+					- else if( picture.caption && picture.caption.length )
+						- var len = picture.caption.length
+						- var contents = ''
+						
+						#caption.add_object.hidden(data-story="#{story.slug}", data-picture="#{picture._id}", data-frame="#{frame}", style="left:20px; top:10px;")
+
+							- if( len == 1 )
+								- contents += '<span>' + picture.caption[0] + '</span>'
+								- contents += '<input name="edit[0]"></input>'
+
+							- else
+								- contents += '<span>' + picture.caption[0] + '</span>'
+								- for(var i=1; i < len; i++)
+									- contents += '<input name="edit[' + ( i - 1 ) + ']"></input>'
+									- contents += '<span>' + picture.caption[i] + '</span>'
+
+							- contents += '<br><br><center><button class="btn btn-mini add-rewrite">Rewrite!</button></center>'
+
+							a.interaction-popover(href="", data-type="caption", data-contents="#{contents}", data-placement="right")
+								i.icon-arrow-left.interaction-icon.caption
+								span.txt
+							button.btn.btn-danger.hide.remove-object(id="#{picture.caption._id}", data-object-type="caption") &times;
+					
+					- else
+						button.add-caption.btn.add_object.hidden(data-toggle="modal", data-target="#caption-modal", style="float:left; top:2em;")
+							i.icon-plus
+							i &nbsp;
+							i add caption
+
+					img(src="#{picture.image}", data-current="#{picture._id}")
+
+					each obj in picture.interactions
+						.add_object.hidden(style="left:#{obj.position[0]}%; top:#{obj.position[1]}%;")
+							a.interaction-popover(href="", data-type="#{obj.type}", data-contents="#{obj.media}")
+								i.icon-arrow-left.interaction-icon(class="#{obj.type}")
+								span.txt
+							button.remove-resource.btn.btn-mini.btn-danger.hide(data-id="#{obj._id}", data-st="#{story.slug}", data-pc="#{picture._id}", data-collection="interactions") &times;
+
+
+
+
+
+
+
+
+
+

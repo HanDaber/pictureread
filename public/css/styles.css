@@ -1,7 +1,3 @@
-body {
-	/*background-color: #f5f5f5;*/
-}
-
 .container {
 	background-color: #ffffff;
 	/*border-left: 3px dotted #f5f5f5;*/
@@ -10,6 +6,8 @@ body {
 
 .bg-data {
 	display: inline-block;
+	width: 100%;
+	height: 5em;
 }
 
 .crosshairs:hover {
@@ -17,9 +15,9 @@ body {
 }
 
 .section {
-	width: 10em;
-	height: 10em;
-	margin: 0 1em;
+	width: 240px;
+	height: 8em;
+	margin-left: 0.5em;
 	opacity: 0.3;
 }
 .section:hover {
@@ -142,7 +140,8 @@ body {
 	margin: 0 0.3em;
 	background-color: rgba(0,0,0,0.05);
 	border: none;
-	border-bottom: 1px solid black;
+	line-height: 1em;
+	/*border-bottom: 1px solid black;*/
 }
 
 .caption {
@@ -150,19 +149,19 @@ body {
 	width: 34px;
 	height: 34px;
 }
-.caption .active {
+.caption.active {
 	background: url('/img/pr_icons_sm.png') no-repeat -140px -10px;
 	width: 34px;
 	height: 34px;
 }
 
-.audio {
+.sound {
 	background: url('/img/pr_icons_sm.png') no-repeat -79px -105px;
 	width: 34px;
 	height: 34px;
 }
 
-.audio .active {
+.sound.active {
 	background: url('/img/pr_icons_sm.png') no-repeat -140px -105px;
 	width: 34px;
 	height: 34px;
@@ -174,7 +173,7 @@ body {
 	height: 34px;
 }
 
-.blurb .active {
+.blurb.active {
 	background: url('/img/pr_icons_sm.png') no-repeat -140px -152px;
 	width: 34px;
 	height: 34px;
@@ -187,7 +186,7 @@ body {
 	height: 34px;
 }
 
-.animation .active {
+.animation.active {
 	background: url('/img/pr_icons_sm.png') no-repeat -140px -200px;
 	width: 34px;
 	height: 34px;
@@ -387,11 +386,12 @@ button#save_story {
 }
 
 @media (min-width: 500px) {
-/*	.frame-nav {
-		margin-left: -1.8em;
-	}*/
 	.nav-deco {
 		margin: 0 0.8em;
+	}
+
+	.section-container {
+		display: inline-block;
 	}
 }
 
@@ -526,10 +526,10 @@ button#save_story {
 }
 
 .fade {
-   opacity: 0;
-   transition: opacity .5s ease-in-out;
-   -moz-transition: opacity .5s ease-in-out;
-   -webkit-transition: opacity .5s ease-in-out;
+	opacity: 0;
+	transition: opacity .5s ease-in-out;
+	-moz-transition: opacity .5s ease-in-out;
+	-webkit-transition: opacity .5s ease-in-out;
 }
 .fade .in {
 	opacity: 1;

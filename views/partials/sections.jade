@@ -1,0 +1,9 @@
+each section in sections
+	.section-container
+		- if( collection.highlight == section.slug )
+		button.remove-resource.btn.btn-danger.hide.pull-right(data-id="#{section.slug}", 
+																data-collection="sections") &times;
+		a.section.bg-data(href="/#{section.slug}", 
+					id="#{section._id}", 
+					data-image="#{section.thumbnail}", 
+					class=collection.highlight == section.slug ? 'current' : '') &nbsp;

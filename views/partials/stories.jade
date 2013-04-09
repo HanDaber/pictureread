@@ -1,0 +1,17 @@
+each s in sections
+	each story in s.stories
+		.story(data-section='#{story._section}',
+				class=collection.highlight ? 'hide' : '')
+			small.caps #{story.title}
+			br
+			.imgs
+				button.remove-resource.btn.btn-danger.pull-right.hide(data-id="#{story.slug}", 
+																		data-collection="stories") &times;
+				- if( story.pictures.length < 1 )
+					a(href="/read/#{story.slug}")
+						i.icon-arrow-right
+				- else
+					each picture, i in story.pictures
+						- if (i<3)
+							a.frame.bg-data(href="/read/#{story.slug}/#{i+1}", 
+											data-image="#{picture.thumbnail}")

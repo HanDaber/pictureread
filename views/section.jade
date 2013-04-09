@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	#section.span12
+		center.
+			<center class="loading"><img src="/img/loader.gif" /></center>
+			<script id="section-template" type="text/x-handlebars-template">
+				<div class="section span1">
+					<div class="brand">
+						<center>
+							<h2> {{ brand_name }} </h2>
+							<img src="{{ thumbnail }}">
+						</center>
+					</div>
+					<hr>
+				</div>
+			</script>

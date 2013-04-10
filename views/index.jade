@@ -1,7 +1,7 @@
 extends layout
 
 block content
-	.span12
+	.row
 
 		div.hide
 			div#header.row
@@ -20,21 +20,37 @@ block content
 			div.banner-image
 				img.fade.in(src='img/pr_hero_image_splash2.png')
 
-		div
+		div(style="color: #fff; background-color:#54a3da; padding-top:1.5em; padding-bottom:1em; margin: 5em auto;")
 			div.more-info
-				form#info_form
+				form#info_form(method="post", action="/info")
 					fieldset
-						label= 'type your email address for updates'
-						input(name='more_info', 
+						label LEAVE EMAIL FOR LAUNCH UPDATE
+						input(name='email', 
 							type='email', 
 							placeholder='email address')
 
-						a(href='#')
+						a.hidden(href='#')
 							img(src='img/pr_splash_submitbutton.png')
 							
 						div.flash
 						input.hide(type='submit')
+	.row(style="background-color:#f4f7df;")
+		.span4
+			center(style="margin: 0 1em;")
+				h4 READ
+				small.caps engage with unique new picture stories that have been loved and shared.
+		
+		.span4
+			center(style="margin: 0 1em;")
+				h4 DISCOVER
+				small.caps whether it's your favorite brand or an audio track from an artist you love, you can bring each image to life by interacting with the objects.
+		
+		.span4
+			center(style="margin: 0 1em;")
+				h4 SHARE
+				small.caps users can put their own unique spin on the story and then share it with friends using facebook, twitter, and more.
 
+	.row
 		div#footer
 			div.copyright
 				small= '&copy; 2012 PictureRead'

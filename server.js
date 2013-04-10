@@ -8,6 +8,7 @@ var express = require('express'),
 	http = require('http'),
 	Redis = require('connect-redis')(express),
 	db = require('./db'),
+	Email = require('./pr_modules/email'),
 	auth = require('./routes/auth'),
 	story = require('./routes/story'),
 	sections = require('./routes/sections'),
@@ -71,7 +72,36 @@ app.post('/login', auth.login, function ( req, res ) {
 	else res.redirect('/');
 });
 
-app.get('/admin', auth.user, auth.writer, function ( req, res ) {
+app.post('/info', function ( req, res ) {
+
+console.log(req.body)
+
+	var info_req = new Email({ address: req.body.email });
+
+	info_req.save(function (err) {
+
+		if( err ) console.log(err);
+
+		else res.redirect('/')
+	});
+});
+
+app.get('/admin', auth.user, auth.writer, function (req, res, next) {
+
+	Email.find().exec(function ( err, emails ) {
+
+		console.log(emails)
+
+		if( err ) console.log(err);
+
+		else {
+
+			res.locals.emails = emails;
+
+			next();
+		}
+	});
+}, function ( req, res ) {
 
 	res.render('admin');
 });

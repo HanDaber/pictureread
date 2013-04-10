@@ -8,6 +8,12 @@ block content
 			hr
 			hr
 
+			- if( emails.length > 0 )
+				em information requests:
+				ul
+					each email in emails
+						li #{email.address}
+
 			button.btn.span4.hide(data-toggle="modal", data-target="#user-modal") New User
 			#user-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newUser", aria-hidden="true")
 				.modal-header

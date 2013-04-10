@@ -11,7 +11,7 @@ span.user
 	if locals.user 
 		a.navi(href="/read") sections
 		if locals.user._type == 'writer'
-			a.navi.hide(href="/admin") admin
+			a.navi(href="/admin") admin
 			#permission.true
 
 if locals.user

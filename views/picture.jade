@@ -131,7 +131,7 @@ block content
 					img(src="#{picture.image}", data-current="#{picture._id}")
 
 					each obj in picture.interactions
-						.add_object.hidden(style="left:#{obj.position[0]}%; top:#{obj.position[1]}%;")
+						.add_object.rs.hidden(style="left:#{obj.position[0]}%; top:#{obj.position[1]}%;")
 							a.interaction-popover(href="", data-type="#{obj.type}", data-contents="#{obj.media}")
 								i.icon-arrow-left.interaction-icon(class="#{obj.type}")
 								span.txt

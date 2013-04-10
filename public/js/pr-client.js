@@ -176,7 +176,7 @@ if( permission ) {
 
             post_data(payload, function ( resp, status, xhr ) {
 
-                console.log(resp)
+                elem.parents('.rs').remove();
             });
         });
 
@@ -349,7 +349,23 @@ if( permission ) {
 
                 $.post('/api/interactions', new_obj, function ( resp, status, xhr ) {
 
-                    console.log('interactions resp: ' + resp);
+                    var rs = $('<div class="add_object rs" style="left:' + resp.position[0] + '%; top:' + resp.position[1] + '%;"></div>');
+
+                    var a = $('<a href="" class="interaction-popover" data-type="' + resp.type + '" data-contents="' + resp.media + '"></a>');
+
+                    var i = $('<i class="icon-arrow-left interaction-icon ' + resp.type + '"></i>');
+                    
+                    var span = $('<span class="text"></span>');
+
+                    var button = $('<button class="remove-resource interaction btn btn-mini btn-danger" data-id="' + resp._id + '" data-story="' + new_obj.story + '" data-pic="' + new_obj.pic + '" data-collection="interactions">&times;</button>');
+                    
+                    a.append( i ).append( span );
+
+                    rs.append( a ).append( button );
+
+                    $('#frame_image').append( rs );
+
+                    $('#object-modal').modal('hide');
                 });
             })  
         })

@@ -4,8 +4,6 @@ var Story = require('../pr_modules/story');
 
 exports.add = function ( req, res, next ) {
 
-	console.log(req.body)
-
 	Story.findOne({ _id: req.body.story }).exec( handle_story );
 
 	function handle_story ( err, story ) {
@@ -19,11 +17,15 @@ exports.add = function ( req, res, next ) {
 					media: req.body.media
 				};
 
-			pic.interactions.push( new_int );
+			var inter = pic.interactions.create( new_int );
+
+			pic.interactions.push( inter );
 
 			story.save(function (err) {
 
-				res.locals.interaction = new_int;
+				res.locals.interaction = inter;
+
+console.log(inter)
 
 				next();
 			});

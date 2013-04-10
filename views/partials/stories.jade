@@ -1,6 +1,6 @@
 each s in sections
 	each story in s.stories
-		.story(data-section='#{story._section}',
+		.story.rs(data-section='#{story._section}',
 				class=collection.highlight ? 'hide' : '')
 			small.caps #{story.title}
 			br

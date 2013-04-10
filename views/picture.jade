@@ -123,10 +123,11 @@ block content
 							button.btn.btn-danger.hide.remove-object(id="#{picture.caption._id}", data-object-type="caption") &times;
 					
 					- else
-						button.add-caption.btn.add_object.hidden(data-toggle="modal", data-target="#caption-modal", style="float:left; top:2em;")
-							i.icon-plus
-							i &nbsp;
-							i add caption
+						if user && user._type == 'writer'
+							button.add-caption.btn.add_object.hidden(data-toggle="modal", data-target="#caption-modal", style="float:left; top:2em;")
+								i.icon-plus
+								i &nbsp;
+								i add caption
 
 					img(src="#{picture.image}", data-current="#{picture._id}")
 

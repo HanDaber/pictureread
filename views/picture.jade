@@ -10,28 +10,28 @@ block content
 				h4.caps #{story.title}
 		
 		.frame-nav
-			span.nav-deco
+			span.nav-deco(title="Current Picture")
 				h2.frame-number(style="position: relative; left: -0.3em;") #{frame}
 				h3(style="position: relative; bottom: 2em; left: 0.5em; color: #eee;") /#{total_frames}
 			span.nav-deco.expand
-				i.icon-plus.sprite-plus
+				i.icon-plus.sprite-plus(title="Show Objects")
 			span.nav-deco
 				if frame < total_frames
 					- var next = parseInt(frame) + 1;
-					a.sprite-fwd(href="/read/#{story.slug}/#{next}")
+					a.sprite-fwd(href="/read/#{story.slug}/#{next}", title="Next Picture")
 				else
 					b.sprite-fwd.inactive
 			span.nav-deco 
 				if frame > 1
 					- var last = parseInt(frame) - 1;
-					a.sprite-back(href="/read/#{story.slug}/#{last}")
+					a.sprite-back(href="/read/#{story.slug}/#{last}", title="Previous Picture")
 				else
 					b.sprite-back.inactive
 			span.nav-deco 
-				i.icon-stop.sprite-fb.link-generator
+				i.icon-stop.sprite-fb.link-generator(title="Share on Facebook")
 			span.nav-deco 
-				i.icon-stop.sprite-twitter.link-generator
-			span.nav-deco.chars
+				i.icon-stop.sprite-twitter.link-generator(title="Share on Twitter")
+			span.nav-deco.chars(title="Current Section")
 				small SECTION
 				a(href="/#{story._section.slug}")
 					img(src="#{story._section.thumbnail}")

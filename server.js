@@ -198,7 +198,7 @@ app.get('/:brand', auth.user, sections.all, sections.highlight, function ( req, 
 
 [+] Add/delete pictures
 
-[-] Copy homepage
+[x] Copy homepage
 
 [x] Remove new part capability
 

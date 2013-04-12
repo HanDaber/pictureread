@@ -54,23 +54,23 @@ User.findOne({ 'username': writer.username }, function ( err, doc ) {
 
 
 
-// // Reset Stories
-// Story.find(function (err, stories) {
+// Reset Stories
+Story.find(function (err, stories) {
 
-// 	if( err ) console.log(err);
+	if( err ) console.log(err);
 
-// 	else {
+	else {
 
-// 		for( var i = 0, s = stories.length; i < s; i++) {
+		for( var i = 0, s = stories.length; i < s; i++) {
 
-// 			stories[i].remove(function (err) {
+			stories[i].remove(function (err) {
 				
-// 				if ( err ) console.log(err);
+				if ( err ) console.log(err);
 
-// 			});
-// 		}
-// 	}
-// });
+			});
+		}
+	}
+});
 
 
 

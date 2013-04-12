@@ -2,7 +2,7 @@ extends layout
 
 block content
 	// story, frame, total_frames, picture, ?rewrite
-	#story.span12(data-current="#{story._id}")
+	#story(data-current="#{story._id}")
 		if user && user._type == 'writer'
 			input(name="permission", value="true", type="hidden")
 		center
@@ -40,17 +40,25 @@ block content
 
 
 		#frame
-			#object-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newObject", aria-hidden="true")
+			#object-modal.modal.hide.fade(tabindex="-1", 
+											role="dialog", 
+											aria-labelledby="newObject", 
+											aria-hidden="true")
 				.modal-header
-					button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+					button.close(type="button", 
+									data-dismiss="modal", 
+									aria-hidden="true") &times;
 					h3#newObject New Object
 				.modal-body
 					center
 						#new-object
+							input(name="object-title", placeholder="title for object")
+							br
 							em Object Type:
 							br
 							select.object-type-select(name="object-type")
-								option(disabled="disabled", selected="selected") select one
+								option(disabled="disabled", 
+										selected="selected") select one
 								option blurb
 								option sound
 								option animation
@@ -59,25 +67,44 @@ block content
 							br
 							button.save-object.btn Add
 
-			#caption-modal.modal.hide.fade(data-story="#{story.slug}", data-picture='#{picture._id}', data-frame="#{frame}", tabindex="-1", role="dialog", aria-labelledby="newCaption", aria-hidden="true")
+			#caption-modal.modal.hide.fade(data-story="#{story.slug}", 
+											data-picture='#{picture._id}', 
+											data-frame="#{frame}", 
+											tabindex="-1", 
+											role="dialog", 
+											aria-labelledby="newCaption", 
+											aria-hidden="true")
 				.modal-header
-					button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+					button.close(type="button", 
+									data-dismiss="modal", 
+									aria-hidden="true") &times;
 					h3#newCaption Add a Caption
 				.modal-body
 					center
 						br
-						input(type="text", placeholder="first part")
+						input(type="text", 
+								placeholder="first part")
 						br
 						button.btn.btn-primary.add-part
 							i.icon-plus
 							i &nbsp;
 							i add part
 						i &nbsp;
+						button.btn.btn-warning.remove-part
+							i.icon-arrow-left
+							i &nbsp;
+							i undo
+						i &nbsp;
 						button.btn.save-caption Save
 
 			center
 				#frame_image
-					button.remove-resource-spelled-wrong.btn.btn-danger.pull-right.hide(data-id='#{picture._id}', title="double-click to delete picture", data-collection="pictures", style="position:absolute;right:0;top:1em;") &times;
+					button.remove-resource.btn.btn-danger.pull-right.hide(data-id='#{picture._id}', 
+																			title="double-click to delete picture", 
+																			data-collection="pictures", 
+																			data-story="#{story.slug}",
+																			data-frame="#{frame}",
+																			style="position:absolute;right:0;top:0.1em;") &times;
 					
 					- if( typeof(rewrite) != 'undefined' && picture.caption ) // This is a rewrite
 						- var len = picture.caption.length
@@ -95,7 +122,10 @@ block content
 									- contents += '<span> ' + rewrite.text[( i - 1 )] + '</span>'
 									- contents += '<span> ' + picture.caption[i] + '</span>'
 
-							a.interaction-popover(href="", data-type="caption", data-contents="#{contents}", data-placement="right")
+							a.interaction-popover(href="", 
+													data-type="caption", 
+													data-contents="#{contents}", 
+													data-placement="right")
 								i.icon-arrow-left.interaction-icon.caption
 								span.txt
 
@@ -103,7 +133,10 @@ block content
 						- var len = picture.caption.length
 						- var contents = ''
 						
-						#caption.add_object.hidden(data-story="#{story.slug}", data-picture="#{picture._id}", data-frame="#{frame}", style="left:20px; top:10px;")
+						#caption.add_object.hidden(data-story="#{story.slug}", 
+													data-picture="#{picture._id}", 
+													data-frame="#{frame}", 
+													style="left:20px; top:10px;")
 
 							- if( len == 1 )
 								- contents += '<span>' + picture.caption[0] + '</span>'
@@ -117,14 +150,20 @@ block content
 
 							- contents += '<br><br><center><button class="btn btn-mini add-rewrite">Rewrite!</button></center>'
 
-							a.interaction-popover(href="", data-type="caption", data-contents="#{contents}", data-placement="right")
+							a.interaction-popover(href="", 
+													data-type="caption", 
+													data-contents="#{contents}", 
+													data-placement="right")
 								i.icon-arrow-left.interaction-icon.caption
 								span.txt
-							button.btn.btn-danger.hide.remove-object(id="#{picture.caption._id}", data-object-type="caption") &times;
+							button.btn.btn-danger.hide.remove-object(id="#{picture.caption._id}", 
+																		data-object-type="caption") &times;
 					
 					- else
 						if user && user._type == 'writer'
-							button.add-caption.btn.add_object.hidden(data-toggle="modal", data-target="#caption-modal", style="float:left; top:2em;")
+							button.add-caption.btn.add_object.hidden(data-toggle="modal", 
+																		data-target="#caption-modal", 
+																		style="float:left; top:2em;")
 								i.icon-plus
 								i &nbsp;
 								i add caption
@@ -133,10 +172,16 @@ block content
 
 					each obj in picture.interactions
 						.add_object.rs.hidden(style="left:#{obj.position[0]}%; top:#{obj.position[1]}%;")
-							a.interaction-popover(href="", data-type="#{obj.type}", data-contents="#{obj.media}")
+							a.interaction-popover(href="", 
+													data-type="#{obj.type}", 
+													data-contents="#{obj.media}", 
+													data-title=obj.title === 'undefined' ? '' : obj.title)
 								i.icon-arrow-left.interaction-icon(class="#{obj.type}")
 								span.txt
-							button.remove-resource.interaction.btn.btn-mini.btn-danger.hide(data-id="#{obj._id}", data-story="#{story.slug}", data-pic="#{picture._id}", data-collection="interactions") &times;
+							button.remove-resource.interaction.btn.btn-mini.btn-danger.hide(data-id="#{obj._id}", 
+																							data-story="#{story.slug}", 
+																							data-pic="#{picture._id}", 
+																							data-collection="interactions") &times;
 
 
 

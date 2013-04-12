@@ -14,6 +14,7 @@ var express = require('express'),
 	sections = require('./routes/sections'),
 	rewrites = require('./routes/rewrites'),
 	captions = require('./routes/captions'),
+	pictures = require('./routes/pictures'),
 	interactions = require('./routes/interactions'),
 	redis = require('./redis');
 
@@ -156,6 +157,16 @@ app.namespace('/api', auth.user, function () {
 		res.send('/read');
 	});
 
+	app.post('/pictures', auth.writer, pictures.add, function ( req, res ) {
+
+		res.send('/read/' + res.locals.story.slug + '/' + res.locals.frame);
+	});
+
+	app.post('/pictures/:id', auth.writer, pictures.rem, function ( req, res ) {
+
+		res.send('/read/' + res.locals.story.slug);
+	});
+
 	app.post('/captions', auth.writer, captions.add, function ( req, res ) {
 
 		res.send('/read/' + req.body.story + '/' + req.body.frame );
@@ -175,7 +186,21 @@ app.get('/:brand', auth.user, sections.all, sections.highlight, function ( req, 
 
 
 
+/*
 
+[x] Add Object labels 
+
+[x] Maximum picture size (white space)
+
+[-] New audio Object types
+
+[+] Add/delete pictures
+
+[-] Copy homepage
+
+[x] Remove new part capability
+
+*/
 
 
 

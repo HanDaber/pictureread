@@ -37,15 +37,15 @@ $('.sprite-plus').click(function () {
 
 
 $('.interaction-popover')
-    .click(function(ev){
+    .on('click', function(ev){
 
         ev.preventDefault();
 
         $('.interaction-popover').not(this).popover('hide');
 
-        $('.interaction-icon').removeClass('active')
+        $('.interaction-icon').removeClass('active');
         
-        $(this).find('.interaction-icon').addClass('active')
+        $(this).find('.interaction-icon').addClass('active');
     })
     .popover({
 
@@ -149,6 +149,8 @@ if( permission ) {
 
             payload.story = story;
 
+            payload.id = id;
+            
             payload.pic = pic;
             
             payload.uri = str;
@@ -244,6 +246,17 @@ if( permission ) {
             $(this).before('<em style="color:#aaa;">+ user\'s text +</em><br><br><input type="text"><br>');
         });
 
+    $('.remove-part')
+        .on('click', function ( ev ) {
+            
+            $(this).siblings('em').last().remove();
+            
+            $(this).siblings('input').last().remove();
+
+            $(this).siblings('br').last().remove();
+            $(this).siblings('br').last().remove();
+        });
+
     $('#caption-modal')
         .on('click', '.save-caption', function ( ev ) {
 
@@ -325,12 +338,14 @@ if( permission ) {
             $('.save-object').on('click', function (ev) {
 
                 new_obj.media = $(this).siblings('.cont').find('textarea[name="media"]').val();
+                
+                new_obj.title = $(this).siblings('input[name="object-title"]').val();
 
                 $.post('/api/interactions', new_obj, function ( resp, status, xhr ) {
 
                     var rs = $('<div class="add_object rs" style="left:' + resp.position[0] + '%; top:' + resp.position[1] + '%;"></div>');
 
-                    var a = $('<a href="" class="interaction-popover" data-type="' + resp.type + '" data-contents="' + resp.media + '"></a>');
+                    var a = $('<a href="" class="interaction-popover" data-type="' + resp.type + '" data-contents="' + resp.media + '" data-title="' + resp.title + '"></a>');
 
                     var i = $('<i class="icon-arrow-left interaction-icon ' + resp.type + '"></i>');
                     

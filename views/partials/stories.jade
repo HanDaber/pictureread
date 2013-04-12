@@ -1,12 +1,11 @@
 each s in sections
 	each story in s.stories
 		.story.rs(data-section='#{story._section}',
-				class=collection.highlight ? 'hide' : '')
+					class=collection.highlight ? 'hide' : '')
 			small.caps #{story.title}
 			br
 			.imgs
-				button.remove-resource.btn.btn-danger.pull-right.hide(data-id="#{story.slug}", 
-																		data-collection="stories") &times;
+
 				- if( story.pictures.length < 1 )
 					a(href="/read/#{story.slug}")
 						i.icon-arrow-right
@@ -15,3 +14,9 @@ each s in sections
 						- if (i<3)
 							a.frame.bg-data(href="/read/#{story.slug}/#{i+1}", 
 											data-image="#{picture.thumbnail}")
+
+				button.remove-resource.btn.btn-danger.hide(data-id="#{story.slug}", 
+															style="position: absolute; right:0;"
+																		data-collection="stories") &times;
+
+				button.add-picture.btn.hide(style="position: absolute; right:0; bottom: 0;") &plus;

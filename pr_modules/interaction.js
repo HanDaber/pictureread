@@ -13,7 +13,7 @@ interaction_properties.position = { type: Array, default: [ '0', '0' ] };
 
 interaction_properties.type = { type: String, default: '' };
 
-// interaction_properties.title = { type: String, default: 'New Object' };
+interaction_properties.title = { type: String, default: '' };
 
 interaction_properties.media = { type: String, default: '' };
 

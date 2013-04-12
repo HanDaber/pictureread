@@ -3,7 +3,7 @@ var Story = require('../pr_modules/story');
 
 
 exports.add = function ( req, res, next ) {
-
+console.log(req.body)
 	Story.findOne({ _id: req.body.story }).exec( handle_story );
 
 	function handle_story ( err, story ) {
@@ -14,6 +14,7 @@ exports.add = function ( req, res, next ) {
 				new_int = {
 					position: req.body.position,
 					type: req.body.type,
+					title: req.body.title,
 					media: req.body.media
 				};
 
@@ -24,8 +25,6 @@ exports.add = function ( req, res, next ) {
 			story.save(function (err) {
 
 				res.locals.interaction = inter;
-
-console.log(inter)
 
 				next();
 			});

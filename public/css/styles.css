@@ -28,7 +28,7 @@
 }
 
 #story {
-	max-width: 800px;
+	max-width: 860px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -78,16 +78,17 @@
 	margin-top: -0.7em;
 }
 
+
 .sprite-plus {
-	background: url('/img/PR_icons_set.png') no-repeat -96px -233px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -23px -398px;
 	width: 32px;
-	height: 32px;
+	height: 33px;
 	position: relative;
 	margin-left: -0.1em;
 }
 
 .sprite-plus.active {
-	background: url('/img/PR_icons_set.png') no-repeat -24px -233px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -23px -348px;
 	width: 32px;
 	height: 33px;
 }
@@ -152,51 +153,88 @@
 }
 
 .caption {
-	background: url('/img/pr_icons_sm.png') no-repeat -79px -10px;
-	width: 34px;
-	height: 34px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -21px -8px;
+	width: 32px;
+	height: 32px;
 }
+
 .caption.active {
-	background: url('/img/pr_icons_sm.png') no-repeat -140px -10px;
-	width: 34px;
-	height: 34px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -92px -7px;
+	width: 32px;
+	height: 32px;
+}
+
+.speech {
+	background: url('/img/PR_icons_set_revised.png') no-repeat -21px -53px;
+	width: 32px;
+	height: 32px;
+}
+
+.speech.active {
+	background: url('/img/PR_icons_set_revised.png') no-repeat -92px -52px;
+	width: 32px;
+	height: 32px;
 }
 
 .sound {
-	background: url('/img/pr_icons_sm.png') no-repeat -79px -105px;
-	width: 34px;
-	height: 34px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -22px -103px;
+	width: 33px;
+	height: 32px;
 }
 
 .sound.active {
-	background: url('/img/pr_icons_sm.png') no-repeat -140px -105px;
-	width: 34px;
-	height: 34px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -94px -102px;
+	width: 32px;
+	height: 32px;
 }
 
 .blurb {
-	background: url('/img/pr_icons_sm.png') no-repeat -79px -152px;
-	width: 34px;
-	height: 34px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -23px -150px;
+	width: 32px;
+	height: 33px;
 }
 
 .blurb.active {
-	background: url('/img/pr_icons_sm.png') no-repeat -140px -152px;
-	width: 34px;
-	height: 34px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -93px -150px;
+	width: 32px;
+	height: 33px;
 }
 
 
 .animation {
-	background: url('/img/pr_icons_sm.png') no-repeat -78px -200px;
-	width: 35px;
-	height: 34px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -23px -198px;
+	width: 32px;
+	height: 32px;
 }
 
 .animation.active {
-	background: url('/img/pr_icons_sm.png') no-repeat -140px -200px;
-	width: 34px;
-	height: 34px;
+	background: url('/img/PR_icons_set_revised.png') no-repeat -93px -198px;
+	width: 32px;
+	height: 32px;
+}
+
+.information {
+	background: url('/img/PR_icons_set_revised.png') no-repeat -23px -246px;
+	width: 32px;
+	height: 32px;
+}
+
+.information.active {
+	background: url('/img/PR_icons_set_revised.png') no-repeat -93px -246px;
+	width: 32px;
+	height: 32px;
+}
+
+.music {
+	background: url('/img/PR_icons_set_revised.png') no-repeat -23px -297px;
+	width: 32px;
+	height: 32px;
+}
+
+.music.active {
+	background: url('/img/PR_icons_set_revised.png') no-repeat -93px -297px;
+	width: 32px;
+	height: 32px;
 }
 
 .arrow { display: none; visibility: hidden;}
@@ -283,6 +321,8 @@ button#save_story {
 
 .frame-nav {
 	width: 100%;
+	margin-bottom: 0.8em;
+	margin-top: 1.8em;
 	text-align: center;
 }
 
@@ -293,6 +333,7 @@ button#save_story {
 	/*border: 1px dotted #aaa;*/
 	/*border-bottom: 1px solid #aaa;*/
 	margin: 0.3em;
+	/*margin-top: -1em;*/
 	text-align: center;
 	vertical-align: middle;
 	/*background: #eee;*/
@@ -417,7 +458,8 @@ button#save_story {
 	.frame-nav {
 		float: right;
 		width: 4.5em;
-		margin-left: 0;
+		margin-left: 0.5em;
+		margin-top: -1.5em;
 	}
 
 	.nav-deco {

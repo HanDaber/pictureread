@@ -11,7 +11,8 @@ block content
 		
 		.frame-nav
 			span.nav-deco
-				h2.frame-number #{frame}
+				h2.frame-number(style="position: relative; left: -0.3em;") #{frame}
+				h3(style="position: relative; bottom: 2em; left: 0.5em; color: #eee;") /#{total_frames}
 			span.nav-deco.expand
 				i.icon-plus.sprite-plus
 			span.nav-deco
@@ -52,7 +53,8 @@ block content
 				.modal-body
 					center
 						#new-object
-							input(name="object-title", placeholder="title for object")
+							input(name="object-title", placeholder="Title for object")
+							br
 							br
 							em Object Type:
 							br
@@ -60,7 +62,10 @@ block content
 								option(disabled="disabled", 
 										selected="selected") select one
 								option blurb
+								option information
 								option sound
+								option speech
+								option music
 								option animation
 							br
 							.cont

@@ -1,0 +1,137 @@
+@charset "UTF-8";
+@font-face { font-family: Franchise; src: url('../fonts/Franchise-Bold-hinted.ttf'); }
+
+body {
+	font-family: "Arial Light", Helvetica, Arial, sans-serif;
+	font-size: 12px;
+ 	background: #FFF;
+    	color: #777;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+	height: 100%;
+	overflow: hidden;
+}
+
+#bottom {
+	font-size: 12px;
+    	position: absolute;
+    	left: 0;
+    	bottom: 5px;
+    	text-align: center;
+    	width: 100%;
+}
+
+#container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin-top: 10%;
+    margin-bottom: 25%;
+}
+
+#header {
+	position: relative;
+	float: right;
+	text-align: right;
+	width: 250px;
+	height: 160px;
+}
+
+#header #redText {
+	color: #FF0000;
+	margin-top: 0px;
+	font-size: 14px;
+}
+
+#header #paragraph {
+	margin-top: 10px;
+}
+
+#header p {
+	margin-top: -10px;
+}
+
+#headerCover {
+	position: relative;
+	width: 100%;
+	height: 200px;
+	bottom: 50px;
+	background: #000;
+	min-width: 700px;
+
+	/* background: url("../images/pictureread_logo.png") center center no-repeat; */
+	background-color: #000;
+}
+
+#headerCover #splashImage {
+    position: relative;
+    left: 0;
+    float: left;
+    height: 100%;
+}
+
+#headerCover #logo {
+    position: absolute;
+    top: 18%;
+    left: 40%;
+    width: 200px;
+    height: 124px;
+}
+
+#headerCover #stripe {
+    position: relative;
+    width: 16px;
+    height: 100%;
+    background-color: #ff0000;
+    right: 0;
+    float: right;
+}
+
+#emailInviteFormWrapper {
+	position: relative;
+	top: 5%;
+	left: 0;
+	width: 100%;
+	margin-left: 0%;
+	text-align: center;
+}
+
+#emailInviteFormWrapper #emailInviteForm #updatesEmail {
+	position: relative;
+	height: 24px;
+	font-size: 24px;
+	width: 245px;
+	border: 1px solid #aaa;
+	padding: 1px;
+	color: #777;
+	font: 18px "Arial Light", Helvetica, Arial, sans-serif;
+}
+
+#emailInviteFormWrapper #emailInviteForm input[type="submit"] {
+	position: relative;
+	color: #FFF;
+	background-color: #EE0011;
+	border: 0;
+	cursor: pointer;
+	bottom: -3px;
+	width: 70px;
+	height: 27px;
+	padding-top: 5px;
+	font-family: Franchise;
+	font-size: 22px;
+	text-transform: uppercase;
+	margin-right: 36px;
+
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+}
+
+.float-left {
+	float: left;
+}
+
+.highlight {
+	background-color: yellow;
+	text-decoration: none;
+}

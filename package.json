@@ -15,7 +15,8 @@
     "mongoose": ">= 3.6.4",
     "basic-auth-mongoose": "*",
     "mongoose-schema-extend": "*",
-    "mongoose-slug": "*"
+    "mongoose-slug": "*",
+    "node-static": "*"
   },
   "engines": {
     "node": "0.8.x",

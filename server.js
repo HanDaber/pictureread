@@ -16,6 +16,7 @@ var express = require('express'),
 	captions = require('./routes/captions'),
 	pictures = require('./routes/pictures'),
 	interactions = require('./routes/interactions'),
+	Static = require('node-static'),
 	redis = require('./redis');
 
 
@@ -53,7 +54,13 @@ app.configure('development', function() { app.use(express.errorHandler({ dumpExc
 
 app.get('/', auth.public, function ( req, res ) {
 
-	res.render('index');
+	var file = new Static.Server('./public');
+	file.serveFile('/index.html', 200, {}, req, res);
+});
+
+app.get('/login', function ( req, res ) {
+
+	res.render('login');
 });
 
 app.get('/logout', auth.logout, function ( req, res ) {
@@ -63,12 +70,7 @@ app.get('/logout', auth.logout, function ( req, res ) {
 
 app.post('/login', auth.login, function ( req, res ) {
 	
-	if( req.session.user ) {
-
-		if( req.session.user._type === 'writer' ) res.redirect('/read');
-
-		else res.redirect('/read');
-	}
+	if( req.session.user ) res.redirect('/read');
 
 	else res.redirect('/');
 });
@@ -192,7 +194,7 @@ app.get('/:brand', auth.user, sections.all, sections.highlight, function ( req, 
 
 [x] Maximum picture size (white space)
 
-[-] New audio Object types
+[x] New audio Object types
 
 [+] Add/delete pictures
 

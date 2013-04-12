@@ -14,7 +14,7 @@ block content
 				h2.frame-number(style="position: relative; left: -0.3em;") #{frame}
 				h3(style="position: relative; bottom: 2em; left: 0.5em; color: #eee;") /#{total_frames}
 			span.nav-deco.expand
-				i.icon-plus.sprite-plus(title="Show Objects")
+				i.icon-plus.sprite-plus(title="Toggle Objects")
 			span.nav-deco
 				if frame < total_frames
 					- var next = parseInt(frame) + 1;
@@ -168,7 +168,7 @@ block content
 						if user && user._type == 'writer'
 							button.add-caption.btn.add_object.hidden(data-toggle="modal", 
 																		data-target="#caption-modal", 
-																		style="float:left; top:2em;")
+																		style="float:left; top:0.1em;")
 								i.icon-plus
 								i &nbsp;
 								i add caption

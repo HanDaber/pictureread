@@ -58,7 +58,7 @@ app.get('/', auth.public, function ( req, res ) {
 	file.serveFile('/index.html', 200, {}, req, res);
 });
 
-app.get('/login', function ( req, res ) {
+app.get('/login', auth.public, function ( req, res ) {
 
 	res.render('login');
 });

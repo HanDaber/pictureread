@@ -60,7 +60,9 @@ app.get('/', auth.public, function ( req, res ) {
 
 app.get('/login', auth.public, function ( req, res ) {
 
-	res.render('login');
+	if( req.session.user ) res.redirect('/read');
+
+	else res.render('login');
 });
 
 app.get('/logout', auth.logout, function ( req, res ) {

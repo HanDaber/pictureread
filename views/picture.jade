@@ -10,32 +10,33 @@ block content
 				h4.caps #{story.title}
 		
 		.frame-nav
-			span.nav-deco(title="Current Picture")
+			span.nav-deco.ttip(data-toggle="tooltip", title="Current Picture")
 				h2.frame-number(style="position: relative; left: -0.3em;") #{frame}
 				h3(style="position: relative; bottom: 2em; left: 0.5em; color: #eee;") /#{total_frames}
-			span.nav-deco.expand
-				i.icon-plus.sprite-plus(title="Toggle Objects")
-			span.nav-deco
+			span.nav-deco.expand.ttip(data-toggle="tooltip", title="Toggle Objects")
+				i.icon-plus.sprite-plus
+			
+			span.nav-deco(class=frame < total_frames ? 'ttip' : '', data-toggle="tooltip", title="Next Picture")
 				if frame < total_frames
 					- var next = parseInt(frame) + 1;
-					a.sprite-fwd(href="/read/#{story.slug}/#{next}", title="Next Picture")
+					a.sprite-fwd(href="/read/#{story.slug}/#{next}")
 				else
 					b.sprite-fwd.inactive
-			span.nav-deco 
+			span.nav-deco(class=frame > 1 ? 'ttip' : '', data-toggle="tooltip", title="Previous Picture") 
 				if frame > 1
 					- var last = parseInt(frame) - 1;
-					a.sprite-back(href="/read/#{story.slug}/#{last}", title="Previous Picture")
+					a.sprite-back(href="/read/#{story.slug}/#{last}")
 				else
 					b.sprite-back.inactive
-			span.nav-deco 
-				i.icon-stop.sprite-fb.link-generator(title="Share on Facebook")
-			span.nav-deco 
-				i.icon-stop.sprite-twitter.link-generator(title="Share on Twitter")
-			span.nav-deco.chars(title="Current Section")
+			span.nav-deco.ttip(data-toggle="tooltip", title="Share on Facebook")
+				i.icon-stop.sprite-fb.link-generator
+			span.nav-deco.ttip(data-toggle="tooltip", title="Share on Twitter")
+				i.icon-stop.sprite-twitter.link-generator
+			span.nav-deco.chars.ttip(data-toggle="tooltip", title="Current Section")
 				small SECTION
 				a(href="/#{story._section.slug}")
 					img(src="#{story._section.thumbnail}")
-			span.nav-deco.more
+			span.nav-deco.more.ttip(data-toggle="tooltip", title="More Sections")
 				a(href="/read")
 					small MORE SECTIONS
 
@@ -153,7 +154,7 @@ block content
 									- contents += '<input name="edit[' + ( i - 1 ) + ']"></input>'
 									- contents += '<span>' + picture.caption[i] + '</span>'
 
-							- contents += '<br><br><center><button class="btn btn-mini add-rewrite">Rewrite!</button></center>'
+							- contents += '<br><br><center><a href="" class="add-rewrite">Rewrite in the blanks.</a></center>'
 
 							a.interaction-popover(href="", 
 													data-type="caption", 

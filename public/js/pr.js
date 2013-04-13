@@ -4,6 +4,8 @@ var permission = $('#permission').hasClass('true'),
 
 $('.bg-data').css('background', apply_background);
 
+$('.ttip').tooltip({ placement: 'left' });
+
 $('.story').each(function () {
 
 	var section = $('a.current.section').attr('id'),
@@ -77,6 +79,17 @@ $('.interaction-popover')
             console.log( elem.parentElement )
 
             return elem.parentElement.offsetTop < 100 ? 'bottom' : 'top';
+
+            /*
+
+picture[dimensions], popover[dimensions], popover[location] => popover[dimensions]
+
+    picture.height,
+    popover.height,
+    popover.pos
+        popover.pos.y + popover.height < picture.height - popover.pos.y 
+
+            */
         }
     });
 
@@ -104,7 +117,9 @@ $('.link-generator').click(function () {
 $('.inactive').fadeTo('fast', 0.3);
 
 
-$('#caption').on('click', '.add-rewrite', function () {
+$('#caption').on('click', '.add-rewrite', function ( ev ) {
+
+    ev.preventDefault();
 
     var root = $(this).parents('#caption'),
         edits = [],

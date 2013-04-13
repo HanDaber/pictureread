@@ -2,6 +2,26 @@
  * Module dependencies.
  */
 
+/* TODO:
+
+[-] Add pictures
+
+[-] When I put copy in should move in rectangle or be responsive 
+	to amount of characters. We could create a limit, but information 
+	will need to be more characters than a blurb as well all copy needs 
+	to stay on the picture.
+
+[-] And I can not edit or delete rewrites. Can we make the rewrite have 
+	a yellow box so it stands out what to do also.
+
+[x] And lastly are we still able to add those tool tips to the left nav 
+	and you can base them on the key sheet with icons I sent.
+
+[-] One last thing lets put the the login portion on home splash page 
+	to x out the extra step of going to another page.
+
+*/
+
 var express = require('express'),
 	namespace = require('express-namespace'),
 	path = require('path'),
@@ -187,28 +207,6 @@ app.get('/:brand', auth.user, sections.all, sections.highlight, function ( req, 
 
 	res.render('home');
 });
-
-
-
-/*
-
-[x] Add Object labels 
-
-[x] Maximum picture size (white space)
-
-[x] New audio Object types
-
-[+] Add/delete pictures
-
-[x] Copy homepage
-
-[x] Remove new part capability
-
-*/
-
-
-
-
 
 
 

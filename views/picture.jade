@@ -103,7 +103,7 @@ block content
 						i &nbsp;
 						button.btn.save-caption Save
 
-			center
+			center.interaction-container
 				#frame_image
 					button.remove-resource.btn.btn-danger.pull-right.hide(data-id='#{picture._id}', 
 																			title="double-click to delete picture", 
@@ -181,7 +181,7 @@ block content
 							a.interaction-popover(href="", 
 													data-type="#{obj.type}", 
 													data-contents="#{obj.media}", 
-													data-title=obj.title === 'undefined' ? '' : obj.title)
+													data-title=obj.title === 'undefined' ? obj.type : obj.title + '<button class="btn btn-mini pull-right">X</button>')
 								i.icon-arrow-left.interaction-icon(class="#{obj.type}")
 								span.txt
 							button.remove-resource.interaction.btn.btn-mini.btn-danger.hide(data-id="#{obj._id}", 

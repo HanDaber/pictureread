@@ -1,6 +1,7 @@
 var permission = $('#permission').hasClass('true'),
     img_url = 'http://pictureread.s3.amazonaws.com/';
 
+var popover_container_string = $(window).width() < 768 ? '#frame_image' : false;
 
 $('.bg-data').css('background', apply_background);
 
@@ -69,16 +70,32 @@ $('.interaction-popover')
             
             else if( type === 'caption' ) return '<em>' + $(this).data('contents') + '</em>';
 
-            else return 'hmm...';
+            else return 'object error...';
         },
 
         html: true,
 
+        container: '#frame_image',
+        // container: popover_container_string,
+
         placement: function ( tip, elem ) {
 
-            console.log( elem.parentElement )
+            var third_height = Math.round( $(elem).parents('#frame_image').height() / 3 );
+            var half_width = Math.round( $(elem).parents('#frame_image').width() / 2 );
 
-            return elem.parentElement.offsetTop < 100 ? 'bottom' : 'top';
+            if( elem.offsetTop < third_height ) {
+
+console.log('elem is in top third ') 
+console.dir(elem.parentElement.offsetTop)
+
+                $(elem).siblings('.popover').css('background', '#f00 !important');
+            }
+
+            if( elem.parentElement.offsetLeft < half_width ) return 'right';
+
+            else return 'left';
+
+            // if( elem.parentElement.offsetTop < half_height ) return 'bottom';
 
             /*
 
@@ -94,6 +111,8 @@ picture[dimensions], popover[dimensions], popover[location] => popover[dimension
     });
 
 
+
+
 $('#frame_image')
     .on('click', 'img', function(e) {
 
@@ -101,6 +120,7 @@ $('#frame_image')
 
         $('.interaction-popover').find('.interaction-icon').removeClass('active')
     });
+
 
 
 
@@ -148,6 +168,13 @@ $('#caption').on('click', '.add-rewrite', function ( ev ) {
 
 $('#object-modal').modal({ show: false });
 
+
+
+$('#frame').on('click', '.popover-title', function () {
+
+    $('.interaction-popover').popover('hide');
+    $('.interaction-icon').removeClass('active');
+});
 
 
 
@@ -406,6 +433,8 @@ if( permission ) {
                     new_obj.type = '';
 
                     new_obj.position = [];
+
+                    window.location.reload(true);
                 });
             })  
         })
@@ -415,6 +444,10 @@ if( permission ) {
 
     dropZone('#story-drop', handle_story, { multiple: false } );
 }
+
+
+
+
 
 
 
@@ -463,18 +496,22 @@ function dropZone ( selector, handler, options ) {
         location: 'S3',
         
         dragEnter: function () {
-            element.html("Drop to upload").css({
-                'backgroundColor': "#E0E0E0",
+            element.html("Drop to upload.").css({
+                'backgroundColor': "#0a0",
                 'border': "1px solid #000"
             });
         },
         dragLeave: function () {
             element.html( text ).css({
-                'backgroundColor': "#F6F6F6",
-                'border': "1px dashed #666"
+                'backgroundColor': "#ddd",
+                'border': "1px dotted #000"
             });
         },
         onStart: function ( files ) {
+            element.html('Please wait...').css({
+                'backgroundColor': "#fff",
+                'border': "1px dotted #fff"
+            });
             console.log('files: ' + files)
         },
         onSuccess: function ( fpfiles ) {
@@ -547,7 +584,16 @@ function make_thumbnail ( obj, next ) {
         
         function ( FPFile ) {
             next( FPFile );
-            obj.element.html('Done!');
+            obj.element.html('Finished.').css({
+                'backgroundColor': "#ddd",
+                'border': "1px dotted #000"
+            });
+            if( obj.element.hasClass('mult') ) {
+                obj.element.html('Drag and Drop another picture').css({
+                    'backgroundColor': "#ddd",
+                    'border': "1px dotted #000"
+                });
+            }
         }, 
         
         function ( FPError ) {

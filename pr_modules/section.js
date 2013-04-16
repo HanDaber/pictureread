@@ -38,3 +38,17 @@ sectionModel = mongoose.model( 'Section', sectionSchema );
 
 module.exports = sectionModel;
 
+sectionModel.find().exec( handle );
+
+function handle ( err, sections ) {
+
+	if( err ) console.log(err);
+
+	else {
+		require('underscore').each( sections, function (s) {
+			
+			console.log(s.toObject())
+		});
+	}
+}
+

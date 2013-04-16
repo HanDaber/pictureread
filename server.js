@@ -14,11 +14,14 @@
 [-] And I can not edit or delete rewrites. Can we make the rewrite have 
 	a yellow box so it stands out what to do also.
 
-[x] And lastly are we still able to add those tool tips to the left nav 
-	and you can base them on the key sheet with icons I sent.
-
 [-] One last thing lets put the the login portion on home splash page 
 	to x out the extra step of going to another page.
+
+[-] Default rewrite
+
+[-] Adding pictures to story UI 
+
+[-] De-activate interaction-icon on click of popover to close
 
 */
 

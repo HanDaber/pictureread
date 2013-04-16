@@ -74,6 +74,11 @@ app.configure('development', function() { app.use(express.errorHandler({ dumpExc
 
 
 // Routes
+app.get('/sandbox', function ( req, res ) {
+	console.log('req: ')
+	console.dir(req)
+	res.render('read')
+})
 
 app.get('/', auth.public, function ( req, res ) {
 

@@ -1,0 +1,63 @@
+extends layout
+
+block content
+	- var sections = collection.sections
+	- var hl_class = ''
+	.span12
+		center
+			hr(storyyle="margin:0.5em")
+			.title
+				span.caps SECTIONS
+
+				span &nbsp;
+				button.btn.btn-mini.hide.add-section
+					i.icon-plus
+
+				#section-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newSection", aria-hidden="true")
+					.modal-header
+						button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+						h3#newSection New Section
+					.modal-body
+						center
+							input(name="brand_name", placeholder="Brand Name", type="text")
+							input(name="image", type="hidden")
+							input(name="thumbnail", type="hidden")
+							#section-drop Drag & Drop a Picture Here
+							.pics
+							br
+							button.btn.save-section Save
+
+			hr(style="margin:0.5em")
+			
+			#sections
+				include partials/sections
+
+	.span12
+		center
+			hr(style="margin:3em auto 0.5em auto")
+			.title
+				span.caps STORIES
+
+				span &nbsp;
+
+				- if( collection.highlight )
+					button.btn.btn-mini.hide.add-story
+						i.icon-plus
+
+					#story-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newStory", aria-hidden="true")
+						.modal-header
+							button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+							h3#newStory New Story for #{collection.highlight}
+						.modal-body
+							center
+								input(name="section", value="#{collection.highlight}", type="hidden")
+								input(name="title", type="text", placeholder="Story Title")
+								#story-drop.mult Drop pictures here one at a time
+								.pics
+								br
+								button.save-story.btn Save
+
+			hr(style="margin:0.5em")
+			
+			#stories
+				include partials/stories

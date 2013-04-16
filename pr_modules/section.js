@@ -45,9 +45,10 @@ function handle ( err, sections ) {
 	if( err ) console.log(err);
 
 	else {
-		require('underscore').each( sections, function (s) {
+		require('underscore').each( sections, function (s, i) {
 			
-			console.log(s.toObject())
+			console.log('section ' + i)
+			console.dir(s.toObject())
 		});
 	}
 }

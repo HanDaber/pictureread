@@ -357,12 +357,16 @@ button#save_story {
 	border: none;
 	display: none;
 }
-.nav-deco a, .nav-deco b, .nav-deco img {
+.nav-deco a, .nav-deco b {
 	display: inline-block;
 	margin-top: 0.5em;
 	position: relative;
 }
 
+.nav-deco a img {
+	max-height: 100px;
+	max-width: 100px;
+}
 
 .more a {
 	color: #000;

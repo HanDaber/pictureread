@@ -477,15 +477,23 @@ button#save_story {
 }
 
 .popover {
-	/*top: 0 !important;*/
-	/*left: 1em !important;*/
-	/*position: fixed;*/
-	z-index: 9999;
-	min-width: 300px;
-	max-width: 768px;
+	/*top: 1em !important;*/
+	/*left: -1em !important;*/
+	/*position: absolute;*/
+	z-index: 999;
+	min-width: 200px;
+	max-width: 500px;
+	/*max-height: 400px;*/
 	background-color: rgba(255, 255, 255, 0.5);
 	border: 1px solid #ccc;
 	font-weight: 600;
+}
+.popover.left {
+	/*left: -300px !important;*/
+}
+
+.push-down {
+	top: 1em !important;
 }
 
 @media (min-width: 400px) {
@@ -514,11 +522,13 @@ button#save_story {
 }
 
 @media (min-width: 768px) { 
-
+/*
 	.popover {
+		position: absolute;
 		z-index: 9999;
+		max-width: 300px;
 		background-color: rgba(255, 255, 255, 0.2);
-	}
+	}*/
 
 	.frames a {
 		display: inline-block;

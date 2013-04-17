@@ -93,37 +93,32 @@ $('.interaction-popover')
         html: true,
 
         container: '#frame_image',
+        // container: false,
         // container: popover_container_string,
 
         placement: function ( tip, elem ) {
 
-            var third_height = Math.round( $(elem).parents('#frame_image').height() / 3 );
+            var qtr_height = Math.round( $(elem).parents('#frame_image').height() / 4 );
             var half_width = Math.round( $(elem).parents('#frame_image').width() / 2 );
 
-            if( elem.offsetTop < third_height ) {
+            if( elem.parentElement.offsetTop < qtr_height ) {
 
-console.log('elem is in top third ') 
-console.dir(elem.parentElement.offsetTop)
+                $(this.$tip).attr('style', 'top: 1em !important')
+console.log('top')
 
-                $(elem).siblings('.popover').css('background', '#f00 !important');
+            }
+            
+            if( elem.parentElement.offsetLeft < half_width ) {
+
+console.log('right')
+                return 'right';
             }
 
-            if( elem.parentElement.offsetLeft < half_width ) return 'right';
+            else {
 
-            else return 'left';
-
-            // if( elem.parentElement.offsetTop < half_height ) return 'bottom';
-
-            /*
-
-picture[dimensions], popover[dimensions], popover[location] => popover[dimensions]
-
-    picture.height,
-    popover.height,
-    popover.pos
-        popover.pos.y + popover.height < picture.height - popover.pos.y 
-
-            */
+console.log('left')
+                return 'left';
+            }
         }
     });
 
@@ -136,6 +131,22 @@ $('#frame_image')
         $('.interaction-popover').popover('hide');
 
         $('.interaction-popover').find('.interaction-icon').removeClass('active')
+    })
+    .on('DOMNodeInserted', function ( ev ) {
+
+// console.dir( $(ev.target) )
+        
+        if( $(ev.target)[0].offsetLeft < 0 ) {
+
+            // var current_width = $(ev.target).css('width');
+
+            // $(ev.target).css('width', current_width - $(ev.target)[0].offsetLeft )
+
+            // $(ev.target).css('background', 'rgba(255,0,0,0.2)')
+        }
+        
+// console.dir( $(this).find('.popover') )
+        
     });
 
 

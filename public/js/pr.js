@@ -65,7 +65,7 @@ $('.interaction-popover')
 
         $('.interaction-icon').removeClass('active');
         
-        $(this).find('.interaction-icon').addClass('active');
+        $(this).find('.interaction-icon').toggleClass('active');
     })
     .popover({
 

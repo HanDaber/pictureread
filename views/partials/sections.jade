@@ -9,4 +9,5 @@ each section in sections
 			img(src="#{section.thumbnail}", 
 				height="150px", 
 				width="150px", 
-				title="#{section.slug}")
+				title="#{section.slug}",
+				class=collection.highlight == section.slug ? 'current' : '')

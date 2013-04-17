@@ -6,22 +6,16 @@
 
 [-] Add pictures
 
-[-] When I put copy in should move in rectangle or be responsive 
+[+] When I put copy in should move in rectangle or be responsive 
 	to amount of characters. We could create a limit, but information 
 	will need to be more characters than a blurb as well all copy needs 
 	to stay on the picture.
 
-[-] And I can not edit or delete rewrites. Can we make the rewrite have 
-	a yellow box so it stands out what to do also.
+[-] Edit or delete rewrites.
 
-[-] One last thing lets put the the login portion on home splash page 
-	to x out the extra step of going to another page.
+[-] Login on home page
 
 [-] Default rewrite
-
-[-] Adding pictures to story UI 
-
-[-] De-activate interaction-icon on click of popover to close
 
 */
 
@@ -77,7 +71,7 @@ app.configure('development', function() { app.use(express.errorHandler({ dumpExc
 app.get('/sandbox', function ( req, res ) {
 	console.log('req: ')
 	console.dir(req)
-	res.render('read')
+	res.send('poop')
 })
 
 app.get('/', auth.public, function ( req, res ) {

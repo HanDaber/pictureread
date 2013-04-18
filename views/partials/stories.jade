@@ -1,6 +1,7 @@
 each s in sections
 	each story in s.stories
-		.story(data-section='#{story._section}',
+		a.story(href="/read/#{story.slug}",
+					data-section='#{story._section}',
 					class=collection.highlight ? 'hide' : '')
 
 			small.caps #{story.title}

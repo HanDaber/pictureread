@@ -1,10 +1,10 @@
 each s in sections
 	each story in s.stories
-		a.story(href="/read/#{story.slug}",
-					data-section='#{story._section}',
+		.story(data-section='#{story._section}',
 					class=collection.highlight ? 'hide' : '')
 
-			small.caps #{story.title}
+			a(href="/read/#{story.slug}")
+				small.caps #{story.title}
 
 			button.remove-resource.btn.btn-danger.hide(data-id="#{story.slug}", 
 														style="position: absolute; right:0;"

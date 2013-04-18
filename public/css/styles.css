@@ -378,6 +378,8 @@ button#save_story {
 	text-decoration: none;
 }
 
+.bx-viewport { background-color: #000 !important; padding: 0.8em !important; }
+
 .chars {
 	border: none;
 }

@@ -7,7 +7,8 @@ $('#sections').bxSlider({
     slideWidth: 150,
     minSlides: 2,
     maxSlides: 5,
-    slideMargin: 10
+    slideMargin: 10,
+    easing: 'ease-in-out'
 });
 
 // if( $(window).width() < 768 ) {
@@ -17,7 +18,10 @@ $('.slider').bxSlider({
     slideWidth: 200,
     minSlides: 2,
     maxSlides: 3,
-    slideMargin: 10
+    slideMargin: 10,
+    infiniteLoop: false,
+    hideControlOnEnd: true,
+    easing: 'ease-in-out'
 });
 
 $('.bg-data').css('background', apply_background);
@@ -165,15 +169,15 @@ $('.link-generator').click(function () {
 $('.inactive').fadeTo('fast', 0.3);
 
 
-$('#caption').on('click', '.add-rewrite', function ( ev ) {
+$('#frame').on('click', 'a.add-rewrite', function ( ev ) {
 
     ev.preventDefault();
 
-    var root = $(this).parents('#caption'),
+    var root = $('#caption'),
         edits = [],
         data = {};
 
-    root.find('input').each(function ( index, input ) {
+    $('.popover-content').find('input').each(function ( index, input ) {
 
         var val = $(input).val();
 
@@ -190,8 +194,13 @@ $('#caption').on('click', '.add-rewrite', function ( ev ) {
 
     $.post('/api/rewrites', data, function ( resp, status, xhr ) {
 
-        if( resp ) window.location = resp;
+        if( resp ) {
+
+            window.location = resp;
+        }
     });
+
+    ev.stopPropagation();
 });
 
 $('#object-modal').modal({ show: false });
@@ -320,25 +329,29 @@ if( permission ) {
     $('.add-part')
         .on('click', function ( ev ) {
             
-            $(this).before('<em style="color:#aaa;">+ user\'s text +</em><br><br><input type="text"><br>');
+            var num = parseInt( $(this).siblings('.caption-input').length ) + 1;
+            // $(this).before('<em style="color:#aaa;">+ user\'s text +</em><br><br><input type="text"><br>');
+
+            $(this).before('<input type="text" class="rewrite-input" placeholder="user\'s text"><br><input type="text" class="caption-input" placeholder="Part ' + num + '"><br>');
         });
 
     $('.remove-part')
         .on('click', function ( ev ) {
             
-            $(this).siblings('em').last().remove();
-            
+            $(this).siblings('br').last().remove();
             $(this).siblings('input').last().remove();
 
             $(this).siblings('br').last().remove();
-            $(this).siblings('br').last().remove();
+            $(this).siblings('input').last().remove();
         });
 
     $('#caption-modal')
         .on('click', '.save-caption', function ( ev ) {
 
-            var root = $(this).siblings('input'),
+            var root = $(this).siblings('input.caption-input'),
+                edits = $(this).siblings('input.rewrite-input'),
                 caption = [],
+                write = [],
                 data = {};
 
             root.each(function ( index, input ) {
@@ -348,7 +361,16 @@ if( permission ) {
                 caption.push( value === '' ? 'blank' : value )
             });
 
+            edits.each(function ( index, input ) {
+                 
+                var value = $(input).val();
+
+                write.push( value === '' ? 'blank' : value )
+            });
+
             data.caption = caption;
+            
+            data.write = write;
             
             data.story = $(this).parents('#caption-modal').data('story');
             
@@ -358,7 +380,10 @@ if( permission ) {
             
             $.post('/api/captions', data, function ( resp, status, xhr ) {
 
-                if( resp ) window.location = resp;
+                if( resp ) {
+console.log(resp)
+                    window.location = resp;
+                }
             });
         });
 

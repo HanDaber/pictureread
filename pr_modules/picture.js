@@ -17,6 +17,8 @@ picture_properties.thumbnail = String;
 
 picture_properties.caption = [ String ];
 
+picture_properties.write = [ String ];
+
 picture_properties.interactions = [ Interaction.schema ];
 
 picture_properties.rewrites = [ Rewrite.schema ];

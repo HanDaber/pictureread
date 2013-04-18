@@ -68,12 +68,6 @@ app.configure('development', function() { app.use(express.errorHandler({ dumpExc
 
 
 // Routes
-app.get('/sandbox', function ( req, res ) {
-	console.log('req: ')
-	console.dir(req)
-	res.send('poop')
-})
-
 app.get('/', auth.public, function ( req, res ) {
 
 	var file = new Static.Server('./public');

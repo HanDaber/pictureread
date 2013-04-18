@@ -16,6 +16,8 @@ exports.add = function ( req, res, next ) {
 
 			pic.caption = req.body.caption;
 
+			pic.write = req.body.write;
+
 			story.save(function (err) {
 
 				res.locals.caption = pic.caption;

@@ -11,9 +11,6 @@ $('#sections').bxSlider({
     easing: 'ease-in-out'
 });
 
-// if( $(window).width() < 768 ) {
-//     slider->vertical
-// }
 $('.slider').bxSlider({
     slideWidth: 200,
     minSlides: 2,
@@ -23,6 +20,15 @@ $('.slider').bxSlider({
     hideControlOnEnd: true,
     easing: 'ease-in-out'
 });
+
+// Swap next/prev picture buttons on mobile UI
+if( $(window).width() < 768 ) {
+
+    var prev = $('.prev-picture'),
+        next = $('.next-picture');
+
+    $('.expand').after( prev )
+}
 
 $('.bg-data').css('background', apply_background);
 
@@ -140,17 +146,10 @@ $('#frame_image')
 
 // console.dir( $(ev.target) )
         
-        if( $(ev.target)[0].offsetLeft < 0 ) {
+        if( $(ev.target).hasClass('popover') ) {
 
-            // var current_width = $(ev.target).css('width');
-
-            // $(ev.target).css('width', current_width - $(ev.target)[0].offsetLeft )
-
-            // $(ev.target).css('background', 'rgba(255,0,0,0.2)')
+            // $(ev.target).attr('style', '')
         }
-        
-// console.dir( $(this).find('.popover') )
-        
     });
 
 

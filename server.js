@@ -8,7 +8,7 @@
 
 [-] Protect against create record if exists
 
-[-] Add pictures
+[/] Add pictures
 
 [-] FB/Twitter share
 
@@ -16,7 +16,7 @@
 
 [-] Login on home page
 
-[-] Darken objects
+[x] Darken objects
 
 [-] Sticky header
 

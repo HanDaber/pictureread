@@ -358,7 +358,7 @@ if( permission ) {
                  
                 var value = $(input).val();
 
-                caption.push( value === '' ? 'blank' : value )
+                caption.push( value === '' ? '.' : value )
             });
 
             edits.each(function ( index, input ) {

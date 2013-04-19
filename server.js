@@ -4,18 +4,25 @@
 
 /* TODO:
 
+[-] Disable save buttons until image uploaded - UI
+
+[-] Protect against create record if exists
+
 [-] Add pictures
 
-[+] When I put copy in should move in rectangle or be responsive 
-	to amount of characters. We could create a limit, but information 
-	will need to be more characters than a blurb as well all copy needs 
-	to stay on the picture.
+[-] FB/Twitter share
 
-[-] Edit or delete rewrites.
+[-] Resize or reposition popovers to fit in Picture - UI
 
 [-] Login on home page
 
-[-] Default rewrite
+[-] Darken objects
+
+[-] Sticky header
+
+[-] 3 Line UI on mobile, swap nav arrows ( Picture - UI )
+
+[-] validation - UI
 
 */
 
@@ -52,7 +59,7 @@ app.configure(function() {
 
 	app.use(express.session({
 		secret: process.env.CLIENT_SECRET || "386rujrjr687i8i578o745683334f3r47rgd_PR_83y48fh3u3hef83473747384r7fheuhfd",
-		maxAge: Date.now() + 7200000, // 2h Session lifetime
+		maxAge: Date.now() + (3 * 7200000), // 6h Session lifetime
 		store: new Redis({ client: redis })
 	}));
 
@@ -185,6 +192,11 @@ app.namespace('/api', auth.user, function () {
 	app.post('/pictures/:id', auth.writer, pictures.rem, function ( req, res ) {
 
 		res.send('/read/' + res.locals.story.slug);
+	});
+
+	app.post('/captions/delete', auth.writer, captions.rem, function ( req, res ) {
+
+		res.send('/read/' + req.body.story + '/' + req.body.frame );
 	});
 
 	app.post('/captions', auth.writer, captions.add, function ( req, res ) {

@@ -135,7 +135,7 @@ block content
 								i.icon-arrow-left.interaction-icon.caption
 								span.txt
 
-					- else if( picture.caption && picture.caption.length )
+					- else if( picture.caption && picture.caption.length ) // This is a normal caption
 						- var len = picture.caption.length
 						- var contents = ''
 						
@@ -146,15 +146,15 @@ block content
 
 							- if( len == 1 )
 								- contents += '<span>' + picture.caption[0] + '</span>'
-								- contents += '<input name="edit[0]" placeholder="' + picture.write[0] + '">'
+								- contents += '<input class="caption-fill" name="edit[0]" placeholder="' + picture.write[0] + '">'
 
 							- else
 								- contents += '<span>' + picture.caption[0] + '</span>'
 								- for(var i=1; i < len; i++)
-									- contents += '<input name="edit[' + ( i - 1 ) + ']" placeholder="' + picture.write[ i - 1 ] + '">'
+									- contents += '<input class="caption-fill" name="edit[' + ( i - 1 ) + ']" placeholder="' + picture.write[ i - 1 ] + '">'
 									- contents += '<span>' + picture.caption[i] + '</span>'
 
-							- contents += '<br><br><center><a href="#" class="add-rewrite">Rewrite in the blanks.</a></center>'
+							- contents += '<br><br><center><a href="#" class="add-rewrite">Rewrite in the blank(s).</a></center>'
 
 							a.interaction-popover(href="", 
 													data-type="caption", 
@@ -163,6 +163,11 @@ block content
 													data-placement="right")
 								i.icon-arrow-left.interaction-icon.caption
 								span.txt
+							button.remove-resource.interaction.btn.btn-mini.btn-danger.hide(data-id="delete", 
+																							data-story="#{story.slug}", 
+																							data-pic="#{picture._id}", 
+																							data-collection="captions") &times;
+
 							button.btn.btn-danger.hide.remove-object(id="#{picture.caption._id}", 
 																		data-object-type="caption") &times;
 					

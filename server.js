@@ -16,8 +16,6 @@
 
 [-] Login on home page
 
-[x] Darken objects
-
 [-] Sticky header
 
 [-] 3 Line UI on mobile, swap nav arrows ( Picture - UI )

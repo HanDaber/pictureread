@@ -572,6 +572,10 @@ audio {
 		position: absolute;
 	}
 
+	audio {
+		max-width: 200px;
+	}
+
 	.frame-nav {
 		margin-left: -1.8em;
 	}
@@ -597,7 +601,7 @@ audio {
 	}
 
 	audio {
-		max-width: 250px;
+		max-width: 200px;
 	}
 
 	.popover.left {

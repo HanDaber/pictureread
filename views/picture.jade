@@ -14,7 +14,7 @@ block content
 				h2.frame-number(style="position: relative; left: -0.3em;") #{frame}
 				h3(style="position: relative; bottom: 2em; left: 0.5em; color: #eee;") /#{total_frames}
 			span.nav-deco.expand.ttip(data-toggle="tooltip", title="Toggle Objects")
-				i.icon-plus.sprite-plus
+				i.icon-plus.sprite-plus.active
 			
 			span.nav-deco.next-picture(class=frame < total_frames ? 'ttip' : '', data-toggle="tooltip", title="Next Picture")
 				if frame < total_frames
@@ -141,7 +141,7 @@ block content
 						- var len = picture.caption.length
 						- var contents = ''
 						
-						#caption.add_object.hidden(data-story="#{story.slug}", 
+						#caption.add_object(data-story="#{story.slug}", 
 													data-picture="#{picture._id}", 
 													data-frame="#{frame}", 
 													style="left:20px; top:10px;")
@@ -185,7 +185,7 @@ block content
 					img(src="#{picture.image}", data-current="#{picture._id}")
 
 					each obj in picture.interactions
-						.add_object.rs.hidden(style="left:#{obj.position[0]}%; top:#{obj.position[1]}%;")
+						.add_object.rs(style="left:#{obj.position[0]}%; top:#{obj.position[1]}%;")
 							a.interaction-popover(href="", 
 													data-type="#{obj.type}", 
 													data-contents="#{obj.media}", 

@@ -42,19 +42,19 @@ else {
                 'position': 'fixed',
                 'top': '0',
                 'z-index': '998',
-                'background': '#fff',
-                '-moz-box-shadow':    '0 0 1em 0.1em #ccc',
-                '-webkit-box-shadow': '0 0 1em 0.1em #ccc',
-                'box-shadow':         '0 0 1em 0.1em #ccc'
+                'background': '#fff'
+                // '-moz-box-shadow':    '0 0 1em 0.1em #ccc',
+                // '-webkit-box-shadow': '0 0 1em 0.1em #ccc',
+                // 'box-shadow':         '0 0 1em 0.1em #ccc'
             });
             
             $('.sticker-spacer').removeClass('hide').height( $(".sticker").height() );
         } else {
             $(".sticker").css({
-                'position': 'relative',
-                '-moz-box-shadow':    'none',
-                '-webkit-box-shadow': 'none',
-                'box-shadow':         'none'
+                'position': 'relative'
+                // '-moz-box-shadow':    'none',
+                // '-webkit-box-shadow': 'none',
+                // 'box-shadow':         'none'
             });
             
             $('.sticker-spacer').addClass('hide');

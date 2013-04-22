@@ -45,6 +45,7 @@
 	margin-right: auto;
 }
 
+
 .story {
 	position: relative;
 	margin-top: 2em;
@@ -118,6 +119,10 @@
 	.tooltip {
 		display: none;
 		visibility: hidden;
+	}
+
+	.bx-viewport {
+		margin-left: -0.5em;
 	}
 }
 

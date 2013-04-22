@@ -36,8 +36,11 @@ if( $window.width() < 768 ) {
 }
 else {
 
-    $window.scroll(function() {
-        if ($window.scrollTop() > offset.top) {
+    // $window.scroll(function() {
+        // if ($window.scrollTop() > offset.top) {
+
+            $('.top-bar').prependTo('.sticker');
+
             $(".sticker").css({
                 'position': 'fixed',
                 'top': '0',
@@ -48,18 +51,19 @@ else {
                 // 'box-shadow':         '0 0 1em 0.1em #ccc'
             });
             
-            $('.sticker-spacer').removeClass('hide').height( $(".sticker").height() );
-        } else {
-            $(".sticker").css({
-                'position': 'relative'
-                // '-moz-box-shadow':    'none',
-                // '-webkit-box-shadow': 'none',
-                // 'box-shadow':         'none'
-            });
+            $('.sticker-spacer').removeClass('hide').height('28em');
+
+    //     } else {
+    //         $(".sticker").css({
+    //             'position': 'relative'
+    //             // '-moz-box-shadow':    'none',
+    //             // '-webkit-box-shadow': 'none',
+    //             // 'box-shadow':         'none'
+    //         });
             
-            $('.sticker-spacer').addClass('hide');
-        }
-    });
+    //         $('.sticker-spacer').addClass('hide');
+    //     }
+    // });
 }
 
 

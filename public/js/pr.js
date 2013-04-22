@@ -125,11 +125,11 @@ $('.interaction-popover')
             
             else if( type === 'animation' ) return '<img src="' + $(this).data('contents') + '" width="200px" height="200px" />';
             
-            else if( type === 'sound' ) return '<audio controls autobuffer preload autoplay><source src="' + $(this).data('contents') + '" type="audio/mpeg"></audio>';
+            else if( type === 'sound' ) return '<audio controls autobuffer preload autoplay><source src="' + $(this).data('contents') + '" type="audio/mpeg">Your browser does not support HTML5 audio</audio>';
             
-            else if( type === 'speech' ) return '<audio controls autobuffer preload autoplay><source src="' + $(this).data('contents') + '" type="audio/mpeg"></audio>';
+            else if( type === 'speech' ) return '<audio controls autobuffer preload autoplay><source src="' + $(this).data('contents') + '" type="audio/mpeg">Your browser does not support HTML5 audio</audio>';
             
-            else if( type === 'music' ) return '<audio controls autobuffer preload autoplay><source src="' + $(this).data('contents') + '" type="audio/mpeg"></audio>';
+            else if( type === 'music' ) return '<audio controls autobuffer preload autoplay><source src="' + $(this).data('contents') + '" type="audio/mpeg">Your browser does not support HTML5 audio</audio>';
             
             else if( type === 'information' ) return '<em>' + $(this).data('contents') + '</em>';
             

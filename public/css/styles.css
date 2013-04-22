@@ -535,21 +535,22 @@ input.caption-fill {
 	margin-left: -0.5em;
 }
 
-/*.popover {
-	/*top: 10em !important;
-	left: 0 !important;
-	position: fixed;
-	z-index: 999;
-	width: 300px;
-	max-height: 800px;
-	background-color: #fff;
-	border: 1px solid #ccc;
-	font-weight: 600;
-	/*margin: 1em auto;
+audio {
+	max-width: 200px;
 }
+
+.popover {
+	position: absolute;
+	z-index: 999;
+	width: 100%;
+	max-height: 400px;
+	background-color: rgba(255, 255, 255, 0.6);
+	border: 1px solid #ccc;
+}
+
 .popover.left {
-	left: 1.4em !important;
-}*/
+	position: absolute;
+}
 
 
 .push-down {
@@ -559,7 +560,16 @@ input.caption-fill {
 @media (min-width: 400px) {
 
 	.popover {
-		width: 400px;
+		position: absolute;
+		z-index: 999;
+		width: 350px;
+		max-height: 400px;
+		background-color: rgba(255, 255, 255, 0.6);
+		border: 1px solid #ccc;
+	}
+
+	.popover.left {
+		position: absolute;
 	}
 
 	.frame-nav {
@@ -576,6 +586,24 @@ input.caption-fill {
 }
 
 @media (min-width: 500px) {
+
+	.popover {
+		position: absolute;
+		z-index: 999;
+		width: 450px;
+		max-height: 400px;
+		background-color: rgba(255, 255, 255, 0.6);
+		border: 1px solid #ccc;
+	}
+
+	audio {
+		max-width: 450px;
+	}
+
+	.popover.left {
+		position: absolute;
+	}
+
 	.nav-deco {
 		margin: 0 0.9em;
 	}
@@ -586,12 +614,12 @@ input.caption-fill {
 
 }
 
-@media (min-width: 768px) { 
+@media (min-width: 769px) { 
 	
 	.popover {
 		position: absolute;
 		z-index: 999;
-		min-width: 200px;
+		min-width: 100px;
 		max-width: 500px;
 		max-height: 400px;
 		background-color: rgba(255, 255, 255, 0.6);
@@ -603,6 +631,9 @@ input.caption-fill {
 		position: absolute;
 	}
 
+	audio {
+		max-width: 500px;
+	}
 	.nav-deco a img {
 		position: relative;
 		top: 0;

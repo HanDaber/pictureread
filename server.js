@@ -4,21 +4,19 @@
 
 /* TODO:
 
-[-] Disable save buttons until image uploaded - UI
-
-[-] Protect against create record if exists
-
-[/] Add pictures
+[-] Resize or reposition popovers to fit in Picture - UI
 
 [-] FB/Twitter share
 
-[-] Resize or reposition popovers to fit in Picture - UI
+[-] Protect against create record if exists
 
-[-] Login on home page
-
-[-] 3 Line UI on mobile, swap nav arrows ( Picture - UI )
+[-] Disable save buttons until image uploaded - UI
 
 [-] validation - UI
+
+[/] Add pictures
+
+[/] Login on home page
 
 */
 

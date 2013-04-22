@@ -597,7 +597,7 @@ audio {
 	}
 
 	audio {
-		max-width: 450px;
+		max-width: 250px;
 	}
 
 	.popover.left {
@@ -632,7 +632,7 @@ audio {
 	}
 
 	audio {
-		max-width: 500px;
+		max-width: 300px;
 	}
 	.nav-deco a img {
 		position: relative;

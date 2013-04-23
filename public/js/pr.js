@@ -157,7 +157,7 @@ $('.interaction-popover')
 
             if( elem.parentElement.offsetTop < qtr_height ) {
 
-                $(this.$tip).attr('style', 'top: 1em !important')
+                // $(this.$tip).attr('style', 'top: 1em !important')
 console.log('top')
 
             }
@@ -197,7 +197,7 @@ console.log( offset.top );
 
             if( offset.top < 10 ) {
 
-                pop.animate({ top: offset.top + 10 + 'px' });
+                pop.animate({ top: offset.top + 40 + 'px' });
             }
         }, 150);
 

@@ -4,9 +4,7 @@
 
 /* TODO:
 
-[/] Resize or reposition popovers to fit in Picture - UI
-
-[-] Heroku CNAME
+[-] Resize or reposition popovers to fit in Picture - UI
 
 
 

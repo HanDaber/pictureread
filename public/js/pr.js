@@ -191,7 +191,7 @@ console.log( offset.top );
 
             if( offset.top < 10 ) {
 
-                pop.animate({ top: offset.top + 100 + 'px' });
+                pop.animate({ top: offset.top + 20 + 'px' });
             }
         }, 150);
 

@@ -12,7 +12,7 @@ block content
 		.frame-nav
 			span.nav-deco.ttip(data-toggle="tooltip", title="Current Picture")
 				h2.frame-number(style="position: relative; left: -0.3em;") #{frame}
-				h3(style="position: relative; bottom: 2em; left: 0.5em; color: #eee;") /#{total_frames}
+				h3(style="position: relative; bottom: 2em; left: 0.45em; color: #f0f0f0;") /#{total_frames}
 			span.nav-deco.expand.ttip(data-toggle="tooltip", title="Toggle Objects")
 				i.icon-plus.sprite-plus.active
 			
@@ -31,9 +31,13 @@ block content
 					b.sprite-back.inactive
 					
 			span.nav-deco.ttip(data-toggle="tooltip", title="Share on Facebook")
-				i.icon-stop.sprite-fb.link-generator
+				a.social-link(target="_blank", href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=http://pictureread.herokuapp.com/&amp;p[images][0]=#{picture.thumbnail}&amp;p[title]=#{story.title}&amp;p[summary]=nope")
+					i.icon-stop.sprite-fb.link-generator
+
 			span.nav-deco.ttip(data-toggle="tooltip", title="Share on Twitter")
-				i.icon-stop.sprite-twitter.link-generator
+				a.social-link(target="_blank", href="https://twitter.com/intent/tweet?url=http://pictureread.herokuapp.com/&amp;text=#{story.title}&amp;via=pictureread")
+					i.icon-stop.sprite-twitter.link-generator
+					
 			span.nav-deco.chars.ttip(data-toggle="tooltip", title="Current Section")
 				small SECTION
 				a(href="/#{story._section.slug}")

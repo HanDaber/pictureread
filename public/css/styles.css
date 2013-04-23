@@ -562,6 +562,12 @@ audio {
 	top: 1em !important;
 }
 
+a.social-link {
+	display: inline;
+	padding: 0;
+	margin: 0;
+}
+
 @media (min-width: 400px) {
 
 	.popover {

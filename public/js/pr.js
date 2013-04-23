@@ -16,6 +16,7 @@ $('#sections').bxSlider({
     easing: 'ease-in-out'
 });
 
+
 $('.slider').bxSlider({
     slideWidth: 200,
     minSlides: 2,

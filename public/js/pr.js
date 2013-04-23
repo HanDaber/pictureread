@@ -102,7 +102,7 @@ $('.sprite-plus').click(function () {
     }
 });
 
-
+$('.social-link').attr('href', document.URL);
 
 $('.interaction-popover')
     .on('click', function(ev){

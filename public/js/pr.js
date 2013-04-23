@@ -45,7 +45,7 @@ else {
             $(".sticker").css({
                 'position': 'fixed',
                 'top': '0',
-                'z-index': '998',
+                'z-index': '98',
                 'background': '#fff'
                 // '-moz-box-shadow':    '0 0 1em 0.1em #ccc',
                 // '-webkit-box-shadow': '0 0 1em 0.1em #ccc',

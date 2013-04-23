@@ -14,7 +14,11 @@ block content
 				button.btn.btn-mini.hide.add-section
 					i.icon-plus
 
-				#section-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="newSection", aria-hidden="true")
+				#section-modal.modal.hide.fade(tabindex="-1", 
+												role="dialog", 
+												aria-labelledby="newSection", 
+												aria-hidden="true",
+												style="z-index: 9999;")
 					.modal-header
 						button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
 						h3#newSection New Section

@@ -35,6 +35,8 @@ function pr_admin () {
         .click(function ( ev ) {
             
             $('#section-modal').modal();
+
+            $('#section-modal').appendTo($('body'));
         });
 
     $('#section-modal')

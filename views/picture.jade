@@ -29,15 +29,43 @@ block content
 					a.sprite-back(href="/read/#{story.slug}/#{last}")
 				else
 					b.sprite-back.inactive
+
+
+			- var rewrite_share = ''
+			- if( typeof(rewrite) != 'undefined' && picture.caption ) // This is a rewrite
+				- var len = picture.caption.length
+
+					- if( len == 1 )
+						- rewrite_share += '' + picture.caption[0] + ' '
+						- rewrite_share += ' ' + rewrite.text[0] + ''
+
+					- else
+						- rewrite_share += '' + picture.caption[0] + ' '
+						- for(var i=1; i < len; i++)
+							- rewrite_share += ' ' + rewrite.text[( i - 1 )] + ' '
+							- rewrite_share += ' ' + picture.caption[i] + ''
+
+			- else if( picture.caption && picture.caption.length ) // This is a normal caption
+				- var len = picture.caption.length
+
+					- if( len == 1 )
+						- rewrite_share += '' + picture.caption[0] + ' '
+						- rewrite_share += ' ' + picture.write[0] + ''
+
+					- else
+						- rewrite_share += '' + picture.caption[0] + ' '
+						- for(var i=1; i < len; i++)
+							- rewrite_share += ' ' + picture.write[ i - 1 ] + ' '
+							- rewrite_share += ' ' + picture.caption[i] + ''
 					
 			span.nav-deco.ttip(data-toggle="tooltip", title="Share on Facebook")
-				a.social-link(target="_blank", href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=http://pictureread.herokuapp.com/&amp;p[images][0]=#{picture.thumbnail}&amp;p[title]=#{story.title}&amp;p[summary]=nope")
+				a.social-link(target="_blank", href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=http://pictureread.herokuapp.com/read/#{story.slug}/#{frame}&p[images][0]=#{picture.thumbnail}&p[title]=#{story.title}&p[summary]=#{rewrite_share}")
 					i.icon-stop.sprite-fb.link-generator
 
 			span.nav-deco.ttip(data-toggle="tooltip", title="Share on Twitter")
-				a.social-link(target="_blank", href="https://twitter.com/intent/tweet?url=http://pictureread.herokuapp.com/&amp;text=#{story.title}&amp;via=pictureread")
+				a.social-link(target="_blank", href="https://twitter.com/intent/tweet?url=http://pictureread.herokuapp.com/read/#{story.slug}/#{frame}&text=#{story.title}&via=pictureread")
 					i.icon-stop.sprite-twitter.link-generator
-					
+
 			span.nav-deco.chars.ttip(data-toggle="tooltip", title="Current Section")
 				small SECTION
 				a(href="/#{story._section.slug}")

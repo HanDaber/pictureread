@@ -4,6 +4,10 @@
 	/*border-right: 3px dotted #f8f8f8;*/
 }
 
+#section-modal {
+	z-index: 99999;
+}
+
 .bg-data {
 	display: inline-block;
 	width: 100%;

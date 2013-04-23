@@ -4,17 +4,11 @@
 
 /* TODO:
 
-[-] Resize or reposition popovers to fit in Picture - UI
-
-[-] Placeholder text darker
-
-[-] Disappearing rewrite
+[/] Resize or reposition popovers to fit in Picture - UI
 
 [-] Heroku CNAME
 
-[-] Social share with rewrite
 
-[-] Move stories up
 
 [-] Protect against create record if exists
 

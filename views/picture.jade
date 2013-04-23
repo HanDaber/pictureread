@@ -59,11 +59,11 @@ block content
 							- rewrite_share += ' ' + picture.caption[i] + ''
 					
 			span.nav-deco.ttip(data-toggle="tooltip", title="Share on Facebook")
-				a.social-link(target="_blank", href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=http://pictureread.herokuapp.com/read/#{story.slug}/#{frame}&p[images][0]=#{picture.thumbnail}&p[title]=#{story.title}&p[summary]=#{rewrite_share}")
+				a.social-link.facebook(target="_blank", href="http://www.facebook.com/sharer/sharer.php?s=100&p[images][0]=#{picture.thumbnail}&p[title]=#{story.title}&p[summary]=#{rewrite_share}")
 					i.icon-stop.sprite-fb.link-generator
 
 			span.nav-deco.ttip(data-toggle="tooltip", title="Share on Twitter")
-				a.social-link(target="_blank", href="https://twitter.com/intent/tweet?url=http://pictureread.herokuapp.com/read/#{story.slug}/#{frame}&text=#{story.title}&via=pictureread")
+				a.social-link.twitter(target="_blank", href="https://twitter.com/intent/tweet?url=", data-enduri="&text=#{story.title}&via=pictureread")
 					i.icon-stop.sprite-twitter.link-generator
 
 			span.nav-deco.chars.ttip(data-toggle="tooltip", title="Current Section")

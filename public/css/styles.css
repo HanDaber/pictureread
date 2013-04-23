@@ -424,14 +424,30 @@ button#save_story {
 
 input.caption-fill {
     border: none;
-    color: #000;
-	background-color: rgba(255,255,255,0);
+	background-color: transparent;
 	padding: 0;
 	margin: 0 0.5em;
 	text-align: center;
 	width: 8em;
 	border-bottom: 1px solid black;
 }
+
+input.caption-fill::-webkit-input-placeholder {
+   color: #000;
+}
+
+input.caption-fill:-moz-placeholder { /* Firefox 18- */
+   color: #000;  
+}
+
+input.caption-fill::-moz-placeholder {  /* Firefox 19+ */
+   color: #000;  
+}
+
+input.caption-fill:-ms-input-placeholder {  
+   color: #000;  
+}
+
 
 .chars {
 	border: none;

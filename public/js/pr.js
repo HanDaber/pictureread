@@ -51,7 +51,7 @@ else {
                 // 'box-shadow':         '0 0 1em 0.1em #ccc'
             });
             
-            $('.sticker-spacer').removeClass('hide').height('28em');
+            $('.sticker-spacer').removeClass('hide').height('25em');
 
     //     } else {
     //         $(".sticker").css({
@@ -102,7 +102,13 @@ $('.sprite-plus').click(function () {
     }
 });
 
-$('.social-link').attr('href', document.URL);
+var fb_href = $('.social-link.facebook').attr('href');
+var tw_href = $('.social-link.twitter').attr('href'),
+    tw_end = $('.social-link.twitter').data('enduri');
+
+$('.social-link.facebook').attr('href', fb_href + '&p[url]=' + window.location.href);
+
+$('.social-link.twitter').attr('href', tw_href + window.location.href + tw_end);
 
 $('.interaction-popover')
     .on('click', function(ev){

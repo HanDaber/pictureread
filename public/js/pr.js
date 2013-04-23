@@ -182,12 +182,19 @@ $('#frame_image')
     })
     .on('DOMNodeInserted', function ( ev ) {
 
-// console.dir( $(ev.target) )
-        
-        if( $(ev.target).hasClass('popover') ) {
+        setTimeout(function () {
+            
+            var pop = $( ev.target ),
+                offset = pop.position();
 
-            // $(ev.target).attr('style', '')
-        }
+console.log( offset.top );
+
+            if( offset.top < 10 ) {
+
+                pop.animate({ top: offset.top + 100 + 'px' });
+            }
+        }, 150);
+
     });
 
 

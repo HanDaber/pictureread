@@ -35,6 +35,7 @@ var express = require('express'),
 	pictures = require('./routes/pictures'),
 	interactions = require('./routes/interactions'),
 	Static = require('node-static'),
+	file = new Static.Server('./public'),
 	redis = require('./redis');
 
 
@@ -45,7 +46,7 @@ app.configure(function() {
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
-	app.use(express.favicon());
+	app.use(express.favicon(__dirname + '/public/favicon.ico'));
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
@@ -71,7 +72,6 @@ app.configure('development', function() { app.use(express.errorHandler({ dumpExc
 // Routes
 app.get('/', auth.public, function ( req, res ) {
 
-	var file = new Static.Server('./public');
 	file.serveFile('/index.html', 200, {}, req, res);
 });
 

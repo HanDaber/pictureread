@@ -98,13 +98,13 @@ function save_sections () {
 
 	var section_1 = new Section({
 			brand_name: 'Scott and Gobler',
-			image: '/img/characters.png',
-			thumbnail: '/img/characters.png'
+			image: 'http://pictureread.s3.amazonaws.com/characters.png',
+			thumbnail: 'http://pictureread.s3.amazonaws.com/characters.png'
 		}),
 		section_2 = new Section({
 			brand_name: 'Philz Coffee',
-			image: '/img/philz.png',
-			thumbnail: '/img/philz.png'
+			image: 'http://pictureread.s3.amazonaws.com/philz.png',
+			thumbnail: 'http://pictureread.s3.amazonaws.com/philz.png'
 	});
 
 	var story1 = new Story({
@@ -117,30 +117,30 @@ function save_sections () {
 	});
 
 	var picture1a = {
-			image: 'http://pictureread.s3.amazonaws.com/MIuGJLFhS3tTprYw923n_Gob_Sc_AtPark.jpeg',
-			thumbnail: 'http://pictureread.s3.amazonaws.com/HRdreCYiQ5OxuFVdFwXH_Gob_Sc_AtPark.jpeg',
+			image: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark.jpeg',
+			thumbnail: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark.jpeg',
 			caption: ['Once upon a time', 'went to the', 'and it was', '.']
 		},
 		picture1b = {
-			image: 'http://pictureread.s3.amazonaws.com/RhVQ2BJ6Tc6Ywg1YtePa_Gob_Sc_AtPark_football.jpeg',
-			thumbnail: 'http://pictureread.s3.amazonaws.com/DHgUsmlS9SysbqAXRuQA_Gob_Sc_AtPark_football.jpeg'
+			image: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark_football.jpeg',
+			thumbnail: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark_football.jpeg'
 		},
 		picture1c = {
-			image: 'http://pictureread.s3.amazonaws.com/DzUobddAQAy6UfpKmpt9_Gob_Sc_AtPark_projecting.jpeg',
-			thumbnail: 'http://pictureread.s3.amazonaws.com/3afwAlqTOeMOo4pRGYOp_Gob_Sc_AtPark_projecting.jpeg'
+			image: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark_projecting.jpeg',
+			thumbnail: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark_projecting.jpeg'
 		},
 		picture2a = {
-			image: 'http://pictureread.s3.amazonaws.com/MIuGJLFhS3tTprYw923n_Gob_Sc_AtPark.jpeg',
-			thumbnail: 'http://pictureread.s3.amazonaws.com/HRdreCYiQ5OxuFVdFwXH_Gob_Sc_AtPark.jpeg',
+			image: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark.jpeg',
+			thumbnail: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark.jpeg',
 			caption: ['Once upon a time a', 'went to the', 'and it was', '.']
 		},
 		picture2b = {
-			image: 'http://pictureread.s3.amazonaws.com/RhVQ2BJ6Tc6Ywg1YtePa_Gob_Sc_AtPark_football.jpeg',
-			thumbnail: 'http://pictureread.s3.amazonaws.com/DHgUsmlS9SysbqAXRuQA_Gob_Sc_AtPark_football.jpeg',
+			image: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark_football.jpeg',
+			thumbnail: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark_football.jpeg',
 		},
 		picture2c = {
-			image: 'http://pictureread.s3.amazonaws.com/DzUobddAQAy6UfpKmpt9_Gob_Sc_AtPark_projecting.jpeg',
-			thumbnail: 'http://pictureread.s3.amazonaws.com/3afwAlqTOeMOo4pRGYOp_Gob_Sc_AtPark_projecting.jpeg',
+			image: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark_projecting.jpeg',
+			thumbnail: 'http://pictureread.s3.amazonaws.com/Gob_Sc_AtPark_projecting.jpeg',
 	};
 
 

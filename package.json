@@ -4,19 +4,20 @@
   "private": true,
   "scripts": {
     "start": "node server"
-    },
+  },
   "dependencies": {
+    "basic-auth-mongoose": "*",
+    "connect-redis": "*",
     "express": "3.0.0rc3",
     "express-namespace": "*",
+    "express-session": "^1.14.1",
     "jade": "*",
-    "underscore": "*",
-    "redis": "*",
-    "connect-redis": "*",
     "mongoose": ">= 3.6.4",
-    "basic-auth-mongoose": "*",
     "mongoose-schema-extend": "*",
     "mongoose-slug": "*",
-    "node-static": "*"
+    "node-static": "*",
+    "redis": "*",
+    "underscore": "*"
   },
   "engines": {
     "node": "0.8.x",

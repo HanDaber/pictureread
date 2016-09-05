@@ -5,6 +5,8 @@ each section in sections
 		button.remove-resource.btn.btn-danger.hide.pull-right(data-id="#{section.slug}", 
 																data-collection="sections") &times;
 
+		.section-title #{section.brand_name}
+		
 		a(href="/#{section.slug}")
 			img(src="#{section.thumbnail}", 
 				height="150px", 

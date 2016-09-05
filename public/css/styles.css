@@ -527,6 +527,16 @@ input.caption-fill:-ms-input-placeholder {
 	right: 0;
 }
 
+.section-slide .section-title {
+    position: absolute;
+    z-index: 999;
+    padding: 5px 10px;
+    top: -5px;
+    left: -3px;
+    border-radius: 5px;
+    background: #fff;
+}
+
 .file_picker {
 	display: inline;
 }

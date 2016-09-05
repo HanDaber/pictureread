@@ -25,7 +25,6 @@ var express = require('express'),
 	path = require('path'),
 	http = require('http'),
 	sess = require('express-session'),
-	Redis = require('connect-redis')( sess ),
 	db = require('./db'),
 	Email = require('./pr_modules/email'),
 	auth = require('./routes/auth'),
@@ -37,7 +36,16 @@ var express = require('express'),
 	interactions = require('./routes/interactions'),
 	Static = require('node-static'),
 	file = new Static.Server('./public'),
-	redis = require('./redis');
+	redis = require('./redis'),
+	Redis;
+
+
+// Handle node version errors
+try {
+	Redis = require('connect-redis')( sess )
+} catch ( e ) {
+	Redis = require('connect-redis')( express )
+}
 
 
 // Configure express
